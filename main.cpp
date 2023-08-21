@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <Windows.h>
+#include "map.h"
 
 using namespace std;
 
@@ -49,12 +50,15 @@ void Welcome()
     // set console color to white
     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
     cout << "µÄMUDÓÎÏ·" << endl << endl;
+    system("pause");
 }
 
 int main()
 {
     Welcome();
-
+    Map map;
+    system("cls");
+    map.printPlainMap();
     system("pause");
     return 0;
 }

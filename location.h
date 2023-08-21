@@ -10,44 +10,45 @@ using std::string;
 
 class Location {
 public:
-    Location(string name, int x, int y);
-    string getName() const;
-    void setName(string name);
-    int getX() const;
-    void setX(int x);
-    int getY() const;
-    void setY(int y);
-    void setXY(int x, int y){
-        this->x = x;
-        this->y = y;
+    Location(int x, int y): x(x), y(y) {
+        type = 'b'; //barrier
     };
-    void initID(){
-        id = x * 100 + y;
-    }
+    char getType() const{
+        return type;
+    };
+
 private:
-    string name;
     int x;
     int y;
-    int id;
+protected:
+    char type;
 };
 
-// locations are combined with roads and places
 class Road : public Location {
 public:
-    Road(string name, bool isAccessible, int x, int y);
-    bool getIsAccessible() const;
-    void setIsAccessible(bool isAccessible);
+    Road(bool isAccessible, int x, int y): Location(x, y), isAccessible(isAccessible) {
+        type = 'r'; //road
+    };
+    bool getIsAccessible() const {
+        return isAccessible;
+    }
+    void setIsAccessible(bool isAccessible) {
+        this->isAccessible = isAccessible;
+    }
 private:
     bool isAccessible;
 };
 
 class Place : public Location {
 public:
-    Place(string name, bool isVisible, int x, int y);
-    bool getIsVisible() const;
-    void setIsVisible(bool isVisible);
+    Place(string name, int x, int y): Location(x, y), name(name){
+        type = 'p'; //place
+    };
+    string getName() const{
+        return name;
+    };
 private:
-    bool isVisible;
+    string name;
 };
 
 #endif //GAMETOWER_LOCATION_H
