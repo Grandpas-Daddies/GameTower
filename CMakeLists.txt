@@ -8,9 +8,8 @@ include_directories(.)
 add_executable(GameTower
         FightScene.cpp
         FightScene.h
-        init.h
         location.h
-        main.cpp
+        Main.cpp
         map.h
         Monster.cpp
         Monster.h Backpack.h Item.h
@@ -18,4 +17,7 @@ add_executable(GameTower
         Backpack.cpp
         Hero.cpp
         Word.cpp
+        Interface.h
+        Interface.h
+        Init.h
 )

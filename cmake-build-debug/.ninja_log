@@ -1,5 +1,9 @@
 # ninja log v5
-0	421	7143791518562582	CMakeFiles/GameTower.dir/FightScene.cpp.obj	82555549409b9c11
-35	448	7143791518842570	CMakeFiles/GameTower.dir/Monster.cpp.obj	d50bc24763724c80
-4	2081	7143865176722815	CMakeFiles/GameTower.dir/main.cpp.obj	fdbdbb33cec8e933
-2081	2251	7143865178326764	GameTower.exe	3522abd2f76f1ae3
+4	5375	7144099334216806	CMakeFiles/GameTower.dir/FightScene.cpp.obj	82555549409b9c11
+96	5367	7144099334146747	CMakeFiles/GameTower.dir/Hero.cpp.obj	ce5e04be3d988a16
+3	389	7144099572477975	CMakeFiles/GameTower.dir/Monster.cpp.obj	d50bc24763724c80
+113	5374	7144099334196807	CMakeFiles/GameTower.dir/Word.cpp.obj	9c96a43f25ad35ce
+3	1633	7144158503401441	CMakeFiles/GameTower.dir/main.cpp.obj	fdbdbb33cec8e933
+62	5371	7144099334176724	CMakeFiles/GameTower.dir/Item.cpp.obj	3737babee2b23cc7
+1633	1767	7144158504713177	GameTower.exe	49ee4a9f6ae140c4
+79	5385	7144099334346778	CMakeFiles/GameTower.dir/Backpack.cpp.obj	9afb9e31153674a9

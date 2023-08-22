@@ -15,7 +15,7 @@
 class Hero {
 public:
     Hero();
-    void attack();
+    void Attack();
 private:
     std::vector<Word> wordList;
     Backpack backpack;
