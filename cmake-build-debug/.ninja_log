@@ -1,0 +1,5 @@
+# ninja log v5
+0	421	7143791518562582	CMakeFiles/GameTower.dir/FightScene.cpp.obj	82555549409b9c11
+35	448	7143791518842570	CMakeFiles/GameTower.dir/Monster.cpp.obj	d50bc24763724c80
+4	2081	7143865176722815	CMakeFiles/GameTower.dir/main.cpp.obj	fdbdbb33cec8e933
+2081	2251	7143865178326764	GameTower.exe	3522abd2f76f1ae3
