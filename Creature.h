@@ -13,7 +13,8 @@ public:
     void getName() const;
 
 protected:
-    int blood;
+    int hp; // health point
+
     std::string name;
 };
 
