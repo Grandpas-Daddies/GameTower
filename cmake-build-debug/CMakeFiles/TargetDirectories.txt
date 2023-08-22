@@ -1,0 +1,3 @@
+D:/Documents/GitHub/GameTower1/cmake-build-debug/CMakeFiles/GameTower1.dir
+D:/Documents/GitHub/GameTower1/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/Documents/GitHub/GameTower1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
