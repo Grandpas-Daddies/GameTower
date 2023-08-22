@@ -10,6 +10,9 @@
 
 using namespace std;
 
+
+
+
 void FullScreen() {
     HWND hwnd = GetForegroundWindow();
     int x = GetSystemMetrics(SM_CXSCREEN);
@@ -18,7 +21,7 @@ void FullScreen() {
 //    sprintf_s(setting, "mode con:cols=%d lines=%d", x, y);
 //    system(setting);
     SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, x, y, NULL);
-    MoveWindow(hwnd, 0, 0, x, y, 1);
+    MoveWindow(hwnd, x/10, y/10, x*4/5, y*3/4, 1);
 }
 
 void Welcome() {

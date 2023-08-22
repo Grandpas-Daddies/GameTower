@@ -8,3 +8,7 @@ void Monster::attack()
 {
 
 }
+
+Monster::Monster() {
+
+}

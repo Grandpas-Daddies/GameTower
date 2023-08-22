@@ -3,3 +3,11 @@
 //
 
 #include "Item.h"
+
+std::string Item::getName() {
+    return name;
+}
+
+Item::Item() {
+
+}

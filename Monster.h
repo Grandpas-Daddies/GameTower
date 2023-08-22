@@ -6,15 +6,14 @@
 #define GAMETOWER1_MONSTER_H
 #include <iostream>
 #include <vector>
+#include "Creature.h"
 
-class Monster {
+class Monster : public Creature {
 public:
     Monster();
     void attack();
 private:
-    int blood;
     int damage;
-    std::string name;
     std::vector<std::string> wordList;
 };
 

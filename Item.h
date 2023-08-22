@@ -10,6 +10,7 @@
 class Item {
 public:
     Item();
+    std::string getName();
 private:
     std::string name;
 };
