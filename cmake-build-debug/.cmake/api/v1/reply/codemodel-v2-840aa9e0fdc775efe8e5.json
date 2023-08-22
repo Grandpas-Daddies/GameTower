@@ -27,7 +27,7 @@
 					[
 						0
 					],
-					"name" : "GameTower1",
+					"name" : "GameTower",
 					"targetIndexes" : 
 					[
 						0
@@ -38,9 +38,9 @@
 			[
 				{
 					"directoryIndex" : 0,
-					"id" : "GameTower1::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-GameTower1-Debug-299fd790d3d4e63f0f77.json",
-					"name" : "GameTower1",
+					"id" : "GameTower::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-GameTower-Debug-da7e692cdc693980a35f.json",
+					"name" : "GameTower",
 					"projectIndex" : 0
 				}
 			]
@@ -49,12 +49,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "D:/Documents/GitHub/GameTower1/cmake-build-debug",
-		"source" : "D:/Documents/GitHub/GameTower1"
+		"build" : "D:/CLionProjects/GameTower/cmake-build-debug",
+		"source" : "D:/CLionProjects/GameTower"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 4
+		"minor" : 5
 	}
 }

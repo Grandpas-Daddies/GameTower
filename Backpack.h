@@ -12,10 +12,11 @@
 class Backpack {
 public:
     Backpack();
-    void addItem();
+    void addItem(Item item);
     void showItemList();
 private:
     std::vector<std::pair<Item,int>> items;
+
 };
 
 

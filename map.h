@@ -17,7 +17,7 @@ public:
     Map();
 
     void printPlainMap() const;
-
+    void printMap() const;
 private:
     Location *locations[15][15];
 };
@@ -76,6 +76,12 @@ void Map::printPlainMap() const {
         cout << endl;
     }
 }
+
+void Map::printMap() const {
+
+}
+
+
 
 
 #endif //GAMETOWER_MAP_H

@@ -5,19 +5,19 @@
 #ifndef GAMETOWER1_HERO_H
 #define GAMETOWER1_HERO_H
 
-#include "Backpack.h"
+
 #include <iostream>
 #include <vector>
-
+#include "Backpack.h"
+#include "Word.h"
+#include "Creature.h"
 
 class Hero {
 public:
     Hero();
     void attack();
 private:
-    int blood;
-    std::vector<std::string> wordList;
-    std::string name;
+    std::vector<Word> wordList;
     Backpack backpack;
 };
 
