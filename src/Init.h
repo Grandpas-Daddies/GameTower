@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <fstream>
+#include "../include/json.hpp"
 
 bool checkProfileExist() {
     std::ifstream fin("profile.dat");
@@ -28,7 +29,6 @@ void init() {
         } else {
             std::cout << "正在创建新存档..." << std::endl;
             std::ofstream fout("profile.dat");
-            fout << time(NULL) << std::endl;
 
         }
     }

@@ -49,54 +49,54 @@ cmake_ninja_workdir = D$:/CLionProjects/GameTower/cmake-build-debug/
 
 build cmake_object_order_depends_target_GameTower: phony || CMakeFiles/GameTower.dir
 
-build CMakeFiles/GameTower.dir/FightScene.cpp.obj: CXX_COMPILER__GameTower_unscanned_Debug D$:/CLionProjects/GameTower/FightScene.cpp || cmake_object_order_depends_target_GameTower
-  DEP_FILE = CMakeFiles\GameTower.dir\FightScene.cpp.obj.d
+build CMakeFiles/GameTower.dir/src/FightScene.cpp.obj: CXX_COMPILER__GameTower_unscanned_Debug D$:/CLionProjects/GameTower/src/FightScene.cpp || cmake_object_order_depends_target_GameTower
+  DEP_FILE = CMakeFiles\GameTower.dir\src\FightScene.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
   INCLUDES = -ID:/CLionProjects/GameTower/.
   OBJECT_DIR = CMakeFiles\GameTower.dir
-  OBJECT_FILE_DIR = CMakeFiles\GameTower.dir
+  OBJECT_FILE_DIR = CMakeFiles\GameTower.dir\src
 
-build CMakeFiles/GameTower.dir/main.cpp.obj: CXX_COMPILER__GameTower_unscanned_Debug D$:/CLionProjects/GameTower/main.cpp || cmake_object_order_depends_target_GameTower
-  DEP_FILE = CMakeFiles\GameTower.dir\main.cpp.obj.d
+build CMakeFiles/GameTower.dir/src/Main.cpp.obj: CXX_COMPILER__GameTower_unscanned_Debug D$:/CLionProjects/GameTower/src/Main.cpp || cmake_object_order_depends_target_GameTower
+  DEP_FILE = CMakeFiles\GameTower.dir\src\Main.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
   INCLUDES = -ID:/CLionProjects/GameTower/.
   OBJECT_DIR = CMakeFiles\GameTower.dir
-  OBJECT_FILE_DIR = CMakeFiles\GameTower.dir
+  OBJECT_FILE_DIR = CMakeFiles\GameTower.dir\src
 
-build CMakeFiles/GameTower.dir/Monster.cpp.obj: CXX_COMPILER__GameTower_unscanned_Debug D$:/CLionProjects/GameTower/Monster.cpp || cmake_object_order_depends_target_GameTower
-  DEP_FILE = CMakeFiles\GameTower.dir\Monster.cpp.obj.d
+build CMakeFiles/GameTower.dir/src/Monster.cpp.obj: CXX_COMPILER__GameTower_unscanned_Debug D$:/CLionProjects/GameTower/src/Monster.cpp || cmake_object_order_depends_target_GameTower
+  DEP_FILE = CMakeFiles\GameTower.dir\src\Monster.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
   INCLUDES = -ID:/CLionProjects/GameTower/.
   OBJECT_DIR = CMakeFiles\GameTower.dir
-  OBJECT_FILE_DIR = CMakeFiles\GameTower.dir
+  OBJECT_FILE_DIR = CMakeFiles\GameTower.dir\src
 
-build CMakeFiles/GameTower.dir/Item.cpp.obj: CXX_COMPILER__GameTower_unscanned_Debug D$:/CLionProjects/GameTower/Item.cpp || cmake_object_order_depends_target_GameTower
-  DEP_FILE = CMakeFiles\GameTower.dir\Item.cpp.obj.d
+build CMakeFiles/GameTower.dir/src/Item.cpp.obj: CXX_COMPILER__GameTower_unscanned_Debug D$:/CLionProjects/GameTower/src/Item.cpp || cmake_object_order_depends_target_GameTower
+  DEP_FILE = CMakeFiles\GameTower.dir\src\Item.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
   INCLUDES = -ID:/CLionProjects/GameTower/.
   OBJECT_DIR = CMakeFiles\GameTower.dir
-  OBJECT_FILE_DIR = CMakeFiles\GameTower.dir
+  OBJECT_FILE_DIR = CMakeFiles\GameTower.dir\src
 
-build CMakeFiles/GameTower.dir/Backpack.cpp.obj: CXX_COMPILER__GameTower_unscanned_Debug D$:/CLionProjects/GameTower/Backpack.cpp || cmake_object_order_depends_target_GameTower
-  DEP_FILE = CMakeFiles\GameTower.dir\Backpack.cpp.obj.d
+build CMakeFiles/GameTower.dir/src/Backpack.cpp.obj: CXX_COMPILER__GameTower_unscanned_Debug D$:/CLionProjects/GameTower/src/Backpack.cpp || cmake_object_order_depends_target_GameTower
+  DEP_FILE = CMakeFiles\GameTower.dir\src\Backpack.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
   INCLUDES = -ID:/CLionProjects/GameTower/.
   OBJECT_DIR = CMakeFiles\GameTower.dir
-  OBJECT_FILE_DIR = CMakeFiles\GameTower.dir
+  OBJECT_FILE_DIR = CMakeFiles\GameTower.dir\src
 
-build CMakeFiles/GameTower.dir/Hero.cpp.obj: CXX_COMPILER__GameTower_unscanned_Debug D$:/CLionProjects/GameTower/Hero.cpp || cmake_object_order_depends_target_GameTower
-  DEP_FILE = CMakeFiles\GameTower.dir\Hero.cpp.obj.d
+build CMakeFiles/GameTower.dir/src/Hero.cpp.obj: CXX_COMPILER__GameTower_unscanned_Debug D$:/CLionProjects/GameTower/src/Hero.cpp || cmake_object_order_depends_target_GameTower
+  DEP_FILE = CMakeFiles\GameTower.dir\src\Hero.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
   INCLUDES = -ID:/CLionProjects/GameTower/.
   OBJECT_DIR = CMakeFiles\GameTower.dir
-  OBJECT_FILE_DIR = CMakeFiles\GameTower.dir
+  OBJECT_FILE_DIR = CMakeFiles\GameTower.dir\src
 
-build CMakeFiles/GameTower.dir/Word.cpp.obj: CXX_COMPILER__GameTower_unscanned_Debug D$:/CLionProjects/GameTower/Word.cpp || cmake_object_order_depends_target_GameTower
-  DEP_FILE = CMakeFiles\GameTower.dir\Word.cpp.obj.d
+build CMakeFiles/GameTower.dir/src/Word.cpp.obj: CXX_COMPILER__GameTower_unscanned_Debug D$:/CLionProjects/GameTower/src/Word.cpp || cmake_object_order_depends_target_GameTower
+  DEP_FILE = CMakeFiles\GameTower.dir\src\Word.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
   INCLUDES = -ID:/CLionProjects/GameTower/.
   OBJECT_DIR = CMakeFiles\GameTower.dir
-  OBJECT_FILE_DIR = CMakeFiles\GameTower.dir
+  OBJECT_FILE_DIR = CMakeFiles\GameTower.dir\src
 
 
 # =============================================================================
@@ -106,7 +106,7 @@ build CMakeFiles/GameTower.dir/Word.cpp.obj: CXX_COMPILER__GameTower_unscanned_D
 #############################################
 # Link the executable GameTower.exe
 
-build GameTower.exe: CXX_EXECUTABLE_LINKER__GameTower_Debug CMakeFiles/GameTower.dir/FightScene.cpp.obj CMakeFiles/GameTower.dir/main.cpp.obj CMakeFiles/GameTower.dir/Monster.cpp.obj CMakeFiles/GameTower.dir/Item.cpp.obj CMakeFiles/GameTower.dir/Backpack.cpp.obj CMakeFiles/GameTower.dir/Hero.cpp.obj CMakeFiles/GameTower.dir/Word.cpp.obj
+build GameTower.exe: CXX_EXECUTABLE_LINKER__GameTower_Debug CMakeFiles/GameTower.dir/src/FightScene.cpp.obj CMakeFiles/GameTower.dir/src/Main.cpp.obj CMakeFiles/GameTower.dir/src/Monster.cpp.obj CMakeFiles/GameTower.dir/src/Item.cpp.obj CMakeFiles/GameTower.dir/src/Backpack.cpp.obj CMakeFiles/GameTower.dir/src/Hero.cpp.obj CMakeFiles/GameTower.dir/src/Word.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\GameTower.dir
