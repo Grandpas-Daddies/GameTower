@@ -5,7 +5,7 @@
 #ifndef GAMETOWER_INTERFACE_H
 #define GAMETOWER_INTERFACE_H
 
-#include <windows.h>
+#include <Windows.h>
 
 namespace PosControl {
 
@@ -13,10 +13,16 @@ namespace PosControl {
     int screen_height = GetSystemMetrics(SM_CYSCREEN);
 // x是屏幕宽度，y是屏幕高度
 
+    // 窗口长宽
+    struct Size {
+        int width;
+        int height;
+    } size = {1024, 768};
+
     void centerWindow() {
         HWND hwnd = GetForegroundWindow();
-        SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, screen_width, screen_height, NULL);
-        MoveWindow(hwnd, screen_width / 10, screen_height / 10, screen_width * 4 / 5, screen_height * 4 / 5, 1);
+        SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, size.width, size.height, 1);
+        MoveWindow(hwnd, (screen_width - size.width) / 2, (screen_height - size.height) / 2, size.width, size.height, 1);
     }
 
 // 回到坐标位置，坐标需要给定
