@@ -6,18 +6,18 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(.)
 
 add_executable(GameTower
-        FightScene.cpp
-        FightScene.h
-        location.h
-        Main.cpp
-        map.h
-        Monster.cpp
-        Monster.h Backpack.h Item.h
-        Item.cpp
-        Backpack.cpp
-        Hero.cpp
-        Word.cpp
-        Interface.h
-        Interface.h
-        Init.h
+        src/FightScene.cpp
+        src/FightScene.h
+        src/location.h
+        src/Main.cpp
+        src/Map.h
+        src/Monster.cpp
+        src/Monster.h src/Backpack.h src/Item.h
+        src/Item.cpp
+        src/Backpack.cpp
+        src/Hero.cpp
+        src/Word.cpp
+        src/Interface.h
+        src/Interface.h
+        src/Init.h
 )

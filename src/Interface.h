@@ -5,7 +5,7 @@
 #ifndef GAMETOWER_INTERFACE_H
 #define GAMETOWER_INTERFACE_H
 
-#include <Windows.h>
+#include <windows.h>
 
 namespace PosControl {
 
