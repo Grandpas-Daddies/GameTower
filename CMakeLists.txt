@@ -8,7 +8,7 @@ include_directories(.)
 add_executable(GameTower
         src/FightScene.cpp
         src/FightScene.h
-        src/location.h
+        src/Location.h
         src/Main.cpp
         src/Map.h
         src/Monster.cpp

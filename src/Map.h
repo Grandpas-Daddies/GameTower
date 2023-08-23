@@ -5,7 +5,7 @@
 #ifndef GAMETOWER_MAP_H
 #define GAMETOWER_MAP_H
 
-#include "location.h"
+#include "Location.h"
 #include <iostream>
 #include <iomanip>
 
