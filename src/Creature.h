@@ -9,12 +9,12 @@
 
 class Creature {
 public:
-    Creature();
-    void getName() const;
+    Creature(): hp(0), name("") {};
+    Creature(int hp, std::string name): hp(hp), name(name) {};
+    void getName() const { std::cout << name; }
 
 protected:
     int hp; // health point
-
     std::string name;
 };
 

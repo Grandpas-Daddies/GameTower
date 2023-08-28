@@ -10,8 +10,9 @@
 #include <iostream>
 #include <fstream>
 #include <limits>
-#include "Interface.h"
+//#include "Interface.h"
 #include "Init.h"
+#include "Player.h"
 
 using std::cout, std::cin, std::endl, std::ifstream, std::string;
 using namespace PosControl;
@@ -19,12 +20,8 @@ using namespace PosControl;
 void welcome() {
     centerWindow();
 
-    cout << "按下";
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
-    cout << "[Tab]";
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-    cout << "跳过本段..." << endl << endl;
-    ifstream welcomeFile("../Assets/.welcome");
+    cout << "按下 \033[31m[Tab键] \033[0m跳过本段..." << endl << endl;
+    ifstream welcomeFile("./Assets/.welcome");
     char welcome;
     bool flagTab = false;
     while (welcomeFile.get(welcome)) {
@@ -50,7 +47,7 @@ void welcome() {
     string space(spaceLength, ' ');
     while (1) {
         setPos(x, y);
-        ifstream logoFile("../Assets/.logo");
+        ifstream logoFile("./Assets/.logo");
         string logo;
         while (getline(logoFile, logo)) {
             int color = rand() % 15 + 1;
@@ -59,12 +56,7 @@ void welcome() {
             cout << space << logo << endl;
         }
         logoFile.close();
-        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-        cout << endl << "按下";
-        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
-        cout << "[回车键]";
-        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-        cout << "继续..." << endl;
+        cout << endl << "\033[0m按下 \033[31m[回车键] \033[0m继续..." << endl;
         if (GetAsyncKeyState(VK_RETURN)) {
             break;
         }
@@ -75,23 +67,9 @@ void welcome() {
 char switcher() {
 
     cout << endl;
-    // set console color to yellow
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
-    cout << "\t" << "[N] ";
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-    cout << "新游戏" << endl;
-
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
-    cout << "\t" << "[L] ";
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-    cout << "加载游戏" << endl;
-
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
-    cout << "\t" << "[Q] ";
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-    cout << "退出游戏" << endl;
-
-    // switch
+    cout << "\t" << "\033[33m[N] \033[0m新游戏" << endl;
+    cout << "\t" << "\033[33m[L] \033[0m加载游戏" << endl;
+    cout << "\t" << "\033[33m[Q] \033[0m退出游戏" << endl;
     cout << endl;
     cout << "请输入你的选择：";
 
@@ -116,16 +94,15 @@ char switcher() {
     }
 }
 
-
 int main() {
     welcome();
-    int x, y;
+    Player player;
     switch (switcher()) {
         case 'N':
-            newGame();
+            newGame(player);
             break;
         case 'L':
-            loadGame();
+            loadGame(player);
             break;
         case 'Q':
             return 0;

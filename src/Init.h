@@ -8,10 +8,10 @@
 #include <iostream>
 #include <fstream>
 #include "../include/json.hpp"
-#include "Interface.h"
+#include "Map.h"
+#include "Player.h"
 
 using nlohmann::json;
-using namespace PosControl;
 
 void readData(json &data) {
     std::cout << "¶ÁÈ¡´æµµÖÐ..." << std::endl;
@@ -74,12 +74,15 @@ void init() {
 //    readData(data);
 }
 
-void newGame() {
-//    introAnimation();
+void newGame(Player &player) {
     init();
+    system("cls");
+    player.printMap();
+//    Sleep(1000);
+    system("pause");
 }
 
-void loadGame() {
+void loadGame(Player &player) {
 //    transAnimation();
     json data;
     readData(data);

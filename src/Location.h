@@ -11,24 +11,26 @@ using std::string;
 
 class Location {
 public:
-    Location(int x, int y) : x(x), y(y) {
+    Location() {
         type = 'b'; //barrier
     };
 
-    char getType() const {
-        return type;
-    };
+    bool isPlace() const {
+        return type == 'p';
+    }
 
-private:
-    int x;
-    int y;
+    bool isRoad() const {
+        return type == 'r';
+    }
+
 protected:
     char type;
+    bool isHighlighted = false;
 };
 
 class Road : public Location {
 public:
-    Road(bool isAccessible, int x, int y) : Location(x, y), isAccessible(isAccessible) {
+    Road(bool isAccessible) : isAccessible(isAccessible) {
         type = 'r'; //road
     };
 
@@ -46,7 +48,7 @@ private:
 
 class Place : public Location {
 public:
-    Place(string name, int x, int y) : Location(x, y), name(name) {
+    Place(string name, bool isHidden = false) : name(name), isHidden(isHidden) {
         type = 'p'; //place
     };
 
@@ -55,6 +57,7 @@ public:
     };
 private:
     string name;
+    bool isHidden = false;
 };
 
 #endif //GAMETOWER_LOCATION_H
