@@ -12,6 +12,7 @@
 #include <limits>
 #include "Interface.h"
 #include "Init.h"
+#include "src/utils/rand.h"
 
 using std::cout, std::cin, std::endl, std::ifstream, std::string;
 using namespace PosControl;
@@ -53,7 +54,7 @@ void welcome() {
         ifstream logoFile("../Assets/.logo");
         string logo;
         while (getline(logoFile, logo)) {
-            int color = rand() % 15 + 1;
+            int color=randInt(1,15);
             SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
             Sleep(50);
             cout << space << logo << endl;
