@@ -10,12 +10,12 @@
 class Item {
 public:
     Item();
-    std::string getName();
+    std::string getName() const;
 private:
     std::string name;
 };
 
-std::string Item::getName() {
+std::string Item::getName() const {
     return name;
 }
 
