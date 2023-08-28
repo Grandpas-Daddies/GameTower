@@ -78,6 +78,7 @@ void newGame(Player &player) {
     init();
     system("cls");
     player.printMap();
+    player.move();
 //    Sleep(1000);
     system("pause");
 }

@@ -11,21 +11,19 @@ using std::string;
 
 class Location {
 public:
-    Location() {
-        type = 'b'; //barrier
-    };
-
-    bool isPlace() const {
-        return type == 'p';
-    }
+    Location() = default;
 
     bool isRoad() const {
         return type == 'r';
     }
 
+    bool isPlace() const {
+        return type == 'p';
+    }
+
 protected:
     char type;
-    bool isHighlighted = false;
+//    bool isHighlighted = false;
 };
 
 class Road : public Location {
@@ -48,14 +46,24 @@ private:
 
 class Place : public Location {
 public:
-    Place(string name, bool isHidden = false) : name(name), isHidden(isHidden) {
+    Place(string name, int x, int y, bool isHidden = false) : x(x), y(y), name(name), isHidden(isHidden) {
         type = 'p'; //place
     };
 
     string getName() const {
         return name;
     };
+
+    int getX() const {
+        return x;
+    }
+
+    int getY() const {
+        return y;
+    }
 private:
+    int x;
+    int y;
     string name;
     bool isHidden = false;
 };

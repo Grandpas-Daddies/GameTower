@@ -13,13 +13,13 @@ class Backpack {
 public:
     Backpack();
     void addItem(Item item);
-    void showItemList();
+    void showItemList() const;
 private:
     std::vector<std::pair<Item,int>> items;
 
 };
 
-void Backpack::showItemList() {
+void Backpack::showItemList() const {
     for (auto &item : items) {
         std::cout << item.first.getName() << " " << item.second << std::endl;
     }
