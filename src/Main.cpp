@@ -12,7 +12,7 @@
 #include <limits>
 //#include "Interface.h"
 #include "Init.h"
-#include "Player.h"
+#include "src/utils/rand.h"
 
 using std::cout, std::cin, std::endl, std::ifstream, std::string;
 using namespace PosControl;
@@ -20,7 +20,7 @@ using namespace PosControl;
 void welcome() {
     centerWindow();
 
-    cout << "°´ÏÂ \033[31m[Tab¼ü] \033[0mÌø¹ý±¾¶Î..." << endl << endl;
+    cout << "æŒ‰ä¸‹ \033[31m[Tabé”®] \033[0mè·³è¿‡æœ¬æ®µ..." << endl << endl;
     ifstream welcomeFile("./Assets/.welcome");
     char welcome;
     bool flagTab = false;
@@ -50,13 +50,13 @@ void welcome() {
         ifstream logoFile("./Assets/.logo");
         string logo;
         while (getline(logoFile, logo)) {
-            int color = rand() % 15 + 1;
+            int color=randInt(1,15);
             SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
             Sleep(50);
             cout << space << logo << endl;
         }
         logoFile.close();
-        cout << endl << "\033[0m°´ÏÂ \033[31m[»Ø³µ¼ü] \033[0m¼ÌÐø..." << endl;
+        cout << endl << "\033[0mæŒ‰ä¸‹ \033[31m[å›žè½¦é”®] \033[0mç»§ç»­..." << endl;
         if (GetAsyncKeyState(VK_RETURN)) {
             break;
         }
@@ -67,11 +67,11 @@ void welcome() {
 char switcher() {
 
     cout << endl;
-    cout << "\t" << "\033[33m[N] \033[0mÐÂÓÎÏ·" << endl;
-    cout << "\t" << "\033[33m[L] \033[0m¼ÓÔØÓÎÏ·" << endl;
-    cout << "\t" << "\033[33m[Q] \033[0mÍË³öÓÎÏ·" << endl;
+    cout << "\t" << "\033[33m[N] \033[0mæ–°æ¸¸æˆ" << endl;
+    cout << "\t" << "\033[33m[L] \033[0måŠ è½½æ¸¸æˆ" << endl;
+    cout << "\t" << "\033[33m[Q] \033[0mé€€å‡ºæ¸¸æˆ" << endl;
     cout << endl;
-    cout << "ÇëÊäÈëÄãµÄÑ¡Ôñ£º";
+    cout << "è¯·è¾“å…¥ä½ çš„é€‰æ‹©ï¼š";
 
     int x, y;
     getPos(x, y);
@@ -85,7 +85,7 @@ char switcher() {
             return choice;
         }
         // otherwise, clear the input stream then continue
-        cout << "ÊäÈë´íÎó£¬ÇëÖØÐÂÊäÈë£¡";
+        cout << "è¾“å…¥é”™è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥ï¼";
         system("pause");
         //reset the cursor position and clear the line
         setPos(x, y);
