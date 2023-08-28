@@ -17,6 +17,7 @@ using std::endl;
 class Map {
 public:
     Map();
+    ~Map() = default;
     void printMap() const;
 private:
     Location *locations[10][10]{};

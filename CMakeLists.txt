@@ -10,11 +10,7 @@ add_executable(GameTower
         src/Location.h
         src/Main.cpp
         src/Map.h
-        src/Monster.cpp
         src/Monster.h src/Backpack.h src/Item.h
-        src/Item.cpp
-        src/Backpack.cpp
-        src/Word.cpp
         src/Interface.h
         src/Init.h
 )

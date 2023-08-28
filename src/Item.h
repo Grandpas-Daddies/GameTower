@@ -15,5 +15,13 @@ private:
     std::string name;
 };
 
+std::string Item::getName() {
+    return name;
+}
+
+Item::Item() {
+
+}
+
 
 #endif //GAMETOWER1_ITEM_H

@@ -18,4 +18,8 @@ private:
     int position;
 };
 
+Word::Word() {
+    is_finished=false;
+}
+
 #endif //GAMETOWER_WORD_H
