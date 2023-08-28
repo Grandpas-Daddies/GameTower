@@ -10,7 +10,7 @@
 #include <iostream>
 #include <fstream>
 #include <limits>
-#include "Interface.h"
+//#include "Interface.h"
 #include "Init.h"
 #include "src/utils/rand.h"
 
@@ -20,12 +20,8 @@ using namespace PosControl;
 void welcome() {
     centerWindow();
 
-    cout << "°´ÏÂ";
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
-    cout << "[Tab]";
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-    cout << "Ìø¹ý±¾¶Î..." << endl << endl;
-    ifstream welcomeFile("../Assets/.welcome");
+    cout << "æŒ‰ä¸‹ \033[31m[Tabé”®] \033[0mè·³è¿‡æœ¬æ®µ..." << endl << endl;
+    ifstream welcomeFile("./Assets/.welcome");
     char welcome;
     bool flagTab = false;
     while (welcomeFile.get(welcome)) {
@@ -51,7 +47,7 @@ void welcome() {
     string space(spaceLength, ' ');
     while (1) {
         setPos(x, y);
-        ifstream logoFile("../Assets/.logo");
+        ifstream logoFile("./Assets/.logo");
         string logo;
         while (getline(logoFile, logo)) {
             int color=randInt(1,15);
@@ -60,12 +56,7 @@ void welcome() {
             cout << space << logo << endl;
         }
         logoFile.close();
-        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-        cout << endl << "°´ÏÂ";
-        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
-        cout << "[»Ø³µ¼ü]";
-        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-        cout << "¼ÌÐø..." << endl;
+        cout << endl << "\033[0mæŒ‰ä¸‹ \033[31m[å›žè½¦é”®] \033[0mç»§ç»­..." << endl;
         if (GetAsyncKeyState(VK_RETURN)) {
             break;
         }
@@ -76,25 +67,11 @@ void welcome() {
 char switcher() {
 
     cout << endl;
-    // set console color to yellow
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
-    cout << "\t" << "[N] ";
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-    cout << "ÐÂÓÎÏ·" << endl;
-
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
-    cout << "\t" << "[L] ";
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-    cout << "¼ÓÔØÓÎÏ·" << endl;
-
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
-    cout << "\t" << "[Q] ";
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-    cout << "ÍË³öÓÎÏ·" << endl;
-
-    // switch
+    cout << "\t" << "\033[33m[N] \033[0mæ–°æ¸¸æˆ" << endl;
+    cout << "\t" << "\033[33m[L] \033[0måŠ è½½æ¸¸æˆ" << endl;
+    cout << "\t" << "\033[33m[Q] \033[0mé€€å‡ºæ¸¸æˆ" << endl;
     cout << endl;
-    cout << "ÇëÊäÈëÄãµÄÑ¡Ôñ£º";
+    cout << "è¯·è¾“å…¥ä½ çš„é€‰æ‹©ï¼š";
 
     int x, y;
     getPos(x, y);
@@ -108,7 +85,7 @@ char switcher() {
             return choice;
         }
         // otherwise, clear the input stream then continue
-        cout << "ÊäÈë´íÎó£¬ÇëÖØÐÂÊäÈë£¡";
+        cout << "è¾“å…¥é”™è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥ï¼";
         system("pause");
         //reset the cursor position and clear the line
         setPos(x, y);
@@ -117,16 +94,15 @@ char switcher() {
     }
 }
 
-
 int main() {
     welcome();
-    int x, y;
+    Player player;
     switch (switcher()) {
         case 'N':
-            newGame();
+            newGame(player);
             break;
         case 'L':
-            loadGame();
+            loadGame(player);
             break;
         case 'Q':
             return 0;

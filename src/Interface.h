@@ -11,7 +11,6 @@ namespace PosControl {
 
     int screen_width = GetSystemMetrics(SM_CXSCREEN);
     int screen_height = GetSystemMetrics(SM_CYSCREEN);
-// x是屏幕宽度，y是屏幕高度
 
     // 窗口长宽
     struct Size {

@@ -11,15 +11,24 @@
 #include "Backpack.h"
 #include "Word.h"
 #include "Creature.h"
+#include "Map.h"
 
-class Hero {
+class Player : public Creature {
 public:
-    Hero();
+    Player();
     void Attack();
+    void printMap() const;
 private:
     std::vector<Word> wordList;
     Backpack backpack;
+    Map map;
 };
+
+Player::Player(): map(), Creature(100, "Alex"){}
+
+void Player::printMap() const {
+    map.printMap();
+}
 
 
 #endif //GAMETOWER1_HERO_H

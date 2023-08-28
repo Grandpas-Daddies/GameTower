@@ -1,3 +1,0 @@
-D:/CLionProjects/GameTower/cmake-build-debug/CMakeFiles/GameTower.dir
-D:/CLionProjects/GameTower/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/CLionProjects/GameTower/cmake-build-debug/CMakeFiles/rebuild_cache.dir

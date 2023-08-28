@@ -8,6 +8,8 @@
 #include "Location.h"
 #include <iostream>
 #include <iomanip>
+#include <fstream>
+#include "Interface.h"
 
 using std::cout;
 using std::endl;
@@ -15,73 +17,56 @@ using std::endl;
 class Map {
 public:
     Map();
-
-    void printPlainMap() const;
+    ~Map() = default;
     void printMap() const;
 private:
-    Location *locations[15][15];
+    Location *locations[10][10]{};
 };
 
 Map::Map() {
 
-    for (int i = 0; i < 15; i++) {
-        for (int j = 0; j < 15; j++) {
-            locations[i][j] = new Location(i, j);
-        }
-    }
+    for (int i = 1; i <= 9; i++)
+        for (int j = 1; j <= 9; j++)
+            locations[i][j] = new Location();
 
-    locations[7][11] = new Place("城堡", 7, 11);
-    locations[7][10] = new Road(true, 7, 12);
-    locations[7][9] = new Place("雄峰山", 7, 9);
-    locations[7][7] = new Place("英雄峰山脚", 7, 7);
-    locations[7][6] = new Road(true, 7, 6);
-    locations[7][5] = new Place("英雄峰山腰", 7, 5);
-    locations[7][4] = new Road(true, 7, 4);
-    locations[7][3] = new Place("英雄峰顶", 7, 3);
-    locations[6][9] = new Road(false, 6, 9);
-    locations[6][7] = new Road(false, 6, 7);
-    locations[6][5] = new Road(false, 6, 5);
-    locations[5][9] = new Place("天险峰", 5, 9);
-    locations[5][8] = new Road(true, 5, 8);
-    locations[5][7] = new Place("幽谷林", 5, 7);
-    locations[5][6] = new Road(true, 5, 6);
-    locations[5][5] = new Place("桃花林", 5, 5);
-    locations[5][4] = new Road(true, 5, 4);
-    locations[5][3] = new Place("桃花源", 5, 3);
-    locations[5][2] = new Road(true, 5, 2);
-    locations[5][1] = new Place("偏远村庄", 5, 1);
-    locations[4][7] = new Road(false, 4, 7);
-    locations[3][7] = new Place("黑森林", 3, 7);
-    locations[2][7] = new Road(true, 2, 7);
-    locations[1][7] = new Place("黑森林迷雾", 1, 7);
-    locations[3][8] = new Road(true, 3, 8);
-    locations[3][9] = new Place("黑森林迷雾", 3, 9);
-    locations[2][9] = new Road(false, 2, 9);
-    locations[1][9] = new Place("黑森林深处", 1, 9);
-    locations[8][9] = new Road(true, 8, 9);
-    locations[9][9] = new Place("小矮山", 9, 9);
-    locations[9][7] = new Place("狼山", 9, 7);
-    locations[8][7] = new Road(true, 8, 7);
-}
-
-void Map::printPlainMap() const {
-    for (int j = 0; j < 15; j++) {
-        for (int i = 0; i < 15; i++) {
-            cout.width(10);
-            if (locations[i][j]->getType() == 'b') cout << ' ';
-            else if (locations[i][j]->getType() == 'p') cout << (static_cast<Place *>(locations[i][j]))->getName();
-            else if (locations[i][j]->getType() == 'r')
-                cout << ((static_cast<Road *>(locations[i][j]))->getIsAccessible() ? "■" : "□");
-        }
-        cout << endl;
-    }
+    locations[8][4]=new Place("校门");
+    locations[7][4]=new Road(true);
+    locations[6][4]=new Place("迎新大厅");
+    locations[5][4]=new Road(true);
+    locations[4][4]=new Place("庆功宴会厅", true);
+    locations[3][4]=new Road(true);
+    locations[2][4]=new Place("圣坛");
+    locations[4][2]=new Place("战前准备营地", true);
+    locations[4][3]=new Road(false);
+    locations[4][5]=new Road(true);
+    locations[4][6]=new Place("秘密会议室");
+    locations[2][5]=new Road(true);
+    locations[2][6]=new Place("神秘的魔法墓地");
 }
 
 void Map::printMap() const {
 
+    std::ifstream mapFile("./Assets/.map");
+    // print the map
+    char map;
+    while (mapFile.get(map)) {
+        cout << map;
+    }
+    mapFile.close();
+    // print the locations
+    PosControl::setPos(1, 1);
+    // TODO: 匹配地图位置
+    for (int i = 1; i <= 9; i++) {
+        for (int j = 1; j <= 9; j++) {
+            if (locations[i][j]->isPlace()) {
+                cout << std::setw(10) << std::left << static_cast<Place *>(locations[i][j])->getName();
+            } else {
+                cout << std::setw(10) << std::left << " ";
+            }
+        }
+        cout << endl;
+    }
 }
-
-
 
 
 #endif //GAMETOWER_MAP_H
