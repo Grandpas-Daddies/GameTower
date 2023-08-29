@@ -10,7 +10,7 @@
 
 class Monster : public Creature {
 public:
-    Monster();
+    Monster() = default;
     void attack();
 private:
     int damage;

@@ -30,6 +30,9 @@ public:
     void Attack();
     void printMap() const;
     void move();
+    void enterPlace() {
+        static_cast<Place*>(map.getLocation(pos.line,pos.column))->enterScene();
+    }
 private:
     std::vector<Word> wordList;
     Backpack backpack;
@@ -163,9 +166,10 @@ void Player::move() {
             case 'Q':
                 // TODO: 保存进度
                 return;
-            case '\n':
+            case '\r':
                 // 回车进入地点
-                loadScene
+                enterPlace();
+                break;
             default:
                 break;
         }
