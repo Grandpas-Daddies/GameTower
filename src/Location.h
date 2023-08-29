@@ -55,16 +55,12 @@ public:
     string getName() const { return name; };
     int getX() const { return x; }
     int getY() const { return y; }
-    void enterScene() {
-        fightScene.showScene();
-    }
 
 private:
     int x;
     int y;
     string name;
     bool isHidden = false;
-    FightScene fightScene;
 };
 
 #endif //GAMETOWER_LOCATION_H

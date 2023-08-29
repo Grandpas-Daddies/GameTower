@@ -99,7 +99,10 @@ void welcome() {
 
         cout << endl << "\033[0m°´ÏÂ \033[31m[Enter¼ü] \033[0m¼ÌÐø..." << endl;
 
-        if (GetAsyncKeyState(VK_RETURN)) {
+        if(kbhit()){
+            char c;
+            c = getch();
+
             PosControl::setPos(x+6, 0);
             return;
         }
