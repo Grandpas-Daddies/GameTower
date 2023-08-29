@@ -9,6 +9,7 @@
 #include <fstream>
 #include <Windows.h>
 #include <conio.h>
+//#include <limits.h>
 #include "src/utils/rand.h"
 
 using std::cout, std::cin, std::endl, std::ifstream, std::string;
@@ -52,6 +53,11 @@ struct Menu {
     string name;
 };
 
+void clearInputBuffer() {
+    cin.clear(); // 清除错误标志
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // 忽略剩余的字符，直到遇到换行符
+}
+
 void welcome() {
     PosControl::centerWindow();
 
@@ -68,10 +74,10 @@ void welcome() {
     }
     welcomeFile.close();
 
-    cout << "\t\t";
-    for (int i = 0; i < 6 * 2; i++) {
-        Sleep(100);
-        cout << ".";
+    cout << endl << endl;
+    for (int i = 0; i < 104; i++) {
+        Sleep(10);
+        cout << "=";
     }
     cout << endl << endl;
 
@@ -90,11 +96,15 @@ void welcome() {
             cout << space << logo << endl;
         }
         logoFile.close();
-        cout << endl << "\033[0m按下 \033[31m[回车键] \033[0m继续..." << endl;
 
-        if (GetAsyncKeyState(VK_RETURN)) {
-            getch();
-            break;
+        cout << endl << "\033[0m按下 \033[31m[空格键] \033[0m继续..." << endl;
+
+        if (GetAsyncKeyState(VK_SPACE)) {
+            PosControl::setPos(x+7, 0);
+            return;
+        }
+        else {
+            // TODO: Fix this bug
         }
     }
 }
@@ -107,6 +117,7 @@ int switcher() {
             "退出游戏"
     };
 
+    cout << "========================================================================================================" << endl;
     cout << endl;
     int x, y;
     PosControl::getPos(x, y);
@@ -115,9 +126,8 @@ int switcher() {
     for (int i = 0; i < 3; i++) {
         cout << "    " << menu[i].name << endl;
     }
-
     cout << endl;
-
+    cout << "========================================================================================================" << endl;
 
     char c;
     int choice = 0;

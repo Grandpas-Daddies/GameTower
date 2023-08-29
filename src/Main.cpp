@@ -5,6 +5,7 @@
 //A MUD Game
 
 #define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
 
 #include <iostream>
 #include "Interface.h"
