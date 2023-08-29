@@ -13,34 +13,33 @@ using std::string;
 
 class Location {
 public:
-    Location() = default;
+    Location() { type = 'b'; };
 
-    bool isRoad() const {
-        return type == 'r';
-    }
+    bool isRoad() const { return type == 'r'; }
 
-    bool isPlace() const {
-        return type == 'p';
-    }
+    bool isPlace() const { return type == 'p'; }
+
+    virtual bool getIsAccessible() const { return false; }
+
+    virtual string getName() const { return ""; }
+
+    virtual int getX() const { return 0; }
+
+    virtual int getY() const { return 0;}
+
+    virtual ~Location() = default;
 
 protected:
     char type;
-//    bool isHighlighted = false;
 };
 
 class Road : public Location {
 public:
-    Road(bool isAccessible) : isAccessible(isAccessible) {
-        type = 'r'; //road
-    };
+    Road(bool isAccessible) : isAccessible(isAccessible) { type = 'r'; };
 
-    bool getIsAccessible() const {
-        return isAccessible;
-    }
+    bool getIsAccessible() const final { return isAccessible; }
 
-    void setIsAccessible(bool isAccessible) {
-        this->isAccessible = isAccessible;
-    }
+//    void setIsAccessible(bool isAccessible) { this->isAccessible = isAccessible; }
 
 private:
     bool isAccessible;
@@ -52,9 +51,11 @@ public:
         type = 'p'; //place
     };
 
-    string getName() const { return name; };
-    int getX() const { return x; }
-    int getY() const { return y; }
+    string getName() const final { return name; }
+
+    int getX() const final { return x; }
+
+    int getY() const final { return y; }
 
 private:
     int x;

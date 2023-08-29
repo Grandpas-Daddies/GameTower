@@ -10,12 +10,13 @@
 //#include "Player.h"
 #include "Interface.h"
 #include "Word.h"
+#include "Player.h"
 
 
 class FightScene {
 public:
     FightScene(string name): name(name){}
-    void loadScene(std::vector<Word> wordList);
+    void loadScene(Player& player);
     void showScene();//不停清屏展示新内容
     void drop();//掉字符
     void fight();//效果计算等
@@ -26,9 +27,10 @@ private:
 
 };
 
-void FightScene::loadScene(std::vector<Word> wordList) {
+void FightScene::loadScene(Player& player) {
     showScene();
-
+    showTutorial();
+    system("pause");
 }
 
 void FightScene::showScene() {
@@ -68,6 +70,10 @@ void FightScene::showScene() {
     }
 
 //    getch();
+}
+
+void FightScene::showTutorial() {
+    std::cout << "教程" << std::endl;
 }
 
 #endif //GAMETOWER1_FIGHT_SCENE_H

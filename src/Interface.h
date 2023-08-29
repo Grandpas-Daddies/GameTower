@@ -102,9 +102,10 @@ void welcome() {
         if(kbhit()){
             char c;
             c = getch();
-
-            PosControl::setPos(x+6, 0);
-            return;
+            if (c == '\r' || c == '\n') {
+                PosControl::setPos(x+7, 0);
+                return;
+            }
         }
     }
 }
@@ -124,7 +125,7 @@ int switcher() {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
     for (int i = 0; i < 3; i++) {
-        cout << "    " << menu[i].name << endl;
+        cout << "    > " << menu[i].name << endl;
     }
     cout << endl;
     cout << "========================================================================================================" << endl;
@@ -137,7 +138,7 @@ int switcher() {
 
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
         PosControl::setPos(x + prevChoice, y);
-        cout << "    " << menu[prevChoice].name;
+        cout << "    > " << menu[prevChoice].name;
 
         PosControl::setPos(x + choice, y);
         cout << "\33[43;37m" << "    > " << menu[choice].name << "\33[0m";
