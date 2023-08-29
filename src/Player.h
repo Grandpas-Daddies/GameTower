@@ -52,15 +52,15 @@ void Player::printMap() const {
     cout << "\33[47;33m" << "Backpack: " << "\33[0m" << endl;
     backpack.showItemList();
     cout << endl;
-    cout << "°´ÏÂ \033[31m[Q] \033[0mÍË³öÓÎÏ·" << endl << endl;
+    cout << "ï¿½ï¿½ï¿½ï¿½ \033[31m[Q] \033[0mï¿½Ë³ï¿½ï¿½ï¿½Ï·" << endl << endl;
 }
 
 void Player::move() {
     char c;
-    // ÊäÈëwasd£¬¿ØÖÆÔÚµØÍ¼ÖÐµÄÎ»ÖÃ
+    // ï¿½ï¿½ï¿½ï¿½wasdï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½Í¼ï¿½Ðµï¿½Î»ï¿½ï¿½
     while (1) {
         cout << "\33[2;10H                    \33[0m";
-        cout << "\33[2;0HÄãÏÖÔÚÔÚ£º" << getPlaceName(pos.line,pos.column) << endl;
+        cout << "\33[2;0Hï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½" << getPlaceName(pos.line,pos.column) << endl;
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
         cout << gotoPlace(lastPos.line, lastPos.column) << getPlaceName(lastPos.line,lastPos.column) << "\33[0m" ;
         cout << gotoPlace(pos.line, pos.column) << "\33[43;37m" << getPlaceName(pos.line,pos.column) << "\33[0m" ;
@@ -164,11 +164,12 @@ void Player::move() {
                 break;
             case 'q':
             case 'Q':
-                // TODO: ±£´æ½ø¶È
+                // TODO: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 return;
-            case '\n':
-                // »Ø³µ½øÈëµØµã
-                loadScene();
+            case '\r':
+                // ï¿½Ø³ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½
+                enterPlace();
+                break;
             default:
                 break;
         }

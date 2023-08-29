@@ -55,9 +55,8 @@ public:
     string getName() const { return name; };
     int getX() const { return x; }
     int getY() const { return y; }
-    void loadScene();
-    void enterFightScene() {
-        fightScene.show();
+    void enterScene() {
+        fightScene.showScene();
     }
 
 private:
@@ -67,21 +66,5 @@ private:
     bool isHidden = false;
     FightScene fightScene;
 };
-
-void Place::loadScene() {
-    ifstream sceneFile("./Assets/Scene/"+name+".txt");
-    string scene;
-    while (getline(sceneFile, scene)) {
-        cout << scene << endl;
-        char c;
-        c = getch();
-        while (c != '\n')
-            c = getch();
-    }
-    sceneFile.close();
-
-    enterFightScene();
-
-}
 
 #endif //GAMETOWER_LOCATION_H
