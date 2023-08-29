@@ -97,14 +97,11 @@ void welcome() {
         }
         logoFile.close();
 
-        cout << endl << "\033[0m按下 \033[31m[空格键] \033[0m继续..." << endl;
+        cout << endl << "\033[0m按下 \033[31m[Enter键] \033[0m继续..." << endl;
 
-        if (GetAsyncKeyState(VK_SPACE)) {
-            PosControl::setPos(x+7, 0);
+        if (GetAsyncKeyState(VK_RETURN)) {
+            PosControl::setPos(x+6, 0);
             return;
-        }
-        else {
-            // TODO: Fix this bug
         }
     }
 }
@@ -140,7 +137,7 @@ int switcher() {
         cout << "    " << menu[prevChoice].name;
 
         PosControl::setPos(x + choice, y);
-        cout << "\33[43;37m" << "    " << menu[choice].name << "\33[0m";
+        cout << "\33[43;37m" << "    > " << menu[choice].name << "\33[0m";
         c = getch();
         switch (c) {
             case 'w':
