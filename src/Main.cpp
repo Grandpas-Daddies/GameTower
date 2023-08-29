@@ -16,13 +16,13 @@ using std::cout, std::cin, std::endl, std::ifstream, std::string;
 int main() {
     welcome();
     Player player;
-
+    Map map;
     switch (switcher()) {
         case 0:
-            newGame(player);
+            newGame(player, map);
             break;
         case 1:
-            loadGame(player);
+            loadGame(player, map);
             break;
         case 2:
             return 0;

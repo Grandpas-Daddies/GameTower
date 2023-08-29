@@ -28,7 +28,7 @@
 #include <iterator> // random_access_iterator_tag
 #include <memory> // unique_ptr
 #include <string> // string, stoi, to_string
-#include <utility> // declval, forward, move, pair, swap
+#include <utility> // declval, forward, onMap, pair, swap
 #include <vector> // vector
 
 // #include <nlohmann/adl_serializer.hpp>
@@ -5072,7 +5072,7 @@ NLOHMANN_JSON_NAMESPACE_END
 #include <string> // string
 #include <tuple> // tuple, get
 #include <type_traits> // is_same, is_constructible, is_floating_point, is_enum, underlying_type
-#include <utility> // move, forward, declval, pair
+#include <utility> // onMap, forward, declval, pair
 #include <valarray> // valarray
 #include <vector> // vector
 
@@ -5091,7 +5091,7 @@ NLOHMANN_JSON_NAMESPACE_END
 #include <iterator> // input_iterator_tag
 #include <string> // string, to_string
 #include <tuple> // tuple_size, get, tuple_element
-#include <utility> // move
+#include <utility> // onMap
 
 #if JSON_HAS_RANGES
     #include <ranges> // enable_borrowed_range
@@ -5151,10 +5151,10 @@ template<typename IteratorType> class iteration_proxy_value
     // older GCCs are a bit fussy and require explicit noexcept specifiers on defaulted functions
     iteration_proxy_value(iteration_proxy_value&&)
     noexcept(std::is_nothrow_move_constructible<IteratorType>::value
-             && std::is_nothrow_move_constructible<string_type>::value) = default; // NOLINT(hicpp-noexcept-move,performance-noexcept-move-constructor)
+             && std::is_nothrow_move_constructible<string_type>::value) = default; // NOLINT(hicpp-noexcept-move,performance-noexcept-onMap-constructor)
     iteration_proxy_value& operator=(iteration_proxy_value&&)
     noexcept(std::is_nothrow_move_assignable<IteratorType>::value
-             && std::is_nothrow_move_assignable<string_type>::value) = default; // NOLINT(hicpp-noexcept-move,performance-noexcept-move-constructor)
+             && std::is_nothrow_move_assignable<string_type>::value) = default; // NOLINT(hicpp-noexcept-move,performance-noexcept-onMap-constructor)
     ~iteration_proxy_value() = default;
 
     /// dereference operator (needed for range-based for)
@@ -5810,7 +5810,7 @@ NLOHMANN_JSON_NAMESPACE_END
 
 #include <cstdint> // uint8_t, uint64_t
 #include <tuple> // tie
-#include <utility> // move
+#include <utility> // onMap
 
 // #include <nlohmann/detail/abi_macros.hpp>
 
@@ -6063,7 +6063,7 @@ NLOHMANN_JSON_NAMESPACE_END
 #include <iterator> // back_inserter
 #include <limits> // numeric_limits
 #include <string> // char_traits, string
-#include <utility> // make_pair, move
+#include <utility> // make_pair, onMap
 #include <vector> // vector
 
 // #include <nlohmann/detail/exceptions.hpp>
@@ -6127,7 +6127,7 @@ class file_input_adapter
         JSON_ASSERT(m_file != nullptr);
     }
 
-    // make class move-only
+    // make class onMap-only
     file_input_adapter(const file_input_adapter&) = delete;
     file_input_adapter(file_input_adapter&&) noexcept = default;
     file_input_adapter& operator=(const file_input_adapter&) = delete;
@@ -6556,7 +6556,7 @@ class span_input_adapter
 
     contiguous_bytes_input_adapter&& get()
     {
-        return std::move(ia); // NOLINT(hicpp-move-const-arg,performance-move-const-arg)
+        return std::move(ia); // NOLINT(hicpp-move-const-arg,performance-onMap-const-arg)
     }
 
   private:
@@ -6579,7 +6579,7 @@ NLOHMANN_JSON_NAMESPACE_END
 
 #include <cstddef>
 #include <string> // string
-#include <utility> // move
+#include <utility> // onMap
 #include <vector> // vector
 
 // #include <nlohmann/detail/exceptions.hpp>
@@ -6647,7 +6647,7 @@ struct json_sax
     @brief a string value was read
     @param[in] val  string value
     @return whether parsing should proceed
-    @note It is safe to move the passed string value.
+    @note It is safe to onMap the passed string value.
     */
     virtual bool string(string_t& val) = 0;
 
@@ -6655,7 +6655,7 @@ struct json_sax
     @brief a binary value was read
     @param[in] val  binary value
     @return whether parsing should proceed
-    @note It is safe to move the passed binary value.
+    @note It is safe to onMap the passed binary value.
     */
     virtual bool binary(binary_t& val) = 0;
 
@@ -6671,7 +6671,7 @@ struct json_sax
     @brief an object key was read
     @param[in] val  object key
     @return whether parsing should proceed
-    @note It is safe to move the passed string.
+    @note It is safe to onMap the passed string.
     */
     virtual bool key(string_t& val) = 0;
 
@@ -6749,11 +6749,11 @@ class json_sax_dom_parser
         : root(r), allow_exceptions(allow_exceptions_)
     {}
 
-    // make class move-only
+    // make class onMap-only
     json_sax_dom_parser(const json_sax_dom_parser&) = delete;
-    json_sax_dom_parser(json_sax_dom_parser&&) = default; // NOLINT(hicpp-noexcept-move,performance-noexcept-move-constructor)
+    json_sax_dom_parser(json_sax_dom_parser&&) = default; // NOLINT(hicpp-noexcept-onMap,performance-noexcept-move-constructor)
     json_sax_dom_parser& operator=(const json_sax_dom_parser&) = delete;
-    json_sax_dom_parser& operator=(json_sax_dom_parser&&) = default; // NOLINT(hicpp-noexcept-move,performance-noexcept-move-constructor)
+    json_sax_dom_parser& operator=(json_sax_dom_parser&&) = default; // NOLINT(hicpp-noexcept-move,performance-noexcept-onMap-constructor)
     ~json_sax_dom_parser() = default;
 
     bool null()
@@ -6933,11 +6933,11 @@ class json_sax_dom_callback_parser
         keep_stack.push_back(true);
     }
 
-    // make class move-only
+    // make class onMap-only
     json_sax_dom_callback_parser(const json_sax_dom_callback_parser&) = delete;
-    json_sax_dom_callback_parser(json_sax_dom_callback_parser&&) = default; // NOLINT(hicpp-noexcept-move,performance-noexcept-move-constructor)
+    json_sax_dom_callback_parser(json_sax_dom_callback_parser&&) = default; // NOLINT(hicpp-noexcept-move,performance-noexcept-onMap-constructor)
     json_sax_dom_callback_parser& operator=(const json_sax_dom_callback_parser&) = delete;
-    json_sax_dom_callback_parser& operator=(json_sax_dom_callback_parser&&) = default; // NOLINT(hicpp-noexcept-move,performance-noexcept-move-constructor)
+    json_sax_dom_callback_parser& operator=(json_sax_dom_callback_parser&&) = default; // NOLINT(hicpp-noexcept-move,performance-noexcept-onMap-constructor)
     ~json_sax_dom_callback_parser() = default;
 
     bool null()
@@ -7317,7 +7317,7 @@ NLOHMANN_JSON_NAMESPACE_END
 #include <cstdlib> // strtof, strtod, strtold, strtoll, strtoull
 #include <initializer_list> // initializer_list
 #include <string> // char_traits, string
-#include <utility> // move
+#include <utility> // onMap
 #include <vector> // vector
 
 // #include <nlohmann/detail/input/input_adapters.hpp>
@@ -7433,9 +7433,9 @@ class lexer : public lexer_base<BasicJsonType>
 
     // delete because of pointer members
     lexer(const lexer&) = delete;
-    lexer(lexer&&) = default; // NOLINT(hicpp-noexcept-move,performance-noexcept-move-constructor)
+    lexer(lexer&&) = default; // NOLINT(hicpp-noexcept-move,performance-noexcept-onMap-constructor)
     lexer& operator=(lexer&) = delete;
-    lexer& operator=(lexer&&) = default; // NOLINT(hicpp-noexcept-move,performance-noexcept-move-constructor)
+    lexer& operator=(lexer&&) = default; // NOLINT(hicpp-noexcept-onMap,performance-noexcept-move-constructor)
     ~lexer() = default;
 
   private:
@@ -9164,11 +9164,11 @@ class binary_reader
         (void)detail::is_sax_static_asserts<SAX, BasicJsonType> {};
     }
 
-    // make class move-only
+    // make class onMap-only
     binary_reader(const binary_reader&) = delete;
-    binary_reader(binary_reader&&) = default; // NOLINT(hicpp-noexcept-move,performance-noexcept-move-constructor)
+    binary_reader(binary_reader&&) = default; // NOLINT(hicpp-noexcept-onMap,performance-noexcept-move-constructor)
     binary_reader& operator=(const binary_reader&) = delete;
-    binary_reader& operator=(binary_reader&&) = default; // NOLINT(hicpp-noexcept-move,performance-noexcept-move-constructor)
+    binary_reader& operator=(binary_reader&&) = default; // NOLINT(hicpp-noexcept-onMap,performance-noexcept-move-constructor)
     ~binary_reader() = default;
 
     /*!
@@ -12106,7 +12106,7 @@ NLOHMANN_JSON_NAMESPACE_END
 #include <cstdint> // uint8_t
 #include <functional> // function
 #include <string> // string
-#include <utility> // move
+#include <utility> // onMap
 #include <vector> // vector
 
 // #include <nlohmann/detail/exceptions.hpp>
@@ -13692,7 +13692,7 @@ namespace detail
 /*!
 @brief Default base class of the @ref basic_json class.
 
-So that the correct implementations of the copy / move ctors / assign operators
+So that the correct implementations of the copy / onMap ctors / assign operators
 of @ref basic_json do not require complex case distinctions
 (no base class / custom base class used as customization point),
 @ref basic_json always has a base class.
@@ -13732,7 +13732,7 @@ NLOHMANN_JSON_NAMESPACE_END
 #include <limits> // max
 #include <numeric> // accumulate
 #include <string> // string
-#include <utility> // move
+#include <utility> // onMap
 #include <vector> // vector
 
 // #include <nlohmann/detail/exceptions.hpp>
@@ -14817,7 +14817,7 @@ NLOHMANN_JSON_NAMESPACE_END
 #include <cstring> // memcpy
 #include <limits> // numeric_limits
 #include <string> // string
-#include <utility> // move
+#include <utility> // onMap
 #include <vector> // vector
 
 // #include <nlohmann/detail/input/binary_reader.hpp>
@@ -16815,7 +16815,7 @@ NLOHMANN_JSON_NAMESPACE_END
 #include <string> // string, char_traits
 #include <iomanip> // setfill, setw
 #include <type_traits> // is_same
-#include <utility> // move
+#include <utility> // onMap
 
 // #include <nlohmann/detail/conversions/to_chars.hpp>
 //     __ _____ _____ _____
@@ -19083,7 +19083,7 @@ template <class Key, class T, class IgnoredLess = std::less<Key>,
         {
             if (m_compare(it->first, key))
             {
-                // Since we cannot move const Keys, re-construct them in place
+                // Since we cannot onMap const Keys, re-construct them in place
                 for (auto next = it; ++next != this->end(); ++it)
                 {
                     it->~value_type(); // Destroy but keep allocation
@@ -19104,7 +19104,7 @@ template <class Key, class T, class IgnoredLess = std::less<Key>,
         {
             if (m_compare(it->first, key))
             {
-                // Since we cannot move const Keys, re-construct them in place
+                // Since we cannot onMap const Keys, re-construct them in place
                 for (auto next = it; ++next != this->end(); ++it)
                 {
                     it->~value_type(); // Destroy but keep allocation
@@ -19142,7 +19142,7 @@ template <class Key, class T, class IgnoredLess = std::less<Key>,
         //               ^        ^
         //             first    last
 
-        // Since we cannot move const Keys, we re-construct them in place.
+        // Since we cannot onMap const Keys, we re-construct them in place.
         // We start at first and re-construct (viz. copy) the elements from
         // the back of the vector. Example for first iteration:
 
@@ -19155,7 +19155,7 @@ template <class Key, class T, class IgnoredLess = std::less<Key>,
         for (auto it = first; std::next(it, elements_affected) != Container::end(); ++it)
         {
             it->~value_type(); // destroy but keep allocation
-            new (&*it) value_type{std::move(*std::next(it, elements_affected))}; // "move" next element to it
+            new (&*it) value_type{std::move(*std::next(it, elements_affected))}; // "onMap" next element to it
         }
 
         // [ a, b, c, d, h, i, j, h, i, j ]
@@ -19786,7 +19786,7 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
                 // flatten the current json_value to a heap-allocated stack
                 std::vector<basic_json> stack;
 
-                // move the top-level items to stack
+                // onMap the top-level items to stack
                 if (t == value_t::array)
                 {
                     stack.reserve(array->size());
@@ -19803,11 +19803,11 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
 
                 while (!stack.empty())
                 {
-                    // move the last item to local variable to be processed
+                    // onMap the last item to local variable to be processed
                     basic_json current_item(std::move(stack.back()));
                     stack.pop_back();
 
-                    // if current_item is array/object, move
+                    // if current_item is array/object, onMap
                     // its children to the stack to be processed later
                     if (current_item.is_array())
                     {
@@ -20024,7 +20024,7 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
     //////////////////
 
     /// @name constructors and destructors
-    /// Constructors of class @ref basic_json, copy/move constructor, copy
+    /// Constructors of class @ref basic_json, copy/onMap constructor, copy
     /// assignment, static functions creating objects, and the destructor.
     /// @{
 
@@ -20425,7 +20425,7 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
         assert_invariant();
     }
 
-    /// @brief move constructor
+    /// @brief onMap constructor
     /// @sa https://json.nlohmann.me/api/basic_json/basic_json/
     basic_json(basic_json&& other) noexcept
         : json_base_class_t(std::forward<json_base_class_t>(other)),
@@ -22322,11 +22322,11 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
             assert_invariant();
         }
 
-        // add element to array (move semantics)
+        // add element to array (onMap semantics)
         const auto old_capacity = m_data.m_value.array->capacity();
         m_data.m_value.array->push_back(std::move(val));
         set_parent(m_data.m_value.array->back(), old_capacity);
-        // if val is moved from, basic_json move constructor marks it null, so we do not call the destructor
+        // if val is moved from, basic_json onMap constructor marks it null, so we do not call the destructor
     }
 
     /// @brief add an object to an array
@@ -23342,9 +23342,9 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
     {
         auto ia = i.get();
         return format == input_format_t::json
-               // NOLINTNEXTLINE(hicpp-move-const-arg,performance-move-const-arg)
+               // NOLINTNEXTLINE(hicpp-onMap-const-arg,performance-move-const-arg)
                ? parser(std::move(ia), nullptr, true, ignore_comments).sax_parse(sax, strict)
-               // NOLINTNEXTLINE(hicpp-move-const-arg,performance-move-const-arg)
+               // NOLINTNEXTLINE(hicpp-onMap-const-arg,performance-move-const-arg)
                : detail::binary_reader<basic_json, decltype(ia), SAX>(std::move(ia), format).sax_parse(format, sax, strict);
     }
 #ifndef JSON_NO_IO
@@ -23632,7 +23632,7 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
         basic_json result;
         detail::json_sax_dom_parser<basic_json> sdp(result, allow_exceptions);
         auto ia = i.get();
-        // NOLINTNEXTLINE(hicpp-move-const-arg,performance-move-const-arg)
+        // NOLINTNEXTLINE(hicpp-onMap-const-arg,performance-move-const-arg)
         const bool res = binary_reader<decltype(ia)>(std::move(ia), input_format_t::cbor).sax_parse(input_format_t::cbor, &sdp, strict, tag_handler);
         return res ? result : basic_json(value_t::discarded);
     }
@@ -23686,7 +23686,7 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
         basic_json result;
         detail::json_sax_dom_parser<basic_json> sdp(result, allow_exceptions);
         auto ia = i.get();
-        // NOLINTNEXTLINE(hicpp-move-const-arg,performance-move-const-arg)
+        // NOLINTNEXTLINE(hicpp-onMap-const-arg,performance-move-const-arg)
         const bool res = binary_reader<decltype(ia)>(std::move(ia), input_format_t::msgpack).sax_parse(input_format_t::msgpack, &sdp, strict);
         return res ? result : basic_json(value_t::discarded);
     }
@@ -23740,7 +23740,7 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
         basic_json result;
         detail::json_sax_dom_parser<basic_json> sdp(result, allow_exceptions);
         auto ia = i.get();
-        // NOLINTNEXTLINE(hicpp-move-const-arg,performance-move-const-arg)
+        // NOLINTNEXTLINE(hicpp-move-const-arg,performance-onMap-const-arg)
         const bool res = binary_reader<decltype(ia)>(std::move(ia), input_format_t::ubjson).sax_parse(input_format_t::ubjson, &sdp, strict);
         return res ? result : basic_json(value_t::discarded);
     }
@@ -23825,7 +23825,7 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
         basic_json result;
         detail::json_sax_dom_parser<basic_json> sdp(result, allow_exceptions);
         auto ia = i.get();
-        // NOLINTNEXTLINE(hicpp-move-const-arg,performance-move-const-arg)
+        // NOLINTNEXTLINE(hicpp-move-const-arg,performance-onMap-const-arg)
         const bool res = binary_reader<decltype(ia)>(std::move(ia), input_format_t::bson).sax_parse(input_format_t::bson, &sdp, strict);
         return res ? result : basic_json(value_t::discarded);
     }
@@ -23941,7 +23941,7 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
             {
                 return patch_operations::replace;
             }
-            if (op == "move")
+            if (op == "onMap")
             {
                 return patch_operations::move;
             }
@@ -24126,13 +24126,13 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
 
                 case patch_operations::move:
                 {
-                    const auto from_path = get_value("move", "from", true).template get<std::string>();
+                    const auto from_path = get_value("onMap", "from", true).template get<std::string>();
                     json_pointer from_ptr(from_path);
 
                     // the "from" location must exist - use at()
                     basic_json const v = result.at(from_ptr);
 
-                    // The move operation is functionally identical to a
+                    // The onMap operation is functionally identical to a
                     // "remove" operation on the "from" location, followed
                     // immediately by an "add" operation at the target
                     // location with the value that was just removed.
@@ -24182,7 +24182,7 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
                 case patch_operations::invalid:
                 default:
                 {
-                    // op must be "add", "remove", "replace", "move", "copy", or
+                    // op must be "add", "remove", "replace", "onMap", "copy", or
                     // "test"
                     JSON_THROW(parse_error::create(105, 0, detail::concat("operation value '", op, "' is invalid"), &val));
                 }

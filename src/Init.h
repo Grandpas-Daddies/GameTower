@@ -10,6 +10,7 @@
 #include "../include/json.hpp"
 #include "Map.h"
 #include "Player.h"
+#include "Behavior.h"
 
 using nlohmann::json;
 
@@ -73,21 +74,21 @@ void init() {
 //    }
 //    readData(data);
 }
-void loadGame(Player &player);
-void newGame(Player &player) {
+void loadGame(Player &player, Map &map);
+void newGame(Player &player, Map &map) {
     init();
     system("cls");
 //    Sleep(1000);
-    loadGame(player);
+    loadGame(player, map);
     system("pause");
 }
 
-void loadGame(Player &player) {
+void loadGame(Player &player, Map &map) {
 //    transAnimation();
     json data;
     readData(data);
-    player.printMap();
-    player.move();
+    map.printMap();
+    onMap(player, map);
     // goodbye();
     system("pause");
 }

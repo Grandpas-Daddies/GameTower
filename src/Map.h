@@ -47,7 +47,7 @@ Map::Map() {
 }
 
 void Map::printMap() const {
-
+    system("cls");
     PosControl::setPos(0, 0);
     std::ifstream mapFile("./Assets/.map");
     char map;
