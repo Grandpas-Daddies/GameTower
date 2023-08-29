@@ -162,7 +162,10 @@ void Player::move() {
             case 'q':
             case 'Q':
                 // TODO: 保存进度
-                exit(0);
+                return;
+            case '\n':
+                // 回车进入地点
+                loadScene
             default:
                 break;
         }

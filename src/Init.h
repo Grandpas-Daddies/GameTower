@@ -73,13 +73,12 @@ void init() {
 //    }
 //    readData(data);
 }
-
+void loadGame(Player &player);
 void newGame(Player &player) {
     init();
     system("cls");
-    player.printMap();
-    player.move();
 //    Sleep(1000);
+    loadGame(player);
     system("pause");
 }
 
@@ -87,6 +86,10 @@ void loadGame(Player &player) {
 //    transAnimation();
     json data;
     readData(data);
+    player.printMap();
+    player.move();
+    // goodbye();
+    system("pause");
 }
 
 
