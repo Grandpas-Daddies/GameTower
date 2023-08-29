@@ -18,6 +18,7 @@
 #include "Word.h"
 #include "Creature.h"
 #include "Map.h"
+#include "FightScene.h"
 
 struct MapPosition {
     int line;
@@ -30,8 +31,9 @@ public:
     void Attack();
     void printMap() const;
     void move();
-    void loadScene() {
-        static_cast<Place*>(map.getLocation(pos.line,pos.column))->loadScene();
+    void enterFight() {
+        FightScene fightScene(getPlaceName(pos.line,pos.column));
+        fightScene.loadScene(this->wordList);
     }
 private:
     std::vector<Word> wordList;
@@ -52,15 +54,15 @@ void Player::printMap() const {
     cout << "\33[47;33m" << "Backpack: " << "\33[0m" << endl;
     backpack.showItemList();
     cout << endl;
-    cout << "ï¿½ï¿½ï¿½ï¿½ \033[31m[Q] \033[0mï¿½Ë³ï¿½ï¿½ï¿½Ï·" << endl << endl;
+    cout << "°´ \033[31m[Q] \033[0mÍË³öÓÎÏ·" << endl << endl;
 }
 
 void Player::move() {
     char c;
-    // ï¿½ï¿½ï¿½ï¿½wasdï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½Í¼ï¿½Ðµï¿½Î»ï¿½ï¿½
+    // ????wasd???????????§Ö?¦Ë??
     while (1) {
         cout << "\33[2;10H                    \33[0m";
-        cout << "\33[2;0Hï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½" << getPlaceName(pos.line,pos.column) << endl;
+        cout << "\33[2;0Hµ±Ç°Î»ÖÃ£º" << getPlaceName(pos.line,pos.column) << endl;
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
         cout << gotoPlace(lastPos.line, lastPos.column) << getPlaceName(lastPos.line,lastPos.column) << "\33[0m" ;
         cout << gotoPlace(pos.line, pos.column) << "\33[43;37m" << getPlaceName(pos.line,pos.column) << "\33[0m" ;
@@ -164,11 +166,11 @@ void Player::move() {
                 break;
             case 'q':
             case 'Q':
-                // TODO: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                // TODO: ???????
                 return;
             case '\r':
-                // ï¿½Ø³ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½
-                enterPlace();
+                // ?????????
+                enterFight();
                 break;
             default:
                 break;

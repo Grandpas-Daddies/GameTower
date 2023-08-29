@@ -5,23 +5,31 @@
 #ifndef GAMETOWER1_FIGHT_SCENE_H
 #define GAMETOWER1_FIGHT_SCENE_H
 
+#include <vector>
 #include "Monster.h"
 //#include "Player.h"
 #include "Interface.h"
+#include "Word.h"
+
 
 class FightScene {
 public:
-    FightScene() = default;
-    void loadScene();
-    void showScene();//ä¸åœæ¸…å±å±•ç¤ºæ–°å†…å®¹
-    void drop();//æ‰å­—ç¬¦
-    void fight();//æ•ˆæœè®¡ç®—ç­‰
-    void showTutorial();//å±•ç¤ºæ•™ç¨‹
+    FightScene(string name): name(name){}
+    void loadScene(std::vector<Word> wordList);
+    void showScene();//²»Í£ÇåÆÁÕ¹Ê¾ĞÂÄÚÈİ
+    void drop();//µô×Ö·û
+    void fight();//Ğ§¹û¼ÆËãµÈ
+    void showTutorial();//Õ¹Ê¾½Ì³Ì
 private:
-    Monster monster;//æœ¬å…³æ‰€é¢å¯¹çš„æ€ªç‰©
+    Monster monster;//±¾¹ØËùÃæ¶ÔµÄ¹ÖÎï
     std::string name;
 
 };
+
+void FightScene::loadScene(std::vector<Word> wordList) {
+    showScene();
+
+}
 
 void FightScene::showScene() {
     system("cls");
