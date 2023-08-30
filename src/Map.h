@@ -18,7 +18,7 @@ class Map {
 public:
     Map();
     ~Map() = default;
-    void printMap() const;
+    static void printMap();
     Location *getLocation(int line, int column) const { return locations[line][column]; }
 
 private:
@@ -46,7 +46,7 @@ Map::Map() {
     locations[2][6] = new Place("神秘的魔法墓地", 6, 84);
 }
 
-void Map::printMap() const {
+void Map::printMap(){
     system("cls");
     PosControl::setPos(0, 0);
     std::ifstream mapFile("./Assets/.map");
@@ -60,7 +60,6 @@ void Map::printMap() const {
 
     //dyed the roads with grey
     PosControl::setPos(0, 0);
-    int x = 0, y = 0;
     std::ifstream pathFile("./Assets/.map_path");
     char path;
     while (pathFile.get(path)) {

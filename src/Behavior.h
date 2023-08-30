@@ -23,7 +23,7 @@ void onMap(Player &player, Map &map) {
     MapPosition &pos = player.getPos();
     MapPosition &lastPos = player.getLastPos();
     char c;
-    // ????wasd???????????§Ö?¦Ë??
+    // wasd
     while (1) {
         player.printStatus();
         cout << "\33[2;10H                    \33[0m";
@@ -122,14 +122,15 @@ void onMap(Player &player, Map &map) {
                 break;
             }
             case 'q':
-            case 'Q': {// TODO: exit page
+            case 'Q': {
+                goodbye();
                 return;
             }
             case '\r':
             case '\n': {
                 FightScene fightScene(getPlaceName(pos.line, pos.column));
                 fightScene.loadScene(player);
-                map.printMap();
+                Map::printMap();
                 break;
             }
             default:

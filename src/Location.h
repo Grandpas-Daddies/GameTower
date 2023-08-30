@@ -20,11 +20,8 @@ public:
     bool isPlace() const { return type == 'p'; }
 
     virtual bool getIsAccessible() const { return false; }
-
     virtual string getName() const { return ""; }
-
     virtual int getX() const { return 0; }
-
     virtual int getY() const { return 0;}
 
     virtual ~Location() = default;

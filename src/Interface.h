@@ -6,6 +6,7 @@
 #define GAMETOWER_INTERFACE_H
 
 #include <iostream>
+#include <string>
 #include <fstream>
 #include <Windows.h>
 #include <conio.h>
@@ -47,27 +48,33 @@ namespace PosControl {
         x = b.dwCursorPosition.Y;
     }
 
+
+}
+
+void setDPI() {
+    system("SetDpi.exe value > currDPI.txt");
+    system("SetDpi.exe 150");
 }
 
 struct Menu {
     string name;
 };
 
-void clearInputBuffer() {
-    cin.clear(); // 清除错误标志
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // 忽略剩余的字符，直到遇到换行符
-}
+void welcomePage() {
 
-void welcome() {
     PosControl::centerWindow();
 
     cout << "按下 \033[31m[Tab键] \033[0m跳过本段..." << endl << endl;
-    ifstream welcomeFile("./Assets/.welcome");
+    ifstream welcomeFile("./Assets/.welcomePage");
     char welcome;
     bool flagTab = false;
     while (welcomeFile.get(welcome)) {
-        if (GetAsyncKeyState(VK_TAB)) {
-            flagTab = true;
+        if(kbhit()) {
+            char c;
+            c = getch();
+            if (c == '\t') {
+                flagTab = true;
+            }
         }
         if (!flagTab) Sleep(50);
         cout << welcome;
@@ -164,6 +171,11 @@ int switcher() {
                 break;
         }
     }
+}
+
+void goodbye() {
+    // TODO: exit page
+    cout << "exit page" << endl;
 }
 
 #endif //GAMETOWER_INTERFACE_H

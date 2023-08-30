@@ -24,9 +24,7 @@ struct MapPosition {
 class Player : public Creature {
 public:
     Player();
-    void Attack();
     void printStatus() const;
-    void move();
     MapPosition& getPos() { return pos; }
     MapPosition& getLastPos() { return lastPos; }
 private:

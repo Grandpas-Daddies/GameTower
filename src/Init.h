@@ -84,12 +84,11 @@ void newGame(Player &player, Map &map) {
 }
 
 void loadGame(Player &player, Map &map) {
-//    transAnimation();
     json data;
     readData(data);
-    map.printMap();
+    Map::printMap();
     onMap(player, map);
-    // goodbye();
+    goodbye();
     system("pause");
 }
 

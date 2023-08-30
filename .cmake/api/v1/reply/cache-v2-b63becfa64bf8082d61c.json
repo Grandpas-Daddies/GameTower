@@ -635,7 +635,23 @@
 				}
 			],
 			"type" : "BOOL",
-			"value" : "OFF"
+			"value" : "ON"
+		},
+		{
+			"name" : "CMAKE_GNUtoMS_VCVARS",
+			"properties" : 
+			[
+				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
+					"name" : "HELPSTRING",
+					"value" : "Visual Studio vcvarsamd64.bat"
+				}
+			],
+			"type" : "FILEPATH",
+			"value" : "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Auxiliary/Build/vcvars64.bat"
 		},
 		{
 			"name" : "CMAKE_HOME_DIRECTORY",
