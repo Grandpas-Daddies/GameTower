@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/src/FightScene.h" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/Init.h" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/Interface.h" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/Main.cpp" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/Map.h" charset="GBK" />
     <file url="PROJECT" charset="GBK" />
