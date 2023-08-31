@@ -7,42 +7,42 @@
 
 #include <iostream>
 #include <fstream>
-#include "../include/json.hpp"
+//#include "../include/json.hpp"
 #include "Map.h"
 #include "Player.h"
 #include "Behavior.h"
 
-using nlohmann::json;
+//using nlohmann::json;
 
-void readData(json &data) {
-    std::cout << "读取存档中..." << std::endl;
-    std::cout << "读取成功！" << std::endl;
-    //TODO: read data from json
-}
+//void readData(json &data) {
+//    std::cout << "读取存档中..." << std::endl;
+//    std::cout << "读取成功！" << std::endl;
+//    //TODO: read data from json
+//}
 
-void createData(json &data) {
-    json newData;
-    //TODO: create data
-//    newData = json::parse(R"(
-//    {
-//        "name": "default",
-//        "level": 1,
-//        "exp": 0,
-//        "hp": 100,
-//        "maxHp": 100,
-//        "attack": 10,
-//        "defense": 10,
-//        "money": 0,
-//        "items": [],
-//        "skills": [],
-//        "location": {
-//            "x": 7,
-//            "y": 11
-//        }
-//    }
-//    )");
-    data.push_back(newData);
-}
+//void createData(json &data) {
+//    json newData;
+//    //TODO: create data
+////    newData = json::parse(R"(
+////    {
+////        "name": "default",
+////        "level": 1,
+////        "exp": 0,
+////        "hp": 100,
+////        "maxHp": 100,
+////        "attack": 10,
+////        "defense": 10,
+////        "money": 0,
+////        "items": [],
+////        "skills": [],
+////        "location": {
+////            "x": 7,
+////            "y": 11
+////        }
+////    }
+////    )");
+//    data.push_back(newData);
+//}
 
 void init() {
 //    std::ifstream profile("profile.dat");
@@ -84,8 +84,8 @@ void newGame(Player &player, Map &map) {
 }
 
 void loadGame(Player &player, Map &map) {
-    json data;
-    readData(data);
+//    json data;
+//    readData(data);
     Map::printMap();
     onMap(player, map);
     goodbye();
