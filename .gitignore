@@ -75,3 +75,9 @@ fabric.properties
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
+/CMakeFiles/
+/.ninja_deps
+/.ninja_log
+/build.ninja
+/cmake_install.cmake
+/CMakeCache.txt
