@@ -13,6 +13,7 @@ public:
     Creature(): hp(0), name("") {};
     Creature(int hp, std::string name): hp(hp), name(name) {};
     std::string getName() const { return name; }
+    void getDamaged(int damage){ hp-=damage; };
 
 protected:
     int hp; // health point
