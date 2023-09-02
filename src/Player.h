@@ -27,6 +27,9 @@ public:
     void printStatus() const;
     MapPosition& getPos() { return pos; }
     MapPosition& getLastPos() { return lastPos; }
+    std::vector<Word> deliverWord() { return this->wordList; }
+    int getHP() {return hp;}
+
 private:
     std::vector<Word> wordList;
     Backpack backpack;
