@@ -7,7 +7,7 @@ set(CMAKE_CXX_FLAGS "-static")
 
 include_directories(.)
 
-add_executable(GameTower11
+add_executable(GameTower
         src/FightScene.h
         src/Location.h
         src/Main.cpp

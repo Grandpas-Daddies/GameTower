@@ -1,4 +1,0 @@
-"C:\Program Files\JetBrains\CLion 2023.1.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" -S D:\Documents\GitHub\GameTower11 -B D:\Documents\GitHub\GameTower11
--- Configuring done
--- Generating done
--- Build files have been written to: D:/Documents/GitHub/GameTower11
