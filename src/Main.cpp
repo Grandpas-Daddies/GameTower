@@ -16,7 +16,7 @@ using std::cout, std::cin, std::endl, std::ifstream, std::string;
 
 
 int main() {
-    setDPI();
+    //setDPI();
     welcomePage();
     Player player;
     Map map;
@@ -33,7 +33,7 @@ int main() {
     }
     system("cls");
     system("pause");
-
+/*
     atexit([]() {
         system("cls");
         ifstream dpiFile("currDPI.txt");
@@ -43,7 +43,7 @@ int main() {
         string command = "SetDpi.exe " + dpi;
         system(command.c_str());
         remove("currDPI.txt");
-    });
+    });*/
 
     return 0;
 }

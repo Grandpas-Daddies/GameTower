@@ -7,8 +7,7 @@ set(CMAKE_CXX_FLAGS "-static")
 
 include_directories(.)
 
-add_executable(GameTower
-        include/json.hpp
+add_executable(GameTower11
         src/FightScene.h
         src/Location.h
         src/Main.cpp
@@ -17,7 +16,4 @@ add_executable(GameTower
         src/Backpack.h
         src/Item.h
         src/Interface.h
-        src/Init.h
-        src/utils/rand.cpp
-        src/utils/rand.h
-)
+        src/Init.h)

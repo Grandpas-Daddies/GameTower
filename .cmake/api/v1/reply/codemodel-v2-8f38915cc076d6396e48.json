@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Release-d0094a50bb2071803777.json",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.25"
@@ -19,7 +19,7 @@
 					]
 				}
 			],
-			"name" : "Release",
+			"name" : "Debug",
 			"projects" : 
 			[
 				{
@@ -38,9 +38,9 @@
 			[
 				{
 					"directoryIndex" : 0,
-					"id" : "GameTower::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-GameTower-Release-cfaf2268987afcf3c4d5.json",
-					"name" : "GameTower",
+					"id" : "GameTower11::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-GameTower11-Debug-5ed7abba2ecbe040236b.json",
+					"name" : "GameTower11",
 					"projectIndex" : 0
 				}
 			]
@@ -49,12 +49,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "D:/CLionProjects/GameTower",
-		"source" : "D:/CLionProjects/GameTower"
+		"build" : "D:/Documents/GitHub/GameTower11",
+		"source" : "D:/Documents/GitHub/GameTower11"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 5
+		"minor" : 4
 	}
 }

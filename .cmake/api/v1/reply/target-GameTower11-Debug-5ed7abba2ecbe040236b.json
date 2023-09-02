@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "GameTower.exe"
+			"path" : "GameTower11.exe"
 		},
 		{
-			"path" : "GameTower.pdb"
+			"path" : "GameTower11.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -45,14 +45,14 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-static -O3 -DNDEBUG -fdiagnostics-color=always"
+					"fragment" : "-static -g -fdiagnostics-color=always"
 				}
 			],
 			"includes" : 
 			[
 				{
 					"backtrace" : 2,
-					"path" : "D:/CLionProjects/GameTower/."
+					"path" : "D:/Documents/GitHub/GameTower11/."
 				}
 			],
 			"language" : "CXX",
@@ -66,18 +66,17 @@
 			},
 			"sourceIndexes" : 
 			[
-				3,
-				10
+				2
 			]
 		}
 	],
-	"id" : "GameTower::@6890427a1f51a3e7e1df",
+	"id" : "GameTower11::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-static -O3 -DNDEBUG",
+				"fragment" : "-static -g",
 				"role" : "flags"
 			},
 			{
@@ -91,8 +90,8 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "GameTower",
-	"nameOnDisk" : "GameTower.exe",
+	"name" : "GameTower11",
+	"nameOnDisk" : "GameTower11.exe",
 	"paths" : 
 	{
 		"build" : ".",
@@ -106,32 +105,24 @@
 			[
 				0,
 				1,
-				2,
+				3,
 				4,
 				5,
 				6,
 				7,
-				8,
-				9,
-				11
+				8
 			]
 		},
 		{
 			"name" : "Source Files",
 			"sourceIndexes" : 
 			[
-				3,
-				10
+				2
 			]
 		}
 	],
 	"sources" : 
 	[
-		{
-			"backtrace" : 1,
-			"path" : "include/json.hpp",
-			"sourceGroupIndex" : 0
-		},
 		{
 			"backtrace" : 1,
 			"path" : "src/FightScene.h",
@@ -176,17 +167,6 @@
 		{
 			"backtrace" : 1,
 			"path" : "src/Init.h",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "src/utils/rand.cpp",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
-			"path" : "src/utils/rand.h",
 			"sourceGroupIndex" : 0
 		}
 	],
