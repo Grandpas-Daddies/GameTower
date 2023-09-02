@@ -10,10 +10,17 @@
 #include <fstream>
 #include <Windows.h>
 #include <conio.h>
-//#include <limits.h>
-#include "src/utils/rand.h"
+#include <random>
+//#include "utils\\rand.h"
 
 using std::cout, std::cin, std::endl, std::ifstream, std::string;
+
+int randInt(int min, int max) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(min, max);
+    return dis(gen);
+}
 
 namespace PosControl {
 
@@ -24,7 +31,7 @@ namespace PosControl {
     struct Size {
         int width;
         int height;
-    } size = {1024, 768};
+    } size = {1020, 860};
 
     void centerWindow() {
         HWND hwnd = GetForegroundWindow();
