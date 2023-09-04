@@ -47,7 +47,9 @@ void Player::printStatus() const {
     cout << "\33[47;33m" << "Backpack: " << "\33[0m" << endl;
     backpack.showItemList();
     cout << endl;
-    cout << "按 \033[31m[Q] \033[0m退出游戏" << endl << endl;
+    cout << "按 \33[31m[Q] \33[0m退出游戏" << endl << endl;
+    cout << "按 \33[31m[W][A][S][D] \33[0m或 \33[31m[↑][←][↓][→] \33[0m移动" << endl << endl;
+    cout << "按 \33[31m[F5] \33[0m刷新地图" << endl << endl;
 }
 
 

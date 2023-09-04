@@ -118,7 +118,25 @@ void welcomePage() {
             c = getch();
             if (c == '\r' || c == '\n') {
                 PosControl::setPos(x+7, 0);
-                return;
+                break;
+            }
+        }
+    }
+    cout << "=======================================================================================================" << endl;
+    cout << endl << "    \033[0m请使用 \033[31m[Ctrl] \033[0m+ \033[31m滚轮 \033[0m调整控制台字体大小，确保以上分割线显示在同一行。" << endl;
+    cout << endl << "\033[0m按下 \033[31m[Enter键] \033[0m继续..." << endl;
+    while (1) {
+        if(kbhit()){
+            char c;
+            c = getch();
+            if (c == '\r' || c == '\n') {
+                PosControl::setPos(x+8, 0);
+                cout << "                                                                                        " << endl;
+                cout << "                                                                                        " << endl;
+                cout << "                                                                                        " << endl;
+                cout << "                                                                                        " << endl;
+                PosControl::setPos(x+9, 0);
+                break;
             }
         }
     }
@@ -132,10 +150,10 @@ int switcher() {
             "退出游戏"
     };
 
-    cout << "=======================================================================================================" << endl;
-    cout << endl;
+
     int x, y;
     PosControl::getPos(x, y);
+    PosControl::setPos(x,0);
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
     for (int i = 0; i < 3; i++) {
