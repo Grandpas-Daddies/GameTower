@@ -19,13 +19,12 @@ int main() {
     //setDPI();
     welcomePage();
     Player player;
-    Map map;
     switch (switcher()) {
         case 0:
-            newGame(player, map);
+            newGame(player);
             break;
         case 1:
-            loadGame(player, map);
+            loadGame(player);
             break;
         case 2:
             goodbye();

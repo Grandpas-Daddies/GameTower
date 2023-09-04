@@ -20,6 +20,8 @@ public:
     bool getState(){ return isFinished; }
     int getCur() { return cur; }
     void changeCur(int cur){ this->cur=cur; }
+    char getEffect(){ return effect; }
+    std::string getName() const { return word; }
 private:
     std::string word;
     int length;

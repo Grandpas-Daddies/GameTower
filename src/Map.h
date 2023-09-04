@@ -39,7 +39,7 @@ Map::Map() {
     locations[3][4] = new Road(true);
     locations[2][4] = new Place("圣坛", 8, 52);
     locations[4][2] = new Place("战前准备营地",19, 13 ,true);
-    locations[4][3] = new Road(false);
+    locations[4][3] = new Road(true);
     locations[4][5] = new Road(true);
     locations[4][6] = new Place("秘密会议室", 18, 84);
     locations[2][5] = new Road(true);

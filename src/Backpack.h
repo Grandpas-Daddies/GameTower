@@ -13,15 +13,15 @@ class Backpack {
 public:
     Backpack();
     void addItem(Item item);
-    void showItemList() const;
+    void showItemList(std::ostream &os = std::cout) const;
 private:
     std::vector<std::pair<Item,int>> items;
 
 };
 
-void Backpack::showItemList() const {
+void Backpack::showItemList(std::ostream &os) const {
     for (auto &item : items) {
-        std::cout << item.first.getName() << " " << item.second << std::endl;
+         os << item.first.getName() << " " << item.second << std::endl;
     }
 }
 
@@ -36,7 +36,7 @@ void Backpack::addItem(Item item) {
 }
 
 Backpack::Backpack() {
-
+    items.clear();
 }
 
 

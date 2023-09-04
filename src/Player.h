@@ -5,8 +5,6 @@
 #ifndef GAMETOWER1_HERO_H
 #define GAMETOWER1_HERO_H
 
-
-
 #include <iostream>
 #include <vector>
 #include <conio.h>
@@ -14,7 +12,6 @@
 #include "Word.h"
 #include "Creature.h"
 #include "Map.h"
-#include "FightScene.h"
 
 struct MapPosition {
     int line;
@@ -23,21 +20,29 @@ struct MapPosition {
 
 class Player : public Creature {
 public:
-    Player();
+    Player(string name);
     void printStatus() const;
     MapPosition& getPos() { return pos; }
     MapPosition& getLastPos() { return lastPos; }
     std::vector<Word> deliverWord() { return this->wordList; }
     int getHP() {return hp;}
-
+    Map& getMap() { return map; }
+    Backpack& getBackpack() { return backpack; }
+    void setPos(int line, int column) { pos.line = line; pos.column = column; }
+    void showWordList(std::ostream &os = std::cout) const {
+        for (Word word : wordList) {
+            os << word.getName() << " " << word.getEffect() << std::endl;
+        }
+    }
 private:
+    Map map;
     std::vector<Word> wordList;
     Backpack backpack;
     MapPosition pos = {8, 4};
     MapPosition lastPos = {8, 4};
 };
 
-Player::Player(): Creature(100, "Alex"){}
+Player::Player(string name): Creature(100, name){}
 
 void Player::printStatus() const {
     PosControl::setPos(0,0);
