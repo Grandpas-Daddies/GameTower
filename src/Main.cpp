@@ -18,14 +18,16 @@ using std::cout, std::cin, std::endl, std::ifstream, std::string;
 int main() {
     //setDPI();
     welcomePage();
-    Player player;
-    Map map;
+    string name;
+    cout << "ÇëÊäÈëÄãµÄÃû×Ö£º";
+    cin >> name;
+    Player player(name);
     switch (switcher()) {
         case 0:
-            newGame(player, map);
+            newGame(player);
             break;
         case 1:
-            loadGame(player, map);
+            loadGame(player);
             break;
         case 2:
             goodbye();

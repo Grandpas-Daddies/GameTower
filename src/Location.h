@@ -7,7 +7,6 @@
 
 #include <string>
 #include <fstream>
-#include "FightScene.h"
 
 using std::string;
 
@@ -36,7 +35,7 @@ public:
 
     bool getIsAccessible() const final { return isAccessible; }
 
-//    void setIsAccessible(bool isAccessible) { this->isAccessible = isAccessible; }
+    void setIsAccessible(bool isAccessible) { this->isAccessible = isAccessible; }
 
 private:
     bool isAccessible;
@@ -47,11 +46,10 @@ public:
     Place(string name, int x, int y, bool isHidden = false) : x(x), y(y), name(name), isHidden(isHidden) {
         type = 'p'; //place
     };
-
+    void setHasDone(bool hasDone) { this->hasDone = hasDone; }
+    bool getHasDone() const { return hasDone; }
     string getName() const final { return name; }
-
     int getX() const final { return x; }
-
     int getY() const final { return y; }
 
 private:
@@ -59,6 +57,7 @@ private:
     int y;
     string name;
     bool isHidden = false;
+    bool hasDone = false;
 };
 
 #endif //GAMETOWER_LOCATION_H

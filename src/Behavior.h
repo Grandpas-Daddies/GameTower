@@ -19,9 +19,10 @@
 using std::cout, std::endl;
 
 
-void onMap(Player &player, Map &map) {
+void onMap(Player &player) {
     MapPosition &pos = player.getPos();
     MapPosition &lastPos = player.getLastPos();
+    Map &map = player.getMap();
     char c;
     // wasd
     while (1) {

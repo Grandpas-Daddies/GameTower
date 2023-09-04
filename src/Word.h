@@ -20,14 +20,16 @@ public:
     bool getState(){ return isFinished; }
     int getCur() { return cur; }
     void changeCur(int cur){ this->cur=cur; }
+    char getEffect(){ return effect; }
+    std::string getName() const { return word; }
 private:
     std::string word;
     int length;
     char effect; // h: heal, d: damage, s: slow, f: fast
-    bool isFinished;
-    int position;
-    std::vector<int> color;
-    int cur; //
+    bool isFinished; //用于实现变色打字，表示字是否被打完
+    int position; //用于实现空格位置，随机化
+    std::vector<int> color; //用于实现变色打字，表示每个字母的color属性
+    int cur; //用于实现变色打字，表示当前打到第几个字
 
 };
 

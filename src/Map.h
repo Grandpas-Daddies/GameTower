@@ -20,7 +20,8 @@ public:
     ~Map() = default;
     static void printMap();
     Location *getLocation(int line, int column) const { return locations[line][column]; }
-
+    void loadMap(std::istream &is = std::cin);
+    void showMap(std::ostream &os = std::cout);
 private:
     Location *locations[10][10]{};
 };
@@ -39,7 +40,7 @@ Map::Map() {
     locations[3][4] = new Road(true);
     locations[2][4] = new Place("圣坛", 8, 52);
     locations[4][2] = new Place("战前准备营地",19, 13 ,true);
-    locations[4][3] = new Road(false);
+    locations[4][3] = new Road(true);
     locations[4][5] = new Road(true);
     locations[4][6] = new Place("秘密会议室", 18, 84);
     locations[2][5] = new Road(true);
@@ -88,5 +89,25 @@ void Map::printMap(){
     PosControl::setPos(0, 0);
 }
 
+void Map::loadMap(std::istream &is) {
+    int line, column;
+    bool hasDone;
+    while (is >> line >> column >> hasDone) {
+        dynamic_cast<Place*>(locations[line][column])->setHasDone(hasDone);
+    }
+}
+
+void Map::showMap(std::ostream &os) {
+    for (int i = 0; i <= 9; i++)
+        for (int j = 0; j <= 9; j++)
+        {
+            if (locations[i][j]->isPlace())
+            {
+                Place *place = dynamic_cast<Place*>(locations[i][j]);
+                os << i << " " << j << " " << place->getHasDone() << endl;
+            }
+        }
+
+}
 
 #endif //GAMETOWER_MAP_H

@@ -7,11 +7,15 @@
 
 #include <iostream>
 #include <string>
+#include "Map.h"
 
 class Creature {
 public:
     Creature(): hp(0), name("") {};
     Creature(int hp, std::string name): hp(hp), name(name) {};
+    void setHP(const int& hp) { this->hp = hp; }
+    int getHP() const { return hp; }
+    void setName(const std::string& name) { this->name = name; }
     std::string getName() const { return name; }
     void getDamaged(int damage){ hp-=damage; };
 

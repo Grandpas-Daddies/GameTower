@@ -13,15 +13,28 @@ class Backpack {
 public:
     Backpack();
     void addItem(Item item);
-    void showItemList() const;
+    void showItemList(std::ostream &os = std::cout) const;
+    void loadItemList(std::istream &is = std::cin);
 private:
     std::vector<std::pair<Item,int>> items;
 
 };
 
-void Backpack::showItemList() const {
+void Backpack::showItemList(std::ostream &os) const {
     for (auto &item : items) {
-        std::cout << item.first.getName() << " " << item.second << std::endl;
+         os << item.first.getName() << " " << item.second << std::endl;
+    }
+    if (items.empty()) {
+        os << "0" << std::endl;
+    }
+}
+
+void Backpack::loadItemList(std::istream &is) {
+    std::string name;
+    int num;
+    while (is >> name >> num) {
+        Item item(name);
+        items.emplace_back(item, num);
     }
 }
 
@@ -36,7 +49,7 @@ void Backpack::addItem(Item item) {
 }
 
 Backpack::Backpack() {
-
+    items.clear();
 }
 
 
