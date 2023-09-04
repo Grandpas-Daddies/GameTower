@@ -9,7 +9,7 @@
 
 class Item {
 public:
-    Item();
+    Item(std::string name): name(name) {};
     std::string getName() const;
 private:
     std::string name;
@@ -18,10 +18,5 @@ private:
 std::string Item::getName() const {
     return name;
 }
-
-Item::Item() {
-
-}
-
 
 #endif //GAMETOWER1_ITEM_H

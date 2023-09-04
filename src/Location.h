@@ -47,6 +47,7 @@ public:
         type = 'p'; //place
     };
     void setHasDone(bool hasDone) { this->hasDone = hasDone; }
+    bool getHasDone() const { return hasDone; }
     string getName() const final { return name; }
     int getX() const final { return x; }
     int getY() const final { return y; }

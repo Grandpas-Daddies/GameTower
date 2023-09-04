@@ -18,7 +18,10 @@ using std::cout, std::cin, std::endl, std::ifstream, std::string;
 int main() {
     //setDPI();
     welcomePage();
-    Player player;
+    string name;
+    cout << "ÇëÊäÈëÄãµÄÃû×Ö£º";
+    cin >> name;
+    Player player(name);
     switch (switcher()) {
         case 0:
             newGame(player);

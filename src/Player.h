@@ -20,6 +20,7 @@ struct MapPosition {
 
 class Player : public Creature {
 public:
+    Player() = default;
     Player(string name);
     void printStatus() const;
     MapPosition& getPos() { return pos; }
@@ -32,6 +33,18 @@ public:
     void showWordList(std::ostream &os = std::cout) const {
         for (Word word : wordList) {
             os << word.getName() << " " << word.getEffect() << std::endl;
+        }
+        if (wordList.empty()) {
+            os << "0" << std::endl;
+        }
+    }
+    void loadWordList(std::istream &is = std::cin) {
+        int length;
+        std::string name;
+        char effect;
+        while (is >> length >> name >> effect) {
+            Word word(length, name, effect);
+            wordList.push_back(word);
         }
     }
 private:
