@@ -102,41 +102,43 @@ void FightScene::typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower
             next = _getch();
         }
         if (next <= 'z' && next >= 'a') {
-            int flag = 0, flag2 = 0;
+            bool existWrong = 0, existUnfinished = 0;
             for (int i = upper.size() - 1; i >= 0; i--) {
                 int cur = upper[i].getCur();
                 if (!upper[i].getState() && cur != 0) {
-                    flag2 = 1;
+                    existUnfinished = 1;
                     if (upper[i].getString()[cur] == next) {
                         upper[i].changeColor(upper[i].getCur(), 5);
                         upper[i].changeCur(cur + 1);
                         updatePrint(upper, lower);
                         int state = deeper(t, upper[i], upper, lower);
-                        if (state == -1) {
-                            flag = 1;
-                            flag2 = 0;
+                        if (state == -1) {//deeper进行时打错字了
+                            existWrong = 1;
+                            existUnfinished = 0;
                             break;
                         } else if (state == 0 && upper[i].getCur() == upper[i].getLength()) {
                             upper[i].changeState(1);
                             updatePrint(upper, lower);
-                            flag2 = 0;
+                            existUnfinished = 0;
                             break;
                             //补写effects
+                        } else {
+                            //疑似是啥也不用干
                         }
-                    } else {
+                    } else {//没进deeper，直接打错字了
                         for (int j = 0; j < upper[i].getCur(); j++) {
                             upper[i].changeColor(j, 8);
                         }
                         upper[i].changeCur(0);
                         updatePrint(upper, lower);
-                        flag = 1;
+                        existWrong = 1;
                         break;
                     }
                 }
+                if(existUnfinished)break;
             }
             for (int i = upper.size() - 1; i >= 0; i--) {
-                if (flag)break;
-                if (flag2)break;
+                if (existWrong||existUnfinished)break;
                 if (!upper[i].getState() && next == upper[i].getString()[0] && !upper[i].getCur()) {
                     upper[i].changeColor(0, 5);
                     upper[i].changeCur(1);
@@ -149,46 +151,51 @@ void FightScene::typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower
                         updatePrint(upper, lower);
                         break;
                         //补写effects
+                    } else {
+                        existUnfinished = 1;
                     }
                 }
             }
         } else if (next <= 'Z' && next >= 'A') {
-            int flag = 0, flag2 = 0;
+            bool existWrong = 0, existUnfinished = 0;
             for (int i = lower.size() - 1; i >= 0; i--) {
                 int cur = lower[i].getCur();
                 if (!lower[i].getState() && cur != 0) {
-                    flag2 = 1;
+                    existUnfinished = 1;
                     if (lower[i].getString()[cur] == next) {
                         lower[i].changeColor(lower[i].getCur(), 5);
                         lower[i].changeCur(cur + 1);
                         updatePrint(upper, lower);
                         int state = deeper(t, lower[i], upper, lower);
-                        if (state == -1) {
-                            flag = 1;
-                            flag2 = 0;
+                        if (state == -1) {//deeper进行时打错字了
+                            existWrong = 1;
+                            existUnfinished = 0;
                             break;
-                        } else if (state == 0 && lower[i].getCur() == upper[i].getLength()) {
+                        } else if (state == 0 && lower[i].getCur() == upper[i].getLength()) {//写完了
                             lower[i].changeState(1);
                             updatePrint(upper, lower);
-                            flag2 = 0;
+                            existUnfinished = 0;
                             monster.getDamaged(1);
                             break;
                             //补写effects
+                        } else {
+                            //疑似是啥也不用干
                         }
-                    } else {
+                    } else {//没进deeper，直接打错字了
                         for (int j = 0; j < lower[i].getCur(); j++) {
                             lower[i].changeColor(j, 8);
                         }
                         lower[i].changeCur(0);
                         updatePrint(upper, lower);
-                        flag = 1;
+                        existWrong = 1;
+                        existUnfinished = 0;
                         break;
                     }
                 }
+                if(existUnfinished)break;
             }
             for (int i = lower.size() - 1; i >= 0; i--) {
-                if (flag)break;
-                if (flag2)break;
+                if (existWrong || existUnfinished)break;
                 if (!lower[i].getState() && next == lower[i].getString()[0] && !lower[i].getCur()) {
                     lower[i].changeColor(0, 5);
                     lower[i].changeCur(1);
@@ -202,6 +209,8 @@ void FightScene::typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower
                         monster.getDamaged(1);
                         break;
                         //补写effects
+                    } else {
+                        existUnfinished = 1;
                     }
                 }
             }
@@ -220,9 +229,9 @@ void FightScene::loadScene(Player &player) {
 
     //创造一个monster，后期改为读取
     std::vector<Word> temp;
-    Word word5(7, "AIRISGO", 'd');
-    Word word6(6, "ATTACK", 'd');
-    Word word7(5, "BADPE", 'd');
+    Word word5(7, "AIRISGA", 'd');
+    Word word6(6, "ATTACA", 'd');
+    Word word7(5, "BADPA", 'd');
     Word word8(2, "HAHA", 'd');
     Word word1(7, "airisgo", 'd');
     Word word2(6, "attack", 'd');
@@ -317,7 +326,7 @@ void FightScene::fallingDown(int speed1, int speed2, std::vector<Word> upper, st
         }
         typeAndColor(shownUpper, shownLower);
         cls();
-        if (monster.getHP() < 0 || player.getHP() < 0)return;
+        if(monster.getHP()<=0||player.getHP()<=0)return;
     }
     while (1) {
         for (int i = shownUpper.size() - 1; i > 0; i--) {
@@ -343,7 +352,7 @@ void FightScene::fallingDown(int speed1, int speed2, std::vector<Word> upper, st
         if (cnt == shownUpper.size() * 2)break;
         typeAndColor(shownUpper, shownLower);
         cls();
-        if (monster.getHP() < 0 || player.getHP() < 0)return;
+        if(monster.getHP()<=0||player.getHP()<=0)return;
     }
 }
 
