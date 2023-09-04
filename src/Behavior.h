@@ -126,6 +126,11 @@ void onMap(Player &player, Map &map) {
                 goodbye();
                 return;
             }
+            // F5
+            case 63: {
+                Map::printMap();
+                break;
+            }
             case '\r':
             case '\n': {
                 FightScene fightScene(getPlaceName(pos.line, pos.column));

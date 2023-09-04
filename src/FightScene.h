@@ -82,7 +82,7 @@ public:
 
     void showScene();//不停清屏展示新内容
     void showTutorial();//展示教程
-    void fallingDown(int speed1, int speed2, std::vector<Word> upper, std::vector<Word> lower,Player& player);
+    void fallingDown(int speed1, int speed2, std::vector<Word> upper, std::vector<Word> lower, Player &player);
 
     void typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower);
 
@@ -250,7 +250,7 @@ void FightScene::loadScene(Player &player) {
     lower.push_back(word7);
     lower.push_back(word8);
     upper = tutorialMonster.deliverWord();
-    monster=tutorialMonster;
+    monster = tutorialMonster;
     while (player.getHP() > 0 && monster.getHP() > 0) {
         srand((unsigned int) time(NULL));
         int j = 0;
@@ -276,14 +276,14 @@ void FightScene::loadScene(Player &player) {
                 upper[i].changeColor(j, 8);
             }
         }
-        fallingDown(1, 1, upper, lower,player);
+        fallingDown(1, 1, upper, lower, player);
 
     }
     return;
 
 }
 
-void FightScene::fallingDown(int speed1, int speed2, std::vector<Word> upper, std::vector<Word> lower,Player& player) {
+void FightScene::fallingDown(int speed1, int speed2, std::vector<Word> upper, std::vector<Word> lower, Player &player) {
     //分两部分：怪物攻击侧的check及结算，玩家侧的check及结算。
 
     Word blank(-1, "", ' ');//特殊白板，长度为-1，与常规白板作区分
@@ -317,7 +317,7 @@ void FightScene::fallingDown(int speed1, int speed2, std::vector<Word> upper, st
         }
         typeAndColor(shownUpper, shownLower);
         cls();
-        if(monster.getHP()<0||player.getHP()<0)return;
+        if (monster.getHP() < 0 || player.getHP() < 0)return;
     }
     while (1) {
         for (int i = shownUpper.size() - 1; i > 0; i--) {
@@ -343,7 +343,7 @@ void FightScene::fallingDown(int speed1, int speed2, std::vector<Word> upper, st
         if (cnt == shownUpper.size() * 2)break;
         typeAndColor(shownUpper, shownLower);
         cls();
-        if(monster.getHP()<0||player.getHP()<0)return;
+        if (monster.getHP() < 0 || player.getHP() < 0)return;
     }
 }
 
