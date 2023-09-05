@@ -4,7 +4,7 @@
 
 #ifndef GAMETOWER1_FIGHT_SCENE_H
 #define GAMETOWER1_FIGHT_SCENE_H
-
+#define getPlaceName(x, y) dynamic_cast<Place*>(map.getLocation(x,y))->getName()
 #include <vector>
 #include "Monster.h"
 #include <time.h>
@@ -13,6 +13,8 @@
 #include "Interface.h"
 #include "Word.h"
 #include "Player.h"
+#include "Map.h"
+#include "Behavior.h"
 void cls();
 void updatePrint(std::vector<Word> upper, std::vector<Word> lower);
 int deeper(int &t, Word &word, std::vector<Word> &upper, std::vector<Word> &lower);
@@ -23,7 +25,7 @@ int deeper(int &t, Word &word, std::vector<Word> &upper, std::vector<Word> &lowe
 class FightScene {
 public:
     FightScene(string name) : name(name) {}
-
+    FightScene(std::string id,int b);
     void loadScene(Player &player);//外部调用接口
 
     void showScene();//展示框架，由loadScene调用
@@ -37,6 +39,18 @@ private:
     std::string name;
 
 };
+
+FightScene::FightScene(std::string id, int b) {
+    ifstream monsterFile("./Assets/Monster/" + id + ".txt");
+    string name,description;
+    int hp,damage;
+    monsterFile>>name>>description>>hp>>damage;
+    ifstream wordFile("./Assets/xxx" + id + ".txt");
+    std::vector<Word> wordlist;
+    //duru
+    Monster monster(hp,damage,wordlist,description);//没加name，先不搞
+    this->monster=monster;
+}
 
 void FightScene::typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower) {
     int t = 100;
