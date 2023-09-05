@@ -124,7 +124,6 @@ void onMap(Player &player) {
             }
             case 'q':
             case 'Q': {
-                goodbye();
                 return;
             }
             // F5
@@ -134,6 +133,7 @@ void onMap(Player &player) {
             }
             case '\r':
             case '\n': {
+
                 FightScene fightScene(getPlaceName(pos.line, pos.column));
                 fightScene.loadScene(player);
                 Map::printMap();
