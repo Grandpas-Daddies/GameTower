@@ -13,71 +13,25 @@
 #include "Interface.h"
 #include "Word.h"
 #include "Player.h"
+void cls();
+void updatePrint(std::vector<Word> upper, std::vector<Word> lower);
+int deeper(int &t, Word &word, std::vector<Word> &upper, std::vector<Word> &lower);
 
-void cls() {
-    for (int i = 1; i <= 15; i++) {
-        PosControl::setPos(i, 1);
-        for (int j = 1; j < 101; j++) {
-            cout << ' ';
-        }
-    }
-    for (int i = 1; i <= 15; i++) {
-        PosControl::setPos(i + 21, 1);
-        for (int j = 1; j < 101; j++) {
-            cout << ' ';
-        }
-    }
-}
 
-void updatePrint(std::vector<Word> upper, std::vector<Word> lower) {
-    //cls();
-    for (int i = 0; i < upper.size(); i++) {
-        PosControl::setPos(i + 1, 1);
-        upper[i].putWord();
-        PosControl::setPos(i + 22, 1);
-        lower[i].putWord();
-    }
-}
 
-int deeper(int &t, Word &word, std::vector<Word> &upper, std::vector<Word> &lower) {
-    while (t-- >= 0) {
-        char next = ' ';
-        int cur = word.getCur();
-        Sleep(5);
-        if (_kbhit()) {
-            next = _getch();
-        }
-        if (next == word.getString()[cur]) {
-            word.changeColor(cur, 5);
-            word.changeCur(cur + 1);
-            updatePrint(upper, lower);
-        } else if (next == ' ') {
-
-        } else {
-            for (int i = 0; i < cur; i++) {
-                word.changeColor(i, 8);
-            }
-            word.changeCur(0);
-            updatePrint(upper, lower);
-            return -1;
-        }
-        if (cur == word.getLength())return 0;
-    }
-    return 0;
-}
 
 class FightScene {
 public:
     FightScene(string name) : name(name) {}
 
-    void loadScene(Player &player);
+    void loadScene(Player &player);//外部调用接口
 
-    void showScene();//不停清屏展示新内容
-    void showTutorial();//展示教程
+    void showScene();//展示框架，由loadScene调用
+    void showTutorial();//展示教程，视情况由loadScene调用
     void fallingDown(int speed1, int speed2, std::vector<Word> upper, std::vector<Word> lower, Player &player);
-
+    //字符下落，由loadScene调用
     void typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower);
-
+    //调控打字变色并check，由loadScene调用
 private:
     Monster monster;//本关所面对的怪物
     std::string name;
@@ -215,7 +169,6 @@ void FightScene::typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower
 
 void FightScene::loadScene(Player &player) {
     showScene();
-    //showTutorial();
 
     PosControl::HideCursor();
 
@@ -360,6 +313,58 @@ void FightScene::showScene() {
 
 void FightScene::showTutorial() {
     std::cout << "教程" << std::endl;
+}
+
+void cls() {
+    for (int i = 1; i <= 15; i++) {
+        PosControl::setPos(i, 1);
+        for (int j = 1; j < 101; j++) {
+            cout << ' ';
+        }
+    }
+    for (int i = 1; i <= 15; i++) {
+        PosControl::setPos(i + 21, 1);
+        for (int j = 1; j < 101; j++) {
+            cout << ' ';
+        }
+    }
+}
+
+void updatePrint(std::vector<Word> upper, std::vector<Word> lower) {
+    //cls();
+    for (int i = 0; i < upper.size(); i++) {
+        PosControl::setPos(i + 1, 1);
+        upper[i].putWord();
+        PosControl::setPos(i + 22, 1);
+        lower[i].putWord();
+    }
+}
+
+int deeper(int &t, Word &word, std::vector<Word> &upper, std::vector<Word> &lower) {
+    while (t-- >= 0) {
+        char next = ' ';
+        int cur = word.getCur();
+        Sleep(5);
+        if (_kbhit()) {
+            next = _getch();
+        }
+        if (next == word.getString()[cur]) {
+            word.changeColor(cur, 5);
+            word.changeCur(cur + 1);
+            updatePrint(upper, lower);
+        } else if (next == ' ') {
+
+        } else {
+            for (int i = 0; i < cur; i++) {
+                word.changeColor(i, 8);
+            }
+            word.changeCur(0);
+            updatePrint(upper, lower);
+            return -1;
+        }
+        if (cur == word.getLength())return 0;
+    }
+    return 0;
 }
 
 #endif //GAMETOWER1_FIGHT_SCENE_H
