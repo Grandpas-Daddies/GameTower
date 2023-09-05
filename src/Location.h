@@ -46,8 +46,8 @@ public:
     Place(string name, int x, int y, bool isHidden = false) : x(x), y(y), name(name), isHidden(isHidden) {
         type = 'p'; //place
     };
-    void setHasDone(bool hasDone) { this->hasDone = hasDone; }
-    bool getHasDone() const { return hasDone; }
+    void setHasDone(int hasDone) { this->hasDone = hasDone; }
+    bool getHasDone() const { return hasDone == 1; }
     string getName() const final { return name; }
     int getX() const final { return x; }
     int getY() const final { return y; }
@@ -57,7 +57,7 @@ private:
     int y;
     string name;
     bool isHidden = false;
-    bool hasDone = false;
+    int hasDone = 0;
 };
 
 #endif //GAMETOWER_LOCATION_H

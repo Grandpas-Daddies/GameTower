@@ -20,7 +20,6 @@
 using std::cout, std::cin, std::endl, std::ifstream, std::string;
 
 
-
 namespace PosControl {
 
     int screen_width = GetSystemMetrics(SM_CXSCREEN);
@@ -89,7 +88,7 @@ void welcomePage() {
     char welcome;
     bool flagTab = false;
     while (welcomeFile.get(welcome)) {
-        if(kbhit()) {
+        if (kbhit()) {
             char c;
             c = getch();
             if (c == '\t') {
@@ -126,29 +125,35 @@ void welcomePage() {
 
         cout << endl << "\033[0m按下 \033[31m[Enter键] \033[0m继续..." << endl;
 
-        if(kbhit()){
+        if (kbhit()) {
             char c;
             c = getch();
             if (c == '\r' || c == '\n') {
-                PosControl::setPos(x+7, 0);
+                PosControl::setPos(x + 7, 0);
                 break;
             }
         }
     }
-    cout << "=======================================================================================================" << endl;
-    cout << endl << "    \033[0m请使用 \033[31m[Ctrl] \033[0m+ \033[31m滚轮 \033[0m调整控制台字体大小，确保以上分割线显示在同一行。" << endl;
+    cout << "======================================================================================================="
+         << endl;
+    cout << endl << "    \033[0m请使用 \033[31m[Ctrl] \033[0m+ \033[31m滚轮 \033[0m调整控制台字体大小，确保以上分割线显示在同一行。"
+         << endl;
     cout << endl << "\033[0m按下 \033[31m[Enter键] \033[0m继续..." << endl;
     while (1) {
-        if(kbhit()){
+        if (kbhit()) {
             char c;
             c = getch();
             if (c == '\r' || c == '\n') {
-                PosControl::setPos(x+8, 0);
-                cout << "                                                                                        " << endl;
-                cout << "                                                                                        " << endl;
-                cout << "                                                                                        " << endl;
-                cout << "                                                                                        " << endl;
-                PosControl::setPos(x+9, 0);
+                PosControl::setPos(x + 8, 0);
+                cout << "                                                                                        "
+                     << endl;
+                cout << "                                                                                        "
+                     << endl;
+                cout << "                                                                                        "
+                     << endl;
+                cout << "                                                                                        "
+                     << endl;
+                PosControl::setPos(x + 9, 0);
                 break;
             }
         }
@@ -159,17 +164,19 @@ int switcher(Menu menu[], int length) {
 
     int x, y;
 
-    cout << "使用 \033[31m[W] [S] \033[0m或 \033[31m[↑] [↓] \033[0m选择，按下 \033[31m[Enter键] \033[0m确认。" << endl << endl;
+    cout << "使用 \033[31m[W] [S] \033[0m或 \033[31m[↑] [↓] \033[0m选择，按下 \033[31m[Enter键] \033[0m确认。" << endl
+         << endl;
 
     PosControl::getPos(x, y);
-    PosControl::setPos(x,0);
+    PosControl::setPos(x, 0);
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
     for (int i = 0; i < length; i++) {
         cout << "    > " << menu[i].name << endl;
     }
     cout << endl;
-    cout << "=======================================================================================================" << endl;
+    cout << "======================================================================================================="
+         << endl;
 
     char c;
     int choice = 0;
@@ -215,6 +222,32 @@ void goodbye() {
         cout << logo << endl;
         Sleep(randInt(20, 50));
     }
+}
+
+void printMsg(string msgDir) {
+    ifstream msgFile(msgDir);
+    string msg;
+    while (getline(msgFile, msg)) {
+        for (char c: msg) {
+
+            if (c == '(') // set color to grey
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 8);
+            else if (c == ')') {// set color to white
+                cout << c;
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+                continue;
+            }
+            cout << c;
+            Sleep(50);
+        }
+        while (1) {
+            if (kbhit()) {
+                break;
+            }
+        }
+        cout << endl;
+    }
+    msgFile.close();
 }
 
 #endif //GAMETOWER_INTERFACE_H
