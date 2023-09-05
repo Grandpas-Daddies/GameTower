@@ -1,0 +1,21 @@
+(用-->连接的地方代表这几个txt文件连续触发，中间不给自由操作的机会，箭头中间有字代表只是剧情上连续，有字的地方允许自由活动)
+1.先进入大门，触发Background/校门.txt --> BeforeFight/校门.txt --> AfterFight/校门.txt
+    如果在进入大门之前去之后任何地方都触发Other/进门前.txt
+
+2.去迎新大厅，触发 Background/迎新大厅.txt --> BeforeFight/迎新大厅.txt --> AfterFight/迎新大厅.txt
+    如果去迎新大厅之前去了任何地方都触发Other/进迎新大厅前.txt
+
+3.去庆功宴会厅，触发 Background/庆功宴会厅.txt -移动到秘密会议室-> Background/秘密会议室 -->BeforeFight/秘密会议室.txt --> AfterFight/秘密会议室.txt
+                                         (如果移动到任何地方都触发Other/探险前.txt)
+
+4.去神秘的魔法墓地，触发 Background/神秘的魔法墓地.txt --> BeforeFight/神秘的魔法墓地.txt --> AfterFight/神秘的魔法墓地.txt
+    如果去神秘的魔法墓地之前去任何地方都会触发Other/战斗意志.txt
+
+5.去庆功宴会厅，触发 Other/决战信息.txt，此时如果去其他地方都触发各地的default
+
+!!! 特殊说明：在 第六步 之前任何时候去 战前准备营地都触发 Other/营地未建立.txt !!!
+
+6.去战前准备营地，触发 Other/战前准备.txt，此时如果去其他除了圣坛的地方都触发各地的default。但是如果去了圣坛，则触发 Other/去看看吧.txt
+
+7.去圣坛，触发 BeforeFight/圣坛.txt --> AfterFight/圣坛.txt 游戏流程到此结束，此时如果再来圣坛触发 Other/决战后的圣坛 ，如果去其他地方则触发default
+
