@@ -48,6 +48,7 @@ public:
         }
     }
 private:
+    int damage = 1;
     Map map;
     std::vector<Word> wordList;
     Backpack backpack;
