@@ -92,9 +92,10 @@ void Map::printMap(){
 
 void Map::loadMap(std::istream &is) {
     int line, column;
-    bool hasDone;
+    int hasDone;
     while (is >> line >> column >> hasDone) {
         dynamic_cast<Place*>(locations[line][column])->setHasDone(hasDone);
+        std::cout << line << " " << column << " " << hasDone << std::endl;
     }
 }
 

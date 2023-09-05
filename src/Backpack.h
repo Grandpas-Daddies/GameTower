@@ -25,14 +25,18 @@ void Backpack::showItemList(std::ostream &os) const {
          os << item.first.getName() << " " << item.second << std::endl;
     }
     if (items.empty()) {
-        os << "0" << std::endl;
+        os << "#" << std::endl;
     }
 }
 
 void Backpack::loadItemList(std::istream &is) {
     std::string name;
     int num;
-    while (is >> name >> num) {
+    while (is >> name) {
+        if (name == "#") {
+            return;
+        }
+        is >> num;
         Item item(name);
         items.emplace_back(item, num);
     }

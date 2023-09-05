@@ -12,6 +12,7 @@
 #include "Word.h"
 #include "Creature.h"
 #include "Map.h"
+#include "Interface.h"
 
 struct MapPosition {
     int line;
@@ -32,7 +33,7 @@ public:
     void setPos(int line, int column) { pos.line = line; pos.column = column; }
     void showWordList(std::ostream &os = std::cout) const {
         for (Word word : wordList) {
-            os << word.getName() << " " << word.getEffect() << std::endl;
+            os << word.getLength() << word.getName() << " " << word.getEffect() << std::endl;
         }
         if (wordList.empty()) {
             os << "0" << std::endl;
@@ -42,7 +43,11 @@ public:
         int length;
         std::string name;
         char effect;
-        while (is >> length >> name >> effect) {
+        while (is >> length) {
+            if (length == 0) {
+                return;
+            }
+            is >> name >> effect;
             Word word(length, name, effect);
             wordList.push_back(word);
         }
@@ -60,15 +65,17 @@ Player::Player(string name): Creature(100, name){}
 
 void Player::printStatus() const {
     PosControl::setPos(0,0);
-    cout << "\33[47;33m" << "Alex Potter" << "\33[0m" << endl;
+    cout << "Alex Potter" << "\33[0m" << endl;
     cout << endl;
     cout << "\33[47;33m" << "HP: " << "\33[0m" << hp << endl;
     cout << "\33[47;33m" << "Backpack: " << "\33[0m" << endl;
     backpack.showItemList();
+    cout << "\33[47;33m" << "WordList: " << "\33[0m" << endl;
+    showWordList();
     cout << endl;
-    cout << "按 \33[31m[Q] \33[0m退出游戏" << endl << endl;
-    cout << "按 \33[31m[W][A][S][D] \33[0m或 \33[31m[↑][←][↓][→] \33[0m移动" << endl << endl;
-    cout << "按 \33[31m[F5] \33[0m刷新地图" << endl << endl;
+    cout << "按 \33[31m[Q] \33[0m退出游戏" << endl;
+    cout << "按 \33[31m[W][A][S][D] \33[0m或 \33[31m[↑][←][↓][→] \33[0m移动" << endl;
+    cout << "按 \33[31m[F5] \33[0m刷新地图" << endl;
 }
 
 

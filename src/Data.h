@@ -21,19 +21,19 @@ bool dataExist(const string& name) {
 
 void saveData(Player &player) {
     // create data
-    std::ofstream dataFile(player.getName() + ".dat");
+    std::ofstream dataFile(player.getName() + ".dat", std::ios::trunc);
     // player main attributes
     dataFile << player.getHP() << ' ' << player.getName() << endl;
     // player position
     dataFile << player.getPos().line << ' ' << player.getPos().column << endl;
     // player backpack
-    dataFile << "B" << endl;
+    dataFile << "Backpack" << endl;
     player.getBackpack().showItemList(dataFile);
     // player word list
-    dataFile << "W" << endl;
+    dataFile << "WordList" << endl;
     player.showWordList(dataFile);
     // player map
-    dataFile << "M" << endl;
+    dataFile << "Map" << endl;
     player.getMap().showMap(dataFile);
 }
 
@@ -51,7 +51,7 @@ void init(Player& player) {
             case 0:
                 return;
             case 1:
-                break;
+                saveData(player);
         }
     }
     else
@@ -65,7 +65,6 @@ void loadData(Player &player)
 {
     if (dataExist(player.getName()))
     {
-        // if data exists, ask for loading
         std::ifstream dataFile(player.getName() + ".dat");
         // player main attributes
         int hp;
@@ -80,19 +79,19 @@ void loadData(Player &player)
         // player backpack
         string type;
         dataFile >> type;
-        if (type == "B")
+        if (type == "Backpack")
         {
             player.getBackpack().loadItemList(dataFile);
         }
         // player word list
         dataFile >> type;
-        if (type == "W")
+        if (type == "WordList")
         {
             player.loadWordList(dataFile);
         }
         // player map
         dataFile >> type;
-        if (type == "M")
+        if (type == "Map")
         {
             player.getMap().loadMap(dataFile);
         }
@@ -109,7 +108,6 @@ void newGame(Player &player) {
     system("cls");
     init(player);
     system("cls");
-    // ַ°ַי?
     loadGame(player);
     system("pause");
 }
