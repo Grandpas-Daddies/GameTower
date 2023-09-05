@@ -23,6 +23,7 @@ public:
     Location *getLocation(int line, int column) const { return locations[line][column]; }
     void loadMap(std::istream &is = std::cin);
     void showMap(std::ostream &os = std::cout);
+    void setNextPlaceUnlock(int line, int column);
 private:
     Location *locations[10][10]{};
 };
@@ -33,19 +34,19 @@ Map::Map() {
         for (int j = 0; j <= 9; j++)
             locations[i][j] = new Location();
 
-    locations[8][4] = new Place("校门", 34, 50);
+    locations[8][4] = new Place("校门", 34, 50, 6, 4, false);
     locations[7][4] = new Road(true);
-    locations[6][4] = new Place("迎新大厅", 26, 50);
+    locations[6][4] = new Place("迎新大厅", 26, 50, 4, 4);
     locations[5][4] = new Road(true);
-    locations[4][4] = new Place("庆功宴会厅", 18, 50, true);
+    locations[4][4] = new Place("庆功宴会厅", 18, 50, 4, 2);
     locations[3][4] = new Road(true);
-    locations[2][4] = new Place("圣坛", 8, 52);
-    locations[4][2] = new Place("战前准备营地",19, 13 ,true);
+    locations[2][4] = new Place("圣坛", 8, 52, 8, 4);
+    locations[4][2] = new Place("战前准备营地",19, 13, 4, 6);
     locations[4][3] = new Road(true);
     locations[4][5] = new Road(true);
-    locations[4][6] = new Place("秘密会议室", 18, 84);
+    locations[4][6] = new Place("秘密会议室", 18, 84, 2, 6);
     locations[2][5] = new Road(true);
-    locations[2][6] = new Place("神秘的魔法墓地", 6, 84);
+    locations[2][6] = new Place("神秘的魔法墓地", 6, 84, 2, 4);
 }
 
 void Map::printMap(){
@@ -92,10 +93,10 @@ void Map::printMap(){
 
 void Map::loadMap(std::istream &is) {
     int line, column;
-    int hasDone;
-    while (is >> line >> column >> hasDone) {
+    bool hasDone, isLocked;
+    while (is >> line >> column >> hasDone >> isLocked) {
         dynamic_cast<Place*>(locations[line][column])->setHasDone(hasDone);
-        std::cout << line << " " << column << " " << hasDone << std::endl;
+        dynamic_cast<Place*>(locations[line][column])->setIsLocked(isLocked);
     }
 }
 
@@ -106,10 +107,17 @@ void Map::showMap(std::ostream &os) {
             if (locations[i][j]->isPlace())
             {
                 Place *place = dynamic_cast<Place*>(locations[i][j]);
-                os << i << " " << j << " " << place->getHasDone() << endl;
+                os << i << " " << j << " " << place->getHasDone() << " " << place->getIsLocked() << endl;
             }
         }
 
+}
+
+void Map::setNextPlaceUnlock(int line, int column) {
+    int nextLine = dynamic_cast<Place*>(this->getLocation(line, column))->getNextLine();
+    int nextColumn = dynamic_cast<Place*>(this->getLocation(line, column))->getNextColumn();
+    dynamic_cast<Place*>(this->getLocation(nextLine, nextColumn))->setUnlock();
+    cout << dynamic_cast<Place*>(this->getLocation(nextLine, nextColumn))->getIsLocked();
 }
 
 #endif //GAMETOWER_MAP_H
