@@ -155,24 +155,17 @@ void welcomePage() {
     }
 }
 
-int switcher() {
-
-    Menu menu[3]{
-            "新游戏",
-            "加载游戏",
-            "退出游戏"
-    };
-
+int switcher(Menu menu[], int length) {
 
     int x, y;
 
-
+    cout << "使用 \033[31m[W] [S] \033[0m或 \033[31m[↑] [↓] \033[0m选择，按下 \033[31m[Enter键] \033[0m确认。" << endl << endl;
 
     PosControl::getPos(x, y);
     PosControl::setPos(x,0);
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < length; i++) {
         cout << "    > " << menu[i].name << endl;
     }
     cout << endl;
@@ -196,13 +189,13 @@ int switcher() {
             case 'W':
             case 72: // 72是上箭头
                 prevChoice = choice;
-                choice = (choice + 3 - 1) % 3;
+                choice = (choice + length - 1) % length;
                 break;
             case 's':
             case 'S':
             case 80: // 80是下箭头
                 prevChoice = choice;
-                choice = (choice + 1) % 3;
+                choice = (choice + 1) % length;
                 break;
             case '\r':
             case '\n':
@@ -217,10 +210,10 @@ int switcher() {
 void goodbye() {
     system("cls");
     ifstream creditsLogoFile("./Assets/.credit_logo");
-    char creditsLogo;
-    while (creditsLogoFile.get(creditsLogo)) {
-        cout << creditsLogo;
-        Sleep(randInt(20,40));
+    string logo;
+    while (getline(creditsLogoFile, logo)) {
+        cout << logo << endl;
+        Sleep(randInt(20, 50));
     }
 }
 

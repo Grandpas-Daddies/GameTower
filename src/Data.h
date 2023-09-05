@@ -38,12 +38,21 @@ void saveData(Player &player) {
 }
 
 void init(Player& player) {
-    string name;
-    cout << "请输入你的名字：";
-    cin >> name;
-    if (dataExist(name))
+    if (dataExist(player.getName()))
     {
         // if data exists, ask for loading
+        cout << "数据已存在，是否读取？" << endl;
+        Menu menu[2]{
+                "是",
+                "否"
+        };
+        switch (switcher(menu, 2))
+        {
+            case 0:
+                return;
+            case 1:
+                break;
+        }
     }
     else
     {
@@ -98,6 +107,9 @@ void loadData(Player &player)
 
 void newGame(Player &player) {
     system("cls");
+    init(player);
+    system("cls");
+    // 前情?
     loadGame(player);
     system("pause");
 }

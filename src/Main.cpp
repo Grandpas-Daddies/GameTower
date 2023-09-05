@@ -26,7 +26,12 @@ int main() {
     Player player(name);
     PosControl::setPos(x, 0);
     cout << "    你好，名为\033[5m " << name << " \033[0m的 Alex Potter！" << endl << endl;
-    switch (switcher()) {
+    Menu menu[3]{
+            "新游戏",
+            "加载游戏",
+            "退出游戏"
+    };
+    switch (switcher(menu, 3)) {
         case 0:
             newGame(player);
             break;
@@ -37,19 +42,5 @@ int main() {
             goodbye();
             return 0;
     }
-    system("cls");
-    system("pause");
-/*
-    atexit([]() {
-        system("cls");
-        ifstream dpiFile("currDPI.txt");
-        string dpi;
-        dpiFile >> dpi;
-        dpiFile.close();
-        string command = "SetDpi.exe " + dpi;
-        system(command.c_str());
-        remove("currDPI.txt");
-    });*/
-
     return 0;
 }
