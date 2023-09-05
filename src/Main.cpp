@@ -9,7 +9,7 @@
 #include <iostream>
 #include <csignal>
 #include "Interface.h"
-#include "Init.h"
+#include "Data.h"
 
 using std::cout, std::cin, std::endl, std::ifstream, std::string;
 
@@ -18,10 +18,14 @@ using std::cout, std::cin, std::endl, std::ifstream, std::string;
 int main() {
     //setDPI();
     welcomePage();
+    int x, y;
     string name;
     cout << "请输入你的名字：";
+    PosControl::getPos(x, y);
     cin >> name;
     Player player(name);
+    PosControl::setPos(x, 0);
+    cout << "    你好，名为\033[5m " << name << " \033[0m的 Alex Potter！" << endl << endl;
     switch (switcher()) {
         case 0:
             newGame(player);
