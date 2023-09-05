@@ -6,6 +6,7 @@
 #define GAMETOWER1_MONSTER_H
 #include <fstream>
 #include <iostream>
+#include <string>
 #include <vector>
 #include "Creature.h"
 #include "Word.h"
@@ -13,7 +14,7 @@
 class Monster : public Creature {
 public:
     Monster() = default;
-    Monster(int HP, int damage, std::vector<Word> wordList, const std::string& description);
+    Monster(int HP, int damage, std::vector<Word> wordList, const std::string description);
     std::vector<Word> deliverWord() { return this->wordList; }
     int getHP() { return hp; }
     std::string des() { return this->description; }
@@ -23,7 +24,7 @@ private:
     std::string description;
 };
 
-Monster::Monster(int HP, int damage, std::vector<Word> wordList, const std::string& description) {
+Monster::Monster(int HP, int damage, std::vector<Word> wordList, const std::string description) {
     this->damage = damage;
     this->wordList = wordList;
     this->hp = HP;

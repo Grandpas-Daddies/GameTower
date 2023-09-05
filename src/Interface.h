@@ -5,6 +5,10 @@
 #ifndef GAMETOWER_INTERFACE_H
 #define GAMETOWER_INTERFACE_H
 
+#include "Word.h"
+#include <time.h>
+//#include "Monster.h"
+#include <vector>
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -15,12 +19,7 @@
 
 using std::cout, std::cin, std::endl, std::ifstream, std::string;
 
-int randInt(int min, int max) {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(min, max);
-    return dis(gen);
-}
+
 
 namespace PosControl {
 
@@ -56,6 +55,13 @@ namespace PosControl {
     }
 
 
+    void HideCursor() {
+        CONSOLE_CURSOR_INFO cursor;
+        cursor.bVisible = FALSE;
+        cursor.dwSize = sizeof(cursor);
+        HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleCursorInfo(handle, &cursor);
+    }
 }
 
 void setDPI() {
@@ -67,10 +73,17 @@ struct Menu {
     string name;
 };
 
+int randInt(int min, int max) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(min, max);
+    return dis(gen);
+}
+
 void welcomePage() {
 
     PosControl::centerWindow();
-
+    PosControl::HideCursor();
     cout << "按下 \033[31m[Tab键] \033[0m跳过本段..." << endl << endl;
     ifstream welcomeFile("./Assets/.welcomePage");
     char welcome;
@@ -152,6 +165,9 @@ int switcher() {
 
 
     int x, y;
+
+
+
     PosControl::getPos(x, y);
     PosControl::setPos(x,0);
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
@@ -173,7 +189,7 @@ int switcher() {
         cout << "    > " << menu[prevChoice].name;
 
         PosControl::setPos(x + choice, y);
-        cout << "\33[43;37m" << "    > " << menu[choice].name << "\33[0m";
+        cout << "    \33[43;37m> " << menu[choice].name << "\33[0m";
         c = getch();
         switch (c) {
             case 'w':
@@ -199,8 +215,13 @@ int switcher() {
 }
 
 void goodbye() {
-    // TODO: exit page
-    cout << "exit page" << endl;
+    system("cls");
+    ifstream creditsLogoFile("./Assets/.credit_logo");
+    char creditsLogo;
+    while (creditsLogoFile.get(creditsLogo)) {
+        cout << creditsLogo;
+        Sleep(randInt(20,40));
+    }
 }
 
 #endif //GAMETOWER_INTERFACE_H

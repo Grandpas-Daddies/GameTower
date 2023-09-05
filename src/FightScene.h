@@ -66,14 +66,6 @@ int deeper(int &t, Word &word, std::vector<Word> &upper, std::vector<Word> &lowe
     return 0;
 }
 
-void HideCursor() {
-    CONSOLE_CURSOR_INFO cursor;
-    cursor.bVisible = FALSE;
-    cursor.dwSize = sizeof(cursor);
-    HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleCursorInfo(handle, &cursor);
-}
-
 class FightScene {
 public:
     FightScene(string name) : name(name) {}
@@ -225,7 +217,7 @@ void FightScene::loadScene(Player &player) {
     showScene();
     //showTutorial();
 
-    HideCursor();
+    PosControl::HideCursor();
 
     //创造一个monster，后期改为读取
     std::vector<Word> temp;
@@ -245,7 +237,7 @@ void FightScene::loadScene(Player &player) {
     temp.push_back(word2);
     temp.push_back(word3);
     temp.push_back(word4);
-    Monster tutorialMonster(2, 4, temp);
+    Monster tutorialMonster(2, 4, temp, "1");
 
     std::vector<Word> upper, lower;
 
