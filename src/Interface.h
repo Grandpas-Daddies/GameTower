@@ -79,26 +79,51 @@ int randInt(int min, int max) {
     return dis(gen);
 }
 
+void printMsg(string msgDir, bool singleLine = false) {
+    cout << "按下 \033[31m[Tab键] \033[0m跳过本段..." << endl << endl;
+    ifstream msgFile(msgDir);
+    string msg;
+    int x, y;
+    if (singleLine) {
+        PosControl::getPos(x, y);
+    }
+    while (getline(msgFile, msg)) {
+        if (singleLine) {
+            cout << "\33[2K";
+            PosControl::setPos(x, y);
+        }
+        bool flagTab = false;
+        for (char c: msg) {
+
+            if (c == '(') // set color to grey
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 8);
+            else if (c == ')') {// set color to white
+                cout << c;
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+                continue;
+            }
+            cout << c;
+            if (!flagTab) Sleep(5);
+            if (kbhit()) {
+                char c;
+                c = getch();
+                if (c == '\t') {
+                    flagTab = true;
+                }
+            }
+        }
+        Sleep(100);
+        cout << endl;
+    }
+    msgFile.close();
+}
+
 void welcomePage() {
 
     PosControl::centerWindow();
     PosControl::HideCursor();
-    cout << "按下 \033[31m[Tab键] \033[0m跳过本段..." << endl << endl;
-    ifstream welcomeFile("./Assets/.welcomePage");
-    char welcome;
-    bool flagTab = false;
-    while (welcomeFile.get(welcome)) {
-        if (kbhit()) {
-            char c;
-            c = getch();
-            if (c == '\t') {
-                flagTab = true;
-            }
-        }
-        if (!flagTab) Sleep(50);
-        cout << welcome;
-    }
-    welcomeFile.close();
+
+    printMsg("./Assets/.welcomePage");
 
     cout << endl << endl;
     for (int i = 0; i < 103; i++) {
@@ -224,30 +249,6 @@ void goodbye() {
     }
 }
 
-void printMsg(string msgDir) {
-    ifstream msgFile(msgDir);
-    string msg;
-    while (getline(msgFile, msg)) {
-        for (char c: msg) {
 
-            if (c == '(') // set color to grey
-                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 8);
-            else if (c == ')') {// set color to white
-                cout << c;
-                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-                continue;
-            }
-            cout << c;
-            Sleep(50);
-        }
-        while (1) {
-            if (kbhit()) {
-                break;
-            }
-        }
-        cout << endl;
-    }
-    msgFile.close();
-}
 
 #endif //GAMETOWER_INTERFACE_H

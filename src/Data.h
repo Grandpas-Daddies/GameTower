@@ -34,6 +34,7 @@ void saveData(Player &player) {
     player.showWordList(dataFile);
     // player map
     dataFile << "Map" << endl;
+    dataFile << player.getMap().getProgress() << endl;
     player.getMap().showMap(dataFile);
 }
 
@@ -93,6 +94,9 @@ void loadData(Player &player)
         dataFile >> type;
         if (type == "Map")
         {
+            int progress;
+            dataFile >> progress;
+            player.getMap().setProgress(progress);
             player.getMap().loadMap(dataFile);
         }
     }

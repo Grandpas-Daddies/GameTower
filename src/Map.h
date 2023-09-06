@@ -23,8 +23,24 @@ public:
     Location *getLocation(int line, int column) const { return locations[line][column]; }
     void loadMap(std::istream &is = std::cin);
     void showMap(std::ostream &os = std::cout);
+//    void setProgress(int line, int column) {
+//        int formerLine = dynamic_cast<Place*>(locations[line][column])->getFormerLine();
+//        int formerColumn = dynamic_cast<Place*>(locations[line][column])->getFormerColumn();
+//        if (dynamic_cast<Place*>(locations[formerLine][formerColumn])->getHasDone()) {
+//            dynamic_cast<Place*>(locations[line][column])->setIsLocked(false);
+//        }
+//    }
+    void setHasDone(int line, int column) {
+        dynamic_cast<Place*>(locations[line][column])->setHasDone(true);
+        setProgress(currProgress + 1);
+    }
+    void setProgress(int progress);
+    int getProgress() const { return currProgress; }
+    string getDefaultMsgDir() const { return currDefaultMsgDir; }
 private:
     Location *locations[10][10]{};
+    int currProgress = 0;
+    string currDefaultMsgDir = "./Assets/Scene/Other/进门前.txt";
 };
 
 Map::Map() {
@@ -33,14 +49,14 @@ Map::Map() {
         for (int j = 0; j <= 9; j++)
             locations[i][j] = new Location();
 
-    locations[8][4] = new Place("校门", 34, 50);
+    locations[8][4] = new Place("校门", 34, 50, false);
     locations[7][4] = new Road(true);
     locations[6][4] = new Place("迎新大厅", 26, 50);
     locations[5][4] = new Road(true);
-    locations[4][4] = new Place("庆功宴会厅", 18, 50, true);
-    locations[3][4] = new Road(true);
+    locations[4][4] = new Place("庆功宴会厅", 18, 50);
+    locations[3][6] = new Road(true);
     locations[2][4] = new Place("圣坛", 8, 52);
-    locations[4][2] = new Place("战前准备营地",19, 13 ,true);
+    locations[4][2] = new Place("战前准备营地", 19, 13);
     locations[4][3] = new Road(true);
     locations[4][5] = new Road(true);
     locations[4][6] = new Place("秘密会议室", 18, 84);
@@ -92,10 +108,10 @@ void Map::printMap(){
 
 void Map::loadMap(std::istream &is) {
     int line, column;
-    int hasDone;
-    while (is >> line >> column >> hasDone) {
+    bool hasDone, isLocked;
+    while (is >> line >> column >> hasDone >> isLocked) {
         dynamic_cast<Place*>(locations[line][column])->setHasDone(hasDone);
-        std::cout << line << " " << column << " " << hasDone << std::endl;
+        dynamic_cast<Place*>(locations[line][column])->setIsLocked(isLocked);
     }
 }
 
@@ -106,10 +122,54 @@ void Map::showMap(std::ostream &os) {
             if (locations[i][j]->isPlace())
             {
                 Place *place = dynamic_cast<Place*>(locations[i][j]);
-                os << i << " " << j << " " << place->getHasDone() << endl;
+                os << i << " " << j << " " << place->getHasDone() << " " << place->getIsLocked() << endl;
             }
         }
 
+}
+
+void Map::setProgress(int progress) {
+    currProgress = progress;
+    // set the progress (unlock the places)
+    switch (progress) { // 倒序放置，当导入新进度时，前面的场景也能解锁
+        case 5:
+            dynamic_cast<Place*>(locations[2][4])->setIsLocked(false);
+        case 4:
+            dynamic_cast<Place*>(locations[4][2])->setIsLocked(false);
+            dynamic_cast<Place*>(locations[4][4])->setIsLocked(false);
+        case 3:
+//            dynamic_cast<Road*>(locations[4][5])->setIsAccessible(true);
+            dynamic_cast<Place*>(locations[2][6])->setIsLocked(false);
+            dynamic_cast<Place*>(locations[4][4])->setIsLocked(true);
+        case 2:
+//            dynamic_cast<Road*>(locations[4][5])->setIsAccessible(false);
+            dynamic_cast<Place*>(locations[4][4])->setIsLocked(false);
+            dynamic_cast<Place*>(locations[4][6])->setIsLocked(false);
+        case 1:
+            dynamic_cast<Place*>(locations[6][4])->setIsLocked(false);
+        case 0:
+            dynamic_cast<Place*>(locations[8][4])->setIsLocked(false);
+
+    }
+    // set the default message directory, using "break"
+    switch (progress) {
+        case 0:
+            currDefaultMsgDir = "./Assets/Scene/Other/进门前.txt";
+            break;
+        case 1:
+            currDefaultMsgDir = "./Assets/Scene/Other/进迎新大厅前.txt";
+            break;
+        case 2:
+            currDefaultMsgDir = "./Assets/Scene/Other/探险前.txt";
+            break;
+        case 3:
+            currDefaultMsgDir = "./Assets/Scene/Other/战斗意志.txt";
+            break;
+        case 4:
+        case 5:
+            currDefaultMsgDir = "";
+            break;
+    }
 }
 
 #endif //GAMETOWER_MAP_H
