@@ -61,7 +61,7 @@ private:
     MapPosition lastPos = {8, 4};
 };
 
-Player::Player(string name): Creature(100, name){}
+Player::Player(string name): Creature(100, name){ curhp = hp; }
 
 void Player::printStatus() const {
     PosControl::setPos(0,0);
