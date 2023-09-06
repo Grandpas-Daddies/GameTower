@@ -43,27 +43,23 @@ private:
 
 class Place : public Location {
 public:
-    Place(string name, int x, int y, int nextLine, int nextColumn, bool isLocked = true) : x(x), y(y), name(name), isLocked(isLocked), nextLine(nextLine), nextColumn(nextColumn) {
+    Place(string name, int x, int y, bool isLocked = true)
+            : x(x), y(y), name(name), isLocked(isLocked) {
         type = 'p'; //place
     };
     void setHasDone(bool hasDone) { this->hasDone = hasDone; }
     bool getHasDone() const { return hasDone; }
-    void setUnlock() { isLocked = false; }
     bool getIsLocked() const { return isLocked; }
     void setIsLocked(bool isLocked) { this->isLocked = isLocked; }
     string getName() const final { return name; }
     int getX() const final { return x; }
     int getY() const final { return y; }
-    int getNextLine() const { return nextLine; }
-    int getNextColumn() const { return nextColumn; }
 private:
     int x;
     int y;
     string name;
     bool isLocked;
     bool hasDone = 0;
-    int nextLine;
-    int nextColumn;
 };
 
 #endif //GAMETOWER_LOCATION_H

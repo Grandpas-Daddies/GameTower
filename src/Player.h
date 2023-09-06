@@ -65,7 +65,7 @@ Player::Player(string name): Creature(100, name){}
 
 void Player::printStatus() const {
     PosControl::setPos(0,0);
-    cout << "Alex Potter" << "\33[0m" << endl;
+    cout << "\33[47;33m" << "Alex Potter" << "\33[0m" << endl;
     cout << endl;
     cout << "\33[47;33m" << "HP: " << "\33[0m" << hp << endl;
     cout << "\33[47;33m" << "Backpack: " << "\33[0m" << endl;
