@@ -29,6 +29,7 @@ Monster::Monster(int HP, int damage, std::vector<Word> wordList, const std::stri
     this->wordList = wordList;
     this->hp = HP;
     this->description = description;
+    this->curhp=hp;
 }
 
 std::vector<std::string> readMonsterDes(const std::string& filename) {
