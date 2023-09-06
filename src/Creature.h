@@ -17,11 +17,12 @@ public:
     int getHP() const { return hp; }
     void setName(const std::string& name) { this->name = name; }
     std::string getName() const { return name; }
-    void getDamaged(int damage){ hp-=damage; };
-
+    void getDamaged(int damage){ curhp-=damage; };
+    int getcurhp(){ return curhp; }
 protected:
     int hp; // health point
     std::string name;
+    int curhp;
 };
 
 #endif //GAMETOWER_CREATURE_H
