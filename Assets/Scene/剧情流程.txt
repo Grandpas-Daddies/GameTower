@@ -20,3 +20,5 @@
             此时如果去其他除了圣坛的地方都触发各地的default。但是如果去了圣坛，则触发 Other/去看看吧.txt
 
 [6] 去圣坛，触发 BeforeFight/圣坛.txt --> AfterFight/圣坛.txt 游戏流程到此结束，此时如果再来圣坛触发 Other/决战后的圣坛 ，如果去其他地方则触发default
+
+注：新增了失败文本和胜利文本。在所有beforefight后和afterfight前要插入胜利文本和失败文本的判断。
