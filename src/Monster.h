@@ -43,4 +43,42 @@ std::vector<std::string> readMonsterDes(const std::string& filename) {
 
     return descriptions;
 }
+
+std::vector<std::string> readMonsterWordList(const std::string& filename, int numLines) {
+    std::ifstream file("../Assets/" + filename);
+    std::vector<std::string> wordList;
+    std::string line;
+
+    for (int i = 0; i < numLines; ++i) {
+        if (std::getline(file, line)) { // read only one line
+            std::stringstream ss(line);
+            std::string word;
+
+            while (std::getline(ss, word, ' '))
+                wordList.push_back(word);
+        }
+        else
+            break; // stop if there are no more lines in the file
+    }
+    return wordList;
+}
+
+Monster createMonster(const std::string&filename, int hp, int damage,int numLines) {
+    std::vector<std::string> wordList = readMonsterWordList(filename, numLines);
+    std::vector<Word> words;
+    std::ifstream file("../Assets/" + filename);
+
+    for (const auto& word_str : wordList) {
+        int length = word_str.size();
+        char effect = 'd';
+        Word word(length, word_str, effect);
+        words.push_back(word);
+    }
+    std::vector<std::string> descriptions = readMonsterDes(".monsterDes");
+    std::string description;
+    for (const auto& desc : descriptions)
+        description += desc + " ";
+
+    return Monster(hp, damage, words, description);
+}
 #endif //GAMETOWER1_MONSTER_H
