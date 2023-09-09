@@ -1,5 +1,5 @@
 //
-// Created by xiao on 2023-08-22.
+// Created by hang on 2023-08-22.
 //
 
 #ifndef GAMETOWER1_MONSTER_H
@@ -44,41 +44,13 @@ std::vector<std::string> readMonsterDes(const std::string& filename) {
     return descriptions;
 }
 
-std::vector<std::string> readMonsterWordList(const std::string& filename, int numLines) {
-    std::ifstream file("../Assets/" + filename);
-    std::vector<std::string> wordList;
-    std::string line;
+//Monster createMonster(int hp, int damage, std::string description) {
+//    std::vector<Word> wordList;
+//    Monster monster(hp, damage, wordList, description);
+//    // TODO: WordList
+//
+//    return monster;
+//}
 
-    for (int i = 0; i < numLines; ++i) {
-        if (std::getline(file, line)) {
-            std::stringstream ss(line);
-            std::string word;
 
-            while (std::getline(ss, word, ' '))
-                wordList.push_back(word);
-        }
-        else
-            break;
-    }
-    return wordList;
-}
-
-Monster createMonster(const std::string&filename, int hp, int damage,int numLines) {
-    std::vector<std::string> wordList = readMonsterWordList(filename, numLines);
-    std::vector<Word> words;
-    std::ifstream file("../Assets/" + filename);
-
-    for (const auto& word_str : wordList) {
-        int length = word_str.size();
-        char effect = 'd';
-        Word word(length, word_str, effect);
-        words.push_back(word);
-    }
-    std::vector<std::string> descriptions = readMonsterDes(".monsterDes");
-    std::string description;
-    for (const auto& desc : descriptions)
-        description += desc + " ";
-
-    return Monster(hp, damage, words, description);
-}
 #endif //GAMETOWER1_MONSTER_H

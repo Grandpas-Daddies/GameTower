@@ -111,7 +111,6 @@ bool FightScene::loadScene(Player &player) {//最主要的函数，万物的起源
     temp.push_back(word3);
     temp.push_back(word4);
     Monster tutorialMonster(2, 20, temp, "1");
-
     std::vector<Word> upper, lower;//核心单词表，直接源自monster和player，分别代表上下
 
     //lower = player.deliverWord();
