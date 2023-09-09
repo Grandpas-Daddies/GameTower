@@ -31,13 +31,14 @@ void Backpack::showItemList(std::ostream &os) const {
 
 void Backpack::loadItemList(std::istream &is) {
     std::string name;
+    int effect;
+    int cooldown;
     int num;
-    while (is >> name) {
+    while (is >> name >> effect >> cooldown >> num) {
         if (name == "#") {
             return;
         }
-        is >> num;
-        Item item(name);
+        Item item(name, effect, cooldown);
         items.emplace_back(item, num);
     }
 }
@@ -52,8 +53,21 @@ void Backpack::addItem(Item item) {
     items.emplace_back(item, 1);
 }
 
+// 到剧情进行到战前准备营地时，直接调用 Backpack()即可。物品说明和使用说明都包含在Background/战前准备营地.txt里了。
 Backpack::Backpack() {
     items.clear();
+
+    // 创建3个 MysteriousPotion 物品，每个回血50，冷却20秒
+    for (int i = 0; i < 3; ++i) {
+        Item mysteriousPotion("MysteriousPotion", 50, 20);
+        addItem(mysteriousPotion);
+    }
+
+    // 创建2个 WormVirus.exe 物品，每个让怪物扣血80，冷却30秒
+    for (int i = 0; i < 2; ++i) {
+        Item wormVirus("WormVirus.exe", -80, 30);
+        addItem(wormVirus);
+    }
 }
 
 
