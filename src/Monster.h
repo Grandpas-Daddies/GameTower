@@ -50,7 +50,7 @@ std::vector<std::string> readMonsterWordList(const std::string& filename, int nu
     std::string line;
 
     for (int i = 0; i < numLines; ++i) {
-        if (std::getline(file, line)) { // read only one line
+        if (std::getline(file, line)) {
             std::stringstream ss(line);
             std::string word;
 
@@ -58,7 +58,7 @@ std::vector<std::string> readMonsterWordList(const std::string& filename, int nu
                 wordList.push_back(word);
         }
         else
-            break; // stop if there are no more lines in the file
+            break;
     }
     return wordList;
 }
