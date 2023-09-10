@@ -47,7 +47,6 @@ private:
     Monster monster;//本关所面对的怪物
     std::string name;
 
-
 };
 
 void FightScene::showHP(Player &player) {
@@ -89,7 +88,7 @@ void FightScene::loadScene(Player &player) {//最主要的函数，万物的起源
     PosControl::HideCursor();//隐藏光标
 
     std::vector<Word> upper, lower;//核心单词表，直接源自monster和player，分别代表上下
-
+    player.playerWordlist(player.getMap().getProgress()+1);
     upper = monster.deliverWord();
     lower = player.deliverWord();
 
