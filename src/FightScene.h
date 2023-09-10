@@ -91,7 +91,7 @@ void FightScene::loadScene(Player &player) {//最主要的函数，万物的起源
     std::vector<Word> upper, lower;//核心单词表，直接源自monster和player，分别代表上下
 
     upper = monster.deliverWord();
-    lower = monster.deliverWord();
+    lower = player.deliverWord();
 
     showHP(player);//显示初始血量
     while (player.getCurrHP() > 0 && monster.getCurrHP() > 0) {//战斗循环，只要都没死就一直进行

@@ -20,9 +20,11 @@ public:
     void getDamaged(int damage){ currHP-=damage; };
     int getCurrHP(){ return currHP; }
     void resetCurrHP(){ currHP = hp; }
+    const std::vector<Word>& deliverWord() { return this->wordList; };
 protected:
     int hp; // health point
     std::string name;
+    std::vector<Word> wordList;
     int currHP;
 };
 
