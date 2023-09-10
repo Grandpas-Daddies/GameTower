@@ -18,22 +18,34 @@ struct MapPosition {
     int line;
     int column;
 };
+
 //player 伤害结算用word.getEffect() 里读出来的数字
 class Player : public Creature {
 public:
     Player() = default;
-    explicit Player(string name);
+
+    Player(string name);
+
     void printStatus() const;
-    MapPosition& getPos() { return pos; }
-    MapPosition& getLastPos() { return lastPos; }
-    std::vector<Word> deliverWord() { return this->wordList; }
-    int getHP() {return hp;}
-    Map& getMap() { return map; }
-    Backpack& getBackpack() { return backpack; }
-    void setPos(int line, int column) { pos.line = line; pos.column = column; }
+
+    MapPosition &getPos() { return pos; }
+
+    MapPosition &getLastPos() { return lastPos; }
+
+    int getHP() { return hp; }
+
+    Map &getMap() { return map; }
+
+    Backpack &getBackpack() { return backpack; }
+
+    void setPos(int line, int column) {
+        pos.line = line;
+        pos.column = column;
+    }
+
     void playerWordlist(int playerNumber); //读取玩家攻击词
     void showWordList(std::ostream &os = std::cout) const {
-        for (Word word : wordList) {
+        for (Word word: wordList) {
             os << word.getLength() << word.getName() << " " << word.getEffect() << std::endl;
         }
         os << "0" << std::endl;
@@ -52,19 +64,21 @@ public:
             wordList.push_back(word);
         }
     }
+
 private:
     int damage = 1; //应该用不到这个东西。玩家伤害结算都靠每个word的wordDamage
     Map map;
-    std::vector<Word> wordList;
     Backpack backpack;
     MapPosition pos = {8, 4};
     MapPosition lastPos = {8, 4};
 };
 
-Player::Player(string name): Creature(100, name){ currHP = hp; }
+Player::Player(string name) : Creature(100, name) {
+    currHP = hp;
+}
 
 void Player::printStatus() const {
-    PosControl::setPos(0,0);
+    PosControl::setPos(0, 0);
     cout << "\33[47;33m" << "Alex Potter" << "\33[0m" << endl;
     cout << endl;
     cout << "\33[47;33m" << "HP: " << "\33[0m" << hp << endl;
