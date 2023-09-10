@@ -42,7 +42,7 @@ public:
 private:
     std::string word;
     int length;
-    char effect; // h: heal, d: damage
+    int effect; // h: heal, d: damage
     bool isFinished; //用于实现变色打字，表示字是否被打完
     int position; //用于实现空格位置，随机化
     std::vector<int> color; //用于实现变色打字，表示每个字母的color属性
