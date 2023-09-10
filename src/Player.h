@@ -18,11 +18,11 @@ struct MapPosition {
     int line;
     int column;
 };
-
+//player 伤害结算用word.getEffect() 里读出来的数字
 class Player : public Creature {
 public:
     Player() = default;
-    Player(string name);
+    explicit Player(string name);
     void printStatus() const;
     MapPosition& getPos() { return pos; }
     MapPosition& getLastPos() { return lastPos; }
@@ -31,6 +31,7 @@ public:
     Map& getMap() { return map; }
     Backpack& getBackpack() { return backpack; }
     void setPos(int line, int column) { pos.line = line; pos.column = column; }
+    void playerWordlist(int playerNumber); //读取玩家攻击词
     void showWordList(std::ostream &os = std::cout) const {
         for (Word word : wordList) {
             os << word.getLength() << word.getName() << " " << word.getEffect() << std::endl;
@@ -39,6 +40,7 @@ public:
             os << "0" << std::endl;
         }
     }
+
     void loadWordList(std::istream &is = std::cin) {
         int length;
         std::string name;
@@ -53,7 +55,7 @@ public:
         }
     }
 private:
-    int damage = 1;
+    int damage = 1; //应该用不到这个东西。玩家伤害结算都靠每个word的wordDamage
     Map map;
     std::vector<Word> wordList;
     Backpack backpack;
@@ -78,7 +80,26 @@ void Player::printStatus() const {
     cout << "按 \33[31m[F5] \33[0m刷新地图" << endl;
 }
 
+void Player::playerWordlist(int playerNumber) {
+    int wordDamage[6] = {0, 1, 3, 5, 10, 20};
+    std::string numberString = std::to_string(playerNumber);
+    std::string filePath = "./Assets/.wordlistAttack";
+    std::ifstream file(filePath);
+    std::string line;
 
+    int lineNumber = 1;
+    while (std::getline(file, line)) {
+        if (lineNumber == playerNumber) {
+            std::istringstream iss(line);
+            std::string word;
+            while (iss >> word) {
+                wordList.push_back(Word(word.size(), word, wordDamage[playerNumber]));
+            }
+            break;
+        }
+        lineNumber++;
+    }
+}
 
 
 #endif //GAMETOWER1_HERO_H

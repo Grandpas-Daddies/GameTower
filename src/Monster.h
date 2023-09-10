@@ -36,7 +36,7 @@ void Monster::readMonsterData(int monsterNumber) {
     std::string filePath = "./Assets/.Monster" + numberString;
     std::ifstream file(filePath);
     std::string word;
-
+    wordList.clear();
     file >> hp;
     file >> damage;
     curhp = hp;
