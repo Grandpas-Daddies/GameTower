@@ -82,7 +82,8 @@ Word::Word(int length, std::string word, char effect) {
     this->length = length;
     this->effect = effect;
     this->word = word;
-    position = rand() % 101;
+    position = rand() % 101 - length - 1;
+    if(position<0)position=0;
     cur = 0;
     isFinished = 0;
     for (int i = 0; i < length; i++) {
