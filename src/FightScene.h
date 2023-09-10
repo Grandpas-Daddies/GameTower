@@ -5,6 +5,7 @@
 #ifndef GAMETOWER1_FIGHT_SCENE_H
 #define GAMETOWER1_FIGHT_SCENE_H
 #define getPlaceName(x, y) dynamic_cast<Place*>(map.getLocation(x,y))->getName()
+
 #include <vector>
 #include "Monster.h"
 #include <time.h>
@@ -14,59 +15,69 @@
 #include "Player.h"
 #include "Map.h"
 #include "Behavior.h"
-void cls();
-void updatePrint(std::vector<Word> upper, std::vector<Word> lower);
-int deeper(int &t, Word &word, std::vector<Word> &upper, std::vector<Word> &lower);
 
+void cls();
+
+void updatePrint(std::vector<Word> upper, std::vector<Word> lower);
+
+int deeper(int &t, Word &word, std::vector<Word> &upper, std::vector<Word> &lower);
 
 
 class FightScene {
 public:
-    FightScene(string name) : name(name) {}
-    FightScene(std::string id,int b);
-    bool loadScene(Player &player);//外部调用接口
+    FightScene(string name, int progress) : name(name), monster(progress+1) {};
+
+//    FightScene(std::string id, int b);
+
+    void loadScene(Player &player);//外部调用接口
+    bool checkWin(Player &player);
 
     void showScene();//展示框架，由loadScene调用
     void showTutorial();//展示教程，视情况由loadScene调用
     void fallingDown(int speed1, int speed2, std::vector<Word> upper, std::vector<Word> lower, Player &player);
+
     //字符下落，由loadScene调用
     void typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower);
+
     //调控打字变色并check，由loadScene调用
     void showHP(Player &player);
+    ~FightScene() = default;
+
 private:
     Monster monster;//本关所面对的怪物
     std::string name;
+
 
 };
 
 void FightScene::showHP(Player &player) {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-    PosControl::setPos(16,1);
-    cout<<"MonsterHP:";
-    int curhp,HP;
-    curhp=monster.getcurhp(),HP=monster.getHP();
-    cout<<curhp<<'/'<<HP;
-    for(int i=0;i<HP*80/HP;i++){
-        cout<<'_';
+    PosControl::setPos(16, 1);
+    cout << "MonsterHP:";
+    int curhp, HP;
+    curhp = monster.getCurrHP(), HP = monster.getHP();
+    cout << curhp << '/' << HP;
+    for (int i = 0; i < HP * 80 / HP; i++) {
+        cout << '_';
     }
-    PosControl::setPos(16,1);
-    cout<<"MonsterHP:";
-    cout<<curhp<<'/'<<HP;
-    for(int i=0;i<curhp*80/HP;i++){
-        cout<<'*';
+    PosControl::setPos(16, 1);
+    cout << "MonsterHP:";
+    cout << curhp << '/' << HP;
+    for (int i = 0; i < curhp * 80 / HP; i++) {
+        cout << '*';
     }
-    PosControl::setPos(21,1);
-    curhp=player.getcurhp(),HP=player.getHP();
-    cout<<"PlayerHP:";
-    cout<<curhp<<'/'<<HP;
-    for(int i=0;i<HP*80/HP;i++){
-        cout<<'_';
+    PosControl::setPos(21, 1);
+    curhp = player.getCurrHP(), HP = player.getHP();
+    cout << "PlayerHP:";
+    cout << curhp << '/' << HP;
+    for (int i = 0; i < HP * 80 / HP; i++) {
+        cout << '_';
     }
-    PosControl::setPos(21,1);
-    cout<<"PlayerHP:";
-    cout<<curhp<<'/'<<HP;
-    for(int i=0;i<curhp*80/HP;i++){
-        cout<<'*';
+    PosControl::setPos(21, 1);
+    cout << "PlayerHP:";
+    cout << curhp << '/' << HP;
+    for (int i = 0; i < curhp * 80 / HP; i++) {
+        cout << '*';
     }
 
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 8);
@@ -86,7 +97,7 @@ void FightScene::showHP(Player &player) {
 */
 
 
-bool FightScene::loadScene(Player &player) {//最主要的函数，万物的起源
+void FightScene::loadScene(Player &player) {//最主要的函数，万物的起源
     showScene();//打印一下边框
 
     PosControl::HideCursor();//隐藏光标
@@ -122,18 +133,14 @@ bool FightScene::loadScene(Player &player) {//最主要的函数，万物的起源
     upper.push_back(word7);
     upper.push_back(word8); */
 
-
-    Monster monster1(1);
-    upper = monster1.deliverWord();
-    lower = monster1.deliverWord();
-    monster = monster1;
+    upper = monster.deliverWord();
+    lower = monster.deliverWord();
 
     showHP(player);//显示初始血量
-    while (player.getcurhp() > 0 && monster.getcurhp() > 0) {//战斗循环，只要都没死就一直进行
-        srand((unsigned int) time(NULL));
+    while (player.getCurrHP() > 0 && monster.getCurrHP() > 0) {//战斗循环，只要都没死就一直进行
         int j = 0;
         for (int i = 0; i < upper.size(); i++) {
-            j = rand() % upper.size();
+            j = randInt(0, 100) % upper.size();
             Word tmp = upper[j];
             upper[j] = upper[i];
             upper[i] = tmp;
@@ -158,8 +165,7 @@ bool FightScene::loadScene(Player &player) {//最主要的函数，万物的起源
         //fallingDown是控制词往下掉的函数。
 
     }
-    if(player.getcurhp()<=0)return 0;
-    else return 1;
+    return;
 }
 
 void FightScene::fallingDown(int speed1, int speed2, std::vector<Word> upper, std::vector<Word> lower, Player &player) {
@@ -168,16 +174,16 @@ void FightScene::fallingDown(int speed1, int speed2, std::vector<Word> upper, st
     Word blank(-1, "", ' ');//特殊白板，长度为-1，与常规白板作区分
     std::vector<Word> shownUpper, shownLower;
     //单纯的词库有两个问题：1.一开始肯定不能全部输出，那我缺失这些空白没有人弥补；
-                    //  2.跑完一圈不好收拾，
-                    //  3.一行一个太挤，一行两个做不到。
-                    // 因此，使用shown系列表示具体区域，用白板表示空行，输出也方便。
+    //  2.跑完一圈不好收拾，
+    //  3.一行一个太挤，一行两个做不到。
+    // 因此，使用shown系列表示具体区域，用白板表示空行，输出也方便。
     for (int i = 0; i < 15; i++) {
         shownUpper.push_back(blank);
         shownLower.push_back(blank);
     }//先给上下都填上空白，之后再单双填词，以实现隔一行的效果
     int cur = 0, offset = 0;//这个cur用来判断当前进行到哪一个单词了
     while (cur < upper.size()) {//这是第一部分，词还没有完全进入shown区域内。
-        if(shownUpper[shownUpper.size()-1].getState()==0&&shownUpper[shownUpper.size()-1].getLength()>0){
+        if (shownUpper[shownUpper.size() - 1].getState() == 0 && shownUpper[shownUpper.size() - 1].getLength() > 0) {
             player.getDamaged(20);
             showHP(player);
         }//人物扣血的判定
@@ -206,10 +212,11 @@ void FightScene::fallingDown(int speed1, int speed2, std::vector<Word> upper, st
 
         cls();//手写的清屏，只清打字的区域
         showHP(player);//展示血量
-        if(monster.getcurhp()<=0||player.getcurhp()<=0)return;//死亡判断
+        if (monster.getCurrHP() <= 0 || player.getCurrHP() <= 0)
+            return;//死亡判断
     }
     while (1) {//这里跟上面的while其实差不多，只是不再塞入新的词，而是把已经在里面的词跑完。
-        if(shownUpper[shownUpper.size()-1].getState()==0&&shownUpper[shownUpper.size()-1].getLength()>0){
+        if (shownUpper[shownUpper.size() - 1].getState() == 0 && shownUpper[shownUpper.size() - 1].getLength() > 0) {
             player.getDamaged(20);
             showHP(player);
         }
@@ -237,7 +244,7 @@ void FightScene::fallingDown(int speed1, int speed2, std::vector<Word> upper, st
         typeAndColor(shownUpper, shownLower);
         cls();
         showHP(player);
-        if(monster.getcurhp()<=0||player.getcurhp()<=0)return;
+        if (monster.getCurrHP() <= 0 || player.getCurrHP() <= 0)return;
 
     }
 }
@@ -287,7 +294,7 @@ void FightScene::typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower
                         break;
                     }
                 }
-                if(existUnfinished)break;//如果存在没打完的词，就往后看了，不然会出现同时有多个未打完的词的情况。
+                if (existUnfinished)break;//如果存在没打完的词，就往后看了，不然会出现同时有多个未打完的词的情况。
             }
             for (int i = lower.size() - 1; i >= 0; i--) {//对于完整的词的判断。
                 if (existWrong || existUnfinished)break;//在这里也会有打错和没打完的情况，所以循环内也要写。
@@ -343,10 +350,10 @@ void FightScene::typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower
                         break;
                     }
                 }
-                if(existUnfinished)break;
+                if (existUnfinished)break;
             }
             for (int i = upper.size() - 1; i >= 0; i--) {
-                if (existWrong||existUnfinished)break;
+                if (existWrong || existUnfinished)break;
                 if (!upper[i].getState() && next == upper[i].getString()[0] && !upper[i].getCur()) {
                     upper[i].changeColor(0, 5);
                     upper[i].changeCur(1);
@@ -384,6 +391,11 @@ void FightScene::showScene() {
 
 void FightScene::showTutorial() {
     std::cout << "教程" << std::endl;
+}
+
+bool FightScene::checkWin(Player &player) {
+    if (player.getCurrHP() <= 0) return 0;
+    else return 1;
 }
 
 void cls() {

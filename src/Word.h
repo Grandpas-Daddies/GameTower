@@ -37,6 +37,8 @@ public:
 
     std::string getName() const { return word; }
 
+    ~Word() = default;
+
 private:
     std::string word;
     int length;

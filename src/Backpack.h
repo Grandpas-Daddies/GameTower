@@ -24,9 +24,7 @@ void Backpack::showItemList(std::ostream &os) const {
     for (auto &item : items) {
          os << item.first.getName() << " " << item.second << std::endl;
     }
-    if (items.empty()) {
-        os << "#" << std::endl;
-    }
+    os << "#" << std::endl;
 }
 
 void Backpack::loadItemList(std::istream &is) {
@@ -34,10 +32,11 @@ void Backpack::loadItemList(std::istream &is) {
     int effect;
     int cooldown;
     int num;
-    while (is >> name >> effect >> cooldown >> num) {
+    while (is >> name) {
         if (name == "#") {
             return;
         }
+        is  >> effect >> cooldown >> num;
         Item item(name, effect, cooldown);
         items.emplace_back(item, num);
     }

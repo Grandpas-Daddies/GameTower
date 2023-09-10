@@ -181,11 +181,19 @@ void onMap(Player &player) {
                         system("pause");
 
                         // FightScene
-                        FightScene fightScene(getPlaceName(pos.line, pos.column));
-                        fightScene.loadScene(player);
-
-                        // TODO: 加返回值标识是否胜利
-                        map.setHasDone(pos.line, pos.column);
+                        FightScene *currFightScene = new FightScene(getPlaceName(pos.line, pos.column), map.getProgress());
+                                currFightScene->loadScene(player);
+                        cout << 1 << endl;
+                        system("pause");
+                        if (currFightScene->checkWin(player)) map.setHasDone(pos.line, pos.column);
+                        else {
+                            system("cls");
+                            printMsg("./Assets/Scene/Other/失败.txt");
+                            player.setHP(100);
+                            player.resetCurrHP();
+                            system("pause");
+                        }
+                        delete currFightScene;
                     }
                 }
                 Map::printMap();

@@ -21,6 +21,14 @@ public:
     int getHP() { return hp; }
     std::string des() { return this->description; }
     void readMonsterData(int monsterNumber);
+    ~Monster() = default;
+//    Monster operator=(const Monster& monster) {
+//        this->hp = monster.hp;
+//        this->damage = monster.damage;
+//        this->wordList = monster.wordList;
+//        this->description = monster.description;
+//        return *this;
+//    }
 private:
     int damage;
     std::vector<Word> wordList;
@@ -28,7 +36,7 @@ private:
 };
 
 Monster::Monster(int monsterNumber) {
-    readMonsterData(monsterNumber);
+    this->readMonsterData(monsterNumber);
 }
 
 void Monster::readMonsterData(int monsterNumber) {
@@ -39,11 +47,12 @@ void Monster::readMonsterData(int monsterNumber) {
     wordList.clear();
     file >> hp;
     file >> damage;
-    curhp = hp;
+    currHP = hp;
     std::getline(file >> std::ws, description);
 
     while (file >> word)
         wordList.push_back(Word(word.size(), word, 'd'));
 
 }
+
 #endif //GAMETOWER1_MONSTER_H
