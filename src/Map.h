@@ -147,7 +147,9 @@ void Map::setProgress(int progress) {
             dynamic_cast<Place*>(locations[4][6])->setIsLocked(false);
         case 1:
             dynamic_cast<Place*>(locations[6][4])->setIsLocked(false);
+//            dynamic_cast<Road*>(locations[7][4])->setIsAccessible(true);
         case 0:
+//            dynamic_cast<Road*>(locations[7][4])->setIsAccessible(false);
             dynamic_cast<Place*>(locations[8][4])->setIsLocked(false);
 
     }

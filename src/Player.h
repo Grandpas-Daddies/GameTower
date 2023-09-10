@@ -36,9 +36,7 @@ public:
         for (Word word : wordList) {
             os << word.getLength() << word.getName() << " " << word.getEffect() << std::endl;
         }
-        if (wordList.empty()) {
-            os << "0" << std::endl;
-        }
+        os << "0" << std::endl;
     }
 
     void loadWordList(std::istream &is = std::cin) {
@@ -63,7 +61,7 @@ private:
     MapPosition lastPos = {8, 4};
 };
 
-Player::Player(string name): Creature(100, name){ curhp = hp; }
+Player::Player(string name): Creature(100, name){ currHP = hp; }
 
 void Player::printStatus() const {
     PosControl::setPos(0,0);
