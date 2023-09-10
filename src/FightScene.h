@@ -34,7 +34,7 @@ public:
 
     void showScene();//展示框架，由loadScene调用
     void showTutorial();//展示教程，视情况由loadScene调用
-    void fallingDown(int speed1, int speed2, std::vector<Word> upper, std::vector<Word> lower, Player &player);
+    void fallingDown(int speed1, int speed2, const std::vector<Word>& upper , const std::vector<Word>& lower , Player &player);
 
     //字符下落，由loadScene调用
     void typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower);
@@ -83,55 +83,12 @@ void FightScene::showHP(Player &player) {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 8);
 }
 
-/*FightScene::FightScene(std::string id, int b) {
-    ifstream monsterFile("./Assets/Monster/" + id + ".txt");
-    string name,description;
-    int hp,damage;
-    monsterFile>>name>>description>>hp>>damage;
-    ifstream wordFile("./Assets/xxx" + id + ".txt");
-    std::vector<Word> wordlist;
-    //duru
-    Monster monster(1);//没加name，先不搞
-    this->monster=monster;
-}
-*/
-
-
 void FightScene::loadScene(Player &player) {//最主要的函数，万物的起源
     showScene();//打印一下边框
 
     PosControl::HideCursor();//隐藏光标
 
-    //创造一个monster，后期改为读取
-    std::vector<Word> temp;
-    Word word5(7, "AIRISGA", 'd');
-    Word word6(6, "ATTACA", 'd');
-    Word word7(5, "BADPA", 'd');
-    Word word8(2, "HAHA", 'd');
-    Word word1(7, "airisgo", 'd');
-    Word word2(6, "attack", 'd');
-    Word word3(5, "badpe", 'd');
-    Word word4(2, "ha", 'd');
-    temp.push_back(word1);
-    temp.push_back(word2);
-    temp.push_back(word3);
-    temp.push_back(word4);
-    temp.push_back(word1);
-    temp.push_back(word2);
-    temp.push_back(word3);
-    temp.push_back(word4);
-
     std::vector<Word> upper, lower;//核心单词表，直接源自monster和player，分别代表上下
-
-    //lower = player.deliverWord();
-/*    upper.push_back(word5);
-    upper.push_back(word6);
-    upper.push_back(word7);
-    upper.push_back(word8);
-    upper.push_back(word5);
-    upper.push_back(word6);
-    upper.push_back(word7);
-    upper.push_back(word8); */
 
     upper = monster.deliverWord();
     lower = monster.deliverWord();
@@ -157,8 +114,8 @@ void FightScene::loadScene(Player &player) {//最主要的函数，万物的起源
             for (int j = 0; j < lower[i].getLength(); j++) {
                 lower[i].changeColor(j, 8);
             }
-            for (int i = 0; i < upper[i].getLength(); i++) {
-                upper[i].changeColor(j, 8);
+            for (int k = 0; k < upper[i].getLength(); k++) {
+                upper[i].changeColor(k, 8);
             }
         }//将词库初始化
         fallingDown(1, 1, upper, lower, player);//speed暂时没有用，
@@ -168,7 +125,7 @@ void FightScene::loadScene(Player &player) {//最主要的函数，万物的起源
     return;
 }
 
-void FightScene::fallingDown(int speed1, int speed2, std::vector<Word> upper, std::vector<Word> lower, Player &player) {
+void FightScene::fallingDown(int speed1, int speed2, const std::vector<Word>& upper, const std::vector<Word>& lower, Player &player) {
     //分两部分：怪物攻击侧的check及结算，玩家侧的check及结算。
 
     Word blank(-1, "", ' ');//特殊白板，长度为-1，与常规白板作区分
@@ -387,6 +344,13 @@ void FightScene::showScene() {
         cout << scene << endl;
     }
     sceneFile.close();
+    PosControl::setPos(17, 0);
+    printMsg("./Assets/Scene/BeforeFight/" + name + ".txt", true);
+    PosControl::setPos(17, 0);
+    // 清除四行
+    for (int i = 0; i < 4; i++) {
+        cout << "\033[2K"  << endl;
+    }
 }
 
 void FightScene::showTutorial() {

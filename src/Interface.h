@@ -80,16 +80,21 @@ int randInt(int min, int max) {
 }
 
 void printMsg(string msgDir, bool singleLine = false) {
-    cout << "按下 \033[31m[Tab键] \033[0m跳过本段..." << endl << endl;
+    if (!singleLine) cout << "按下 \033[31m[Tab键] \033[0m跳过本段..." << endl << endl;
     ifstream msgFile(msgDir);
     string msg;
     int x, y;
     if (singleLine) {
         PosControl::getPos(x, y);
     }
+    int x1 = x, y1 = y;
     while (getline(msgFile, msg)) {
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
         if (singleLine) {
-            cout << "\33[2K";
+            PosControl::setPos(x, y);
+            for (int i = x; i <= x1; i++) {
+                cout << "\33[2K" << endl;
+            }
             PosControl::setPos(x, y);
         }
         bool flagTab = false;
@@ -112,7 +117,13 @@ void printMsg(string msgDir, bool singleLine = false) {
                 }
             }
         }
+        if (singleLine) {
+            cout << endl;
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 8);
+            system("pause");
+        }
         Sleep(100);
+        PosControl::getPos(x1, y1);
         cout << endl;
     }
     msgFile.close();
