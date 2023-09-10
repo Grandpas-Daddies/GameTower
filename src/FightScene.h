@@ -37,7 +37,6 @@ public:
     void fallingDown(int speed1, int speed2, const std::vector<Word>& upper , const std::vector<Word>& lower , Player &player);
 
     //字符下落，由loadScene调用
-    void typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower);
 
     //调控打字变色并check，由loadScene调用
     void showHP(Player &player);
@@ -46,7 +45,11 @@ public:
 private:
     Monster monster;//本关所面对的怪物
     std::string name;
+    void showScene(Backpack &backpack);
 
+    void typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower, Player &player);
+
+    void useItem(Player &player, int effect);
 };
 
 void FightScene::showHP(Player &player) {
@@ -83,7 +86,7 @@ void FightScene::showHP(Player &player) {
 }
 
 void FightScene::loadScene(Player &player) {//最主要的函数，万物的起源
-    showScene();//打印一下边框
+    showScene(player.getBackpack());//打印一下边框
 
     PosControl::HideCursor();//隐藏光标
 
@@ -164,9 +167,11 @@ void FightScene::fallingDown(int speed1, int speed2, const std::vector<Word>& up
             PosControl::setPos(i + 22, 1);
             shownLower[i].putWord();
         }//输出一遍当前的shown
-        typeAndColor(shownUpper, shownLower);//核心函数，判断打字用的
+        typeAndColor(shownUpper, shownLower, player);//核心函数，判断打字用的
 
         cls();//手写的清屏，只清打字的区域
+        PosControl::setPos(18, 0);
+        player.getBackpack().printItemList();
         showHP(player);//展示血量
         if (monster.getCurrHP() <= 0 || player.getCurrHP() <= 0)
             return;//死亡判断
@@ -197,7 +202,7 @@ void FightScene::fallingDown(int speed1, int speed2, const std::vector<Word>& up
             if (shownLower[i].getLength() == -1)cnt++;
         }
         if (cnt == shownUpper.size() * 2)break;
-        typeAndColor(shownUpper, shownLower);
+        typeAndColor(shownUpper, shownLower, player);
         cls();
         showHP(player);
         if (monster.getCurrHP() <= 0 || player.getCurrHP() <= 0)return;
@@ -205,9 +210,10 @@ void FightScene::fallingDown(int speed1, int speed2, const std::vector<Word>& up
     }
 }
 
-void FightScene::typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower) {
+void FightScene::typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower, Player &player) {
     int t = 100;//hjr的妙手，通过多段短暂的sleep在一次刷屏间隙中能打多个字母
     char next = ' ';//next是下一个键盘敲得字符
+    int itemClock[10] = {0};
     while (t-- >= 0) {
         Sleep(5);
         next = ' ';
@@ -329,13 +335,37 @@ void FightScene::typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower
             }
 
         } else if (next <= '9' && next >= '0') {
-
+            if (itemClock[next - '0'] == 0)
+            {
+                useItem(player, player.getBackpack().getItemEffect(next - '0'));
+                player.getBackpack().useItem(next - '0');
+            }
+            itemClock[next-'0'] = player.getBackpack().getItemClock(next - '0');
+        }
+        for (int i = 0; i < 10; i++) {
+            if (itemClock[i] > 0) {
+                itemClock[i]--;
+            }
         }
 
     }
 }
 
-void FightScene::showScene() {
+void FightScene::useItem(Player& player, int effect) {
+
+    if (effect > 0) {
+        player.getDamaged(-effect);
+        if (player.getCurrHP() > player.getHP()) {
+            player.resetCurrHP();
+        }
+    }
+    if (effect < 0) {
+        monster.getDamaged(-effect);
+    }
+    return;
+}
+
+void FightScene::showScene(Backpack &backpack) {
     system("cls");
     ifstream sceneFile("./Assets/.fightScene");
     string scene;
@@ -350,6 +380,8 @@ void FightScene::showScene() {
     for (int i = 0; i < 4; i++) {
         cout << "\033[2K"  << endl;
     }
+    PosControl::setPos(18, 0);
+    backpack.printItemList();
 }
 
 void FightScene::showTutorial() {

@@ -35,6 +35,7 @@ void onMap(Player &player) {
     char c;
     // wasd
     while (1) {
+        if (map.getProgress() == 3) player.getBackpack().atProgress3();
         player.printStatus();
         cout << "\33[2;10H                    \33[0m";
         cout << "\33[2;0Hµ±Ç°Î»ÖÃ£º" << getPlaceName(pos.line, pos.column) << endl;

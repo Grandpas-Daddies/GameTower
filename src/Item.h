@@ -16,6 +16,8 @@ public:
     int getEffect() const { return effect; }
     int getCooldown() const { return cooldown; }
 
+    int getClock() const { return cooldown; }
+
 private:
     std::string name;
     int effect;
