@@ -140,6 +140,22 @@ void onMap(Player &player) {
                 Map::printMap();
                 break;
             }
+            case 'b':
+            case 'B': {
+                system("cls");
+                player.getBackpack().showItemList();
+                system("pause");
+                Map::printMap();
+                break;
+            }
+            case 'l':
+            case 'L': {
+                system("cls");
+                player.printWordList();
+                system("pause");
+                Map::printMap();
+                break;
+            }
             case '\r':
             case '\n': {
                 system("cls");

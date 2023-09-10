@@ -229,7 +229,7 @@ void FightScene::typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower
                             existWrong = 1;//存在错误
                             existUnfinished = 0;//打错了回到解放前，所以不存在没有完成的词了
                             break;
-                        } else if (state == 0 && lower[i].getCur() == upper[i].getLength()) {//写完了
+                        } else if (state == 0 && lower[i].getCur() == lower[i].getLength()) {//写完了
                             lower[i].changeState(1);//标记已完成
                             updatePrint(upper, lower);//genshin
                             existUnfinished = 0;//不存在没完成的词了
