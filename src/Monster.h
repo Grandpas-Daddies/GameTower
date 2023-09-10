@@ -51,7 +51,7 @@ void Monster::readMonsterData(int monsterNumber) {
     std::getline(file >> std::ws, description);
 
     while (file >> word)
-        wordList.push_back(Word(word.size(), word, 'd'));
+        wordList.push_back(Word(word.size(), word, damage));
 
 }
 

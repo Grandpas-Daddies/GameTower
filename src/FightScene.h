@@ -233,7 +233,7 @@ void FightScene::typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower
                             lower[i].changeState(1);//标记已完成
                             updatePrint(upper, lower);//genshin
                             existUnfinished = 0;//不存在没完成的词了
-                            monster.getDamaged(1);//怪物扣血，这里还要之后细写，总之是攻击侧的结算
+                            monster.getDamaged(lower[i].getEffect());//怪物扣血，这里还要之后细写，总之是攻击侧的结算
                             break;
                             //补写effects
                         } else {
