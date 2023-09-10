@@ -9,7 +9,6 @@
 #include "Monster.h"
 #include <time.h>
 #include <random>
-//#include "Player.h"
 #include "Interface.h"
 #include "Word.h"
 #include "Player.h"
@@ -73,7 +72,7 @@ void FightScene::showHP(Player &player) {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 8);
 }
 
-FightScene::FightScene(std::string id, int b) {
+/*FightScene::FightScene(std::string id, int b) {
     ifstream monsterFile("./Assets/Monster/" + id + ".txt");
     string name,description;
     int hp,damage;
@@ -81,10 +80,10 @@ FightScene::FightScene(std::string id, int b) {
     ifstream wordFile("./Assets/xxx" + id + ".txt");
     std::vector<Word> wordlist;
     //duru
-    Monster monster(hp,damage,wordlist,description);//没加name，先不搞
+    Monster monster(1);//没加name，先不搞
     this->monster=monster;
 }
-
+*/
 
 
 bool FightScene::loadScene(Player &player) {//最主要的函数，万物的起源
@@ -110,21 +109,25 @@ bool FightScene::loadScene(Player &player) {//最主要的函数，万物的起源
     temp.push_back(word2);
     temp.push_back(word3);
     temp.push_back(word4);
-    Monster tutorialMonster(2, 20, temp, "1");
 
     std::vector<Word> upper, lower;//核心单词表，直接源自monster和player，分别代表上下
 
     //lower = player.deliverWord();
-    upper.push_back(word5);
+/*    upper.push_back(word5);
     upper.push_back(word6);
     upper.push_back(word7);
     upper.push_back(word8);
     upper.push_back(word5);
     upper.push_back(word6);
     upper.push_back(word7);
-    upper.push_back(word8);
-    lower = tutorialMonster.deliverWord();
-    monster = tutorialMonster;
+    upper.push_back(word8); */
+
+
+    Monster monster1(1);
+    upper = monster1.deliverWord();
+    lower = monster1.deliverWord();
+    monster = monster1;
+
     showHP(player);//显示初始血量
     while (player.getcurhp() > 0 && monster.getcurhp() > 0) {//战斗循环，只要都没死就一直进行
         srand((unsigned int) time(NULL));

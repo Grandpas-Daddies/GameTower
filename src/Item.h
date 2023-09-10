@@ -1,5 +1,5 @@
 //
-// Created by xiao on 2023-08-22.
+// Created by hang on 2023-08-22.
 //
 
 #ifndef GAMETOWER1_ITEM_H
@@ -9,14 +9,17 @@
 
 class Item {
 public:
-    Item(std::string name): name(name) {};
-    std::string getName() const;
+    Item(std::string name, int effect, int cooldown)
+            : name(name), effect(effect), cooldown(cooldown) {}
+
+    std::string getName() const { return name; }
+    int getEffect() const { return effect; }
+    int getCooldown() const { return cooldown; }
+
 private:
     std::string name;
+    int effect;
+    int cooldown;
 };
-
-std::string Item::getName() const {
-    return name;
-}
 
 #endif //GAMETOWER1_ITEM_H
