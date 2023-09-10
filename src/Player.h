@@ -55,9 +55,9 @@ public:
         int i = 1;
         for (Word word: wordList) {
             SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
-            cout << i << ". " ;
+            cout << "[" << i << "] ";
             SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-            cout << word.getName() << " ";
+            cout << word.getName() << endl;
             i++;
         }
         cout << endl;
