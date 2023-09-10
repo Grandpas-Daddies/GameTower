@@ -140,7 +140,7 @@ void FightScene::fallingDown(int speed1, int speed2, const std::vector<Word>& up
     int cur = 0, offset = 0;//这个cur用来判断当前进行到哪一个单词了
     while (cur < upper.size()) {//这是第一部分，词还没有完全进入shown区域内。
         if (shownUpper[shownUpper.size() - 1].getState() == 0 && shownUpper[shownUpper.size() - 1].getLength() > 0) {
-            player.getDamaged(20);
+            player.getDamaged(monster.getDamage());
             showHP(player);
         }//人物扣血的判定
         for (int i = shownUpper.size() - 1; i > 0; i--) {
@@ -233,9 +233,9 @@ void FightScene::typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower
                             lower[i].changeState(1);//标记已完成
                             updatePrint(upper, lower);//genshin
                             existUnfinished = 0;//不存在没完成的词了
-                            monster.getDamaged(lower[i].getEffect());//怪物扣血，这里还要之后细写，总之是攻击侧的结算
+                            monster.getDamaged(lower[i].getEffect());//攻击侧结算应该写好了
                             break;
-                            //补写effects
+                            //补写effects （好像effects也改好了
                         } else {
                             //疑似是啥也不用干
                         }
@@ -264,7 +264,7 @@ void FightScene::typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower
                     } else if (state == 0 && lower[i].getCur() == upper[i].getLength()) {
                         lower[i].changeState(1);
                         updatePrint(upper, lower);
-                        monster.getDamaged(1);
+                        monster.getDamaged(lower[i].getEffect()); //不知道和上面有什么区别但我还是顺手改的和236一样了
                         break;
                         //补写effects
                     } else {

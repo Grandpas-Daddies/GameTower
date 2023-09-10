@@ -18,6 +18,7 @@ public:
     Monster(int monsterNumber);
     Monster(int HP, int damage, std::vector<Word> wordList, const std::string description);
 
+    int getDamage() { return damage; }
     int getHP() { return hp; }
     std::string des() { return this->description; }
     void readMonsterData(int monsterNumber);
