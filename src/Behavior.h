@@ -181,12 +181,15 @@ void onMap(Player &player) {
                         system("pause");
 
                         // FightScene
-                        FightScene *currFightScene = new FightScene(getPlaceName(pos.line, pos.column), map.getProgress());
-                                currFightScene->loadScene(player);
-                        cout << 1 << endl;
-                        system("pause");
-                        if (currFightScene->checkWin(player)) map.setHasDone(pos.line, pos.column);
-                        else {
+                        FightScene *currFightScene = new FightScene(getPlaceName(pos.line, pos.column),
+                                                                    map.getProgress());
+                        currFightScene->loadScene(player);
+                        if (currFightScene->checkWin(player)) {
+                            system("cls");
+                            map.setHasDone(pos.line, pos.column);
+                            printMsg("./Assets/Scene/AfterFight/" + getPlaceName(pos.line, pos.column) + ".txt");
+                            system("pause");
+                        } else {
                             system("cls");
                             printMsg("./Assets/Scene/Other/Ê§°Ü.txt");
                             player.setHP(100);
