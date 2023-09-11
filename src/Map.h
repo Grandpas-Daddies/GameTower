@@ -32,6 +32,7 @@ public:
 //    }
     void setHasDone(int line, int column) {
         dynamic_cast<Place*>(locations[line][column])->setHasDone(true);
+        if (line == 4 && column == 2);
         setProgress(currProgress + 1);
     }
     void setProgress(int progress);
@@ -129,24 +130,28 @@ void Map::showMap(std::ostream &os) {
 }
 
 void Map::setProgress(int progress) {
-    currProgress = progress;
+    currProgress = std::min(5,progress);
     // set the progress (unlock the places)
     switch (progress) { // 倒序放置，当导入新进度时，前面的场景也能解锁
-        case 5:
-            dynamic_cast<Place*>(locations[2][4])->setIsLocked(false);
         case 4:
+
             dynamic_cast<Place*>(locations[4][2])->setIsLocked(false);
-            dynamic_cast<Place*>(locations[4][4])->setIsLocked(false);
+            dynamic_cast<Place*>(locations[2][6])->setHasDone(true);
+            dynamic_cast<Place*>(locations[4][4])->setIsLocked(true);
+            dynamic_cast<Place*>(locations[4][4])->setHasDone(true);
         case 3:
 //            dynamic_cast<Road*>(locations[4][5])->setIsAccessible(true);
             dynamic_cast<Place*>(locations[2][6])->setIsLocked(false);
-            dynamic_cast<Place*>(locations[4][4])->setIsLocked(true);
+            dynamic_cast<Place*>(locations[4][4])->setHasDone(false);
+            dynamic_cast<Place*>(locations[4][6])->setHasDone(true);
         case 2:
 //            dynamic_cast<Road*>(locations[4][5])->setIsAccessible(false);
             dynamic_cast<Place*>(locations[4][4])->setIsLocked(false);
             dynamic_cast<Place*>(locations[4][6])->setIsLocked(false);
+            dynamic_cast<Place*>(locations[6][4])->setHasDone(true);
         case 1:
             dynamic_cast<Place*>(locations[6][4])->setIsLocked(false);
+            dynamic_cast<Place*>(locations[8][4])->setHasDone(true);
 //            dynamic_cast<Road*>(locations[7][4])->setIsAccessible(true);
         case 0:
 //            dynamic_cast<Road*>(locations[7][4])->setIsAccessible(false);

@@ -60,7 +60,7 @@ void FightScene::showHP(Player &player) {
     PosControl::setPos(16, 1);
     cout << "MonsterHP:";
     int curhp, HP;
-    curhp = monster.getCurrHP(), HP = monster.getHP();
+    curhp = std::max(0, monster.getCurrHP()), HP = monster.getHP();
     cout << curhp << '/' << HP;
     for (int i = 0; i < HP * 80 / HP; i++) {
         cout << '_';
@@ -72,7 +72,7 @@ void FightScene::showHP(Player &player) {
         cout << '*';
     }
     PosControl::setPos(21, 1);
-    curhp = player.getCurrHP(), HP = player.getHP();
+    curhp = std::max(0, player.getCurrHP()), HP = player.getHP();
     cout << "PlayerHP:";
     cout << curhp << '/' << HP;
     for (int i = 0; i < HP * 80 / HP; i++) {
@@ -342,8 +342,8 @@ void FightScene::typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower
 
             if (itemClock[next - '0'] == 0) {
                 if (player.getBackpack().isItemExist(next - '0')) {
-                    useItem(player, player.getBackpack().getItemEffect(next - '0'));
-                    player.getBackpack().useItem(next - '0');
+                    if (!player.getBackpack().useItem(next - '0'))
+                        useItem(player, player.getBackpack().getItemEffect(next - '0'));
                 }
             }
             if (player.getBackpack().isItemExist(next - '0'))
@@ -397,7 +397,7 @@ void FightScene::showTutorial() {
 
 bool FightScene::checkWin(Player &player) {
     if (player.getCurrHP() <= 0) return 0;
-    else return 1;
+    return 1;
 }
 
 void cls() {

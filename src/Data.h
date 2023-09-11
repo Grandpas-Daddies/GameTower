@@ -11,7 +11,7 @@
 #include "Player.h"
 #include "Behavior.h"
 
-bool dataExist(const string& name) {
+bool dataExist(const string &name) {
     string fileName = name + ".dat";
     std::ifstream dataFile(fileName);
     bool isOpen = dataFile.is_open();
@@ -38,40 +38,40 @@ void saveData(Player &player) {
     player.getMap().showMap(dataFile);
 }
 
-void init(Player& player) {
-    if (dataExist(player.getName()))
-    {
+void init(Player &player) {
+    if (dataExist(player.getName())) {
         // if data exists, ask for loading
         cout << "数据已存在，是否读取？" << endl;
         Menu menu[2]{
                 "是",
                 "否"
         };
-        switch (switcher(menu, 2))
-        {
+        switch (switcher(menu, 2)) {
             case 0:
                 return;
             case 1:
                 saveData(player);
+                player.getBackpack().progress0();
+                player.playerWordlist(player.getMap().getProgress() + 1);
         }
-    }
-    else
-    {
+    } else {
         saveData(player);
+        player.getBackpack().progress0();
+        player.playerWordlist(player.getMap().getProgress() + 1);
     }
 }
 
 void loadGame(Player &player);
-void loadData(Player &player)
-{
-    if (dataExist(player.getName()))
-    {
+
+void loadData(Player &player) {
+    if (dataExist(player.getName())) {
         std::ifstream dataFile(player.getName() + ".dat");
         // player main attributes
         int hp;
         string name;
         dataFile >> hp >> name;
         player.setHP(hp);
+        player.resetCurrHP();
         player.setName(name);
         // player position
         int line, column;
@@ -80,31 +80,44 @@ void loadData(Player &player)
         // player backpack
         string type;
         dataFile >> type;
-        if (type == "Backpack")
-        {
-            player.getBackpack().loadItemList(dataFile);
+        if (type == "Backpack") {
+            string itemName;
+            while (dataFile >> itemName) {
+                if (itemName == "#") {
+                    break;
+                }
+                int effect, cooldown, num;
+                dataFile >> effect >> cooldown >> num;
+                player.getBackpack().loadItemList(itemName, effect, cooldown, num);
+            }
         }
-        // player word list
+        dataFile.clear();
         dataFile >> type;
-        if (type == "WordList")
-        {
-            player.loadWordList(dataFile);
+        if (type == "WordList") {
+            int length;
+            std::string word;
+            int effect;
+            while (dataFile >> length) {
+                if (length == 0) {
+                    break;
+                }
+                dataFile >> word >> effect;
+                player.loadWordList(length, word, effect);
+            }
         }
-        // player map
+        dataFile.clear();
         dataFile >> type;
-        if (type == "Map")
-        {
+        if (type == "Map") {
             int progress;
             dataFile >> progress;
             player.getMap().setProgress(progress);
             player.getMap().loadMap(dataFile);
         }
-    }
-    else
-    {
-        // data does not exist, create new data
+    } else {
+        system("cls");
         cout << "数据不存在，创建新存档" << endl;
         saveData(player);
+        system("pause");
     }
 }
 
@@ -113,7 +126,6 @@ void newGame(Player &player) {
     init(player);
     system("cls");
     loadGame(player);
-    system("pause");
 }
 
 void loadGame(Player &player) {
@@ -124,8 +136,6 @@ void loadGame(Player &player) {
     goodbye();
     system("pause");
 }
-
-
 
 
 #endif //GAMETOWER_DATA_H

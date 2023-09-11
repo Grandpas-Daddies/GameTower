@@ -35,10 +35,9 @@ void onMap(Player &player) {
     char c;
     // wasd
     while (1) {
-        if (map.getProgress() == 4) player.getBackpack().progress4();
-        player.playerWordlist(player.getMap().getProgress() + 1);
-
+        map.setProgress(map.getProgress());
         player.printStatus();
+        cout << "current progress: " << map.getProgress() << endl;
         cout << "\33[2;10H                    \33[0m";
         cout << "\33[2;0H当前位置：" << getPlaceName(pos.line, pos.column) << endl;
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
@@ -182,7 +181,7 @@ void onMap(Player &player) {
                 system("cls");
                 if (getIsLocked(pos.line, pos.column)) {
 
-                    if (map.getProgress() < 5 && pos.line == 4 && pos.column == 2) {
+                    if (map.getProgress() < 3 && pos.line == 4 && pos.column == 2) {
                         printMsg("./Assets/Scene/Other/营地未建立.txt");
                     } else if (map.getProgress() == 4 || map.getProgress() == 5) {
                         printMsg("./Assets/Scene/Default/" + getPlaceName(pos.line, pos.column) + ".txt");
@@ -210,28 +209,47 @@ void onMap(Player &player) {
                             system("cls");
                             pos = {4, 6};
                             printMsg("./Assets/Scene/Background/" + getPlaceName(pos.line, pos.column) + ".txt");
+                        } else if (map.getProgress() == 3 && pos.line != 2 && pos.column != 6) {
+                            printMsg("./Assets/Scene/Other/战斗意志.txt");
                         } else if (map.getProgress() == 4 && pos.line == 4 && pos.column == 4) {
-                            printMsg("./Assets/Scene/Other/决战信息.txt");
-                        } else if (map.getProgress() == 5 && pos.line == 2 && pos.column == 4) {
+                            if (getIsLocked(2,4))
+                                printMsg("./Assets/Scene/Other/决战信息.txt");
+                            else printMsg("./Assets/Scene/Default/" + getPlaceName(pos.line, pos.column) + ".txt");
+                        } else if (map.getProgress() < 4 && pos.line == 2 && pos.column == 4) {
                             printMsg("./Assets/Scene/Other/去看看吧.txt");
                         } else printMsg("./Assets/Scene/Background/" + getPlaceName(pos.line, pos.column) + ".txt");
                         system("pause");
 
-                        if (pos.line == 4 && pos.column == 2);
+                        if (map.getProgress() == 4 && pos.line == 4 && pos.column == 2) {
+                            player.getBackpack().progress4();
+                            dynamic_cast<Place*>(map.getLocation(4,2))->setHasDone(true);
+                            dynamic_cast<Place*>(map.getLocation(2,4))->setIsLocked(false);
+                            dynamic_cast<Place*>(map.getLocation(4,4))->setIsLocked(true);
+                        }
+
+                        if ((pos.line == 4 && pos.column == 2) ||
+                            (pos.line == 4 && pos.column == 4));
                         else {// FightScene
+
+                            Backpack backupBackpack = player.getBackpack();
+                            int backupCurrHP = player.getCurrHP();
+
                             FightScene *currFightScene = new FightScene(getPlaceName(pos.line, pos.column),
                                                                         map.getProgress());
                             currFightScene->loadScene(player);
                             if (currFightScene->checkWin(player)) {
                                 system("cls");
                                 map.setHasDone(pos.line, pos.column);
+                                player.playerWordlist(player.getMap().getProgress() + 1);
+                                printMsg("./Assets/Scene/Other/胜利.txt");
+                                system("cls");
                                 printMsg("./Assets/Scene/AfterFight/" + getPlaceName(pos.line, pos.column) + ".txt");
                                 system("pause");
                             } else {
                                 system("cls");
                                 printMsg("./Assets/Scene/Other/失败.txt");
-                                player.setHP(100);
-                                player.resetCurrHP();
+                                player.setCurrHP(backupCurrHP);
+                                player.setBackpack(backupBackpack);
                                 system("pause");
                             }
                             delete currFightScene;
