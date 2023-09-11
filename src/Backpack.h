@@ -28,6 +28,8 @@ public:
 
     void atProgress3();
 
+    bool isItemExist(int index);
+
 private:
     std::vector<std::pair<Item,int>> items;
 
@@ -104,6 +106,10 @@ void Backpack::useItem(int index) {
 
 int Backpack::getItemEffect(int index) {
     return items[index].first.getEffect();
+}
+
+bool Backpack::isItemExist(int index) {
+    return items.size() > index;
 }
 
 

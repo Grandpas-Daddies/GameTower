@@ -23,16 +23,8 @@ public:
     std::string des() { return this->description; }
     void readMonsterData(int monsterNumber);
     ~Monster() = default;
-//    Monster operator=(const Monster& monster) {
-//        this->hp = monster.hp;
-//        this->damage = monster.damage;
-//        this->wordList = monster.wordList;
-//        this->description = monster.description;
-//        return *this;
-//    }
 private:
     int damage;
-
     std::string description;
 };
 
