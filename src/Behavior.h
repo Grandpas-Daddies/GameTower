@@ -37,7 +37,7 @@ void onMap(Player &player) {
     while (1) {
         map.setProgress(map.getProgress());
         player.printStatus();
-        cout << "current progress: " << map.getProgress() << endl;
+//        cout << "current progress: " << map.getProgress() << endl;
         cout << "\33[2;10H                    \33[0m";
         cout << "\33[2;0Hµ±Ç°Î»ÖÃ£º" << getPlaceName(pos.line, pos.column) << endl;
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
