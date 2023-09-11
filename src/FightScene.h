@@ -182,7 +182,7 @@ void FightScene::fallingDown(int speed1, int speed2, const std::vector<Word> &up
     }
     while (1) {//这里跟上面的while其实差不多，只是不再塞入新的词，而是把已经在里面的词跑完。
         if (shownUpper[shownUpper.size() - 1].getState() == 0 && shownUpper[shownUpper.size() - 1].getLength() > 0) {
-            player.getDamaged(20);
+            player.getDamaged(monster.getDamage());
             showHP(player);
         }
         for (int i = shownUpper.size() - 1; i > 0; i--) {
@@ -340,11 +340,15 @@ void FightScene::typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower
             }
 
         } else if (next <= '9' && next >= '0') {
+
             if (itemClock[next - '0'] == 0) {
-                useItem(player, player.getBackpack().getItemEffect(next - '0'));
-                player.getBackpack().useItem(next - '0');
+                if (player.getBackpack().isItemExist(next - '0')) {
+                    useItem(player, player.getBackpack().getItemEffect(next - '0'));
+                    player.getBackpack().useItem(next - '0');
+                }
             }
-            itemClock[next - '0'] = player.getBackpack().getItemClock(next - '0');
+            if (player.getBackpack().isItemExist(next - '0'))
+                itemClock[next - '0'] = player.getBackpack().getItemClock(next - '0');
         }
         for (int i = 0; i < 10; i++) {
             if (itemClock[i] > 0) {

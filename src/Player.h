@@ -78,7 +78,7 @@ public:
     }
 
 private:
-    int damage = 1; //应该用不到这个东西。玩家伤害结算都靠每个word的wordDamage
+    //应该用不到这个东西。玩家伤害结算都靠每个word的wordDamage
     Map map;
     Backpack backpack;
     MapPosition pos = {8, 4};
