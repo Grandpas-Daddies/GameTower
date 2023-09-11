@@ -74,7 +74,7 @@ int randInt(int min, int max) {
     return dis(gen);
 }
 
-void printMsg(string msgDir, bool singleLine = false) {
+void printMsg(string msgDir, bool singleLine = false, bool noCD = false) {
     if (!singleLine) cout << "按下 \033[31m[Tab键] \033[0m跳过本段..." << endl << endl;
     ifstream msgFile(msgDir);
     string msg;
@@ -104,7 +104,7 @@ void printMsg(string msgDir, bool singleLine = false) {
             }
             cout << c;
             if (!flagTab) Sleep(5);
-            if (kbhit()) {
+            if (!noCD && kbhit()) {
                 char c;
                 c = getch();
                 if (c == '\t') {
