@@ -94,7 +94,6 @@ void FightScene::loadScene(Player &player) {//最主要的函数，万物的起源
     PosControl::HideCursor();//隐藏光标
 
     std::vector<Word> upper, lower;//核心单词表，直接源自monster和player，分别代表上下
-    player.playerWordlist(player.getMap().getProgress() + 1);
     upper = monster.deliverWord();
     lower = player.deliverWord();
 
@@ -174,8 +173,8 @@ void FightScene::fallingDown(int speed1, int speed2, const std::vector<Word> &up
         typeAndColor(shownUpper, shownLower, player);//核心函数，判断打字用的
 
         cls();//手写的清屏，只清打字的区域
-        PosControl::setPos(18, 0);
-        player.getBackpack().printItemList();
+        PosControl::setPos(17, 0);
+        player.getBackpack().printItemList(1);
         showHP(player);//展示血量
         if (monster.getCurrHP() <= 0 || player.getCurrHP() <= 0)
             return;//死亡判断
@@ -386,10 +385,10 @@ void FightScene::showScene(Backpack &backpack) {
     PosControl::setPos(17, 0);
     // 清除四行
     for (int i = 0; i < 4; i++) {
-        cout << "\033[2K" << endl;
+        cout << "\33[2K" << endl;
     }
-    PosControl::setPos(18, 0);
-    backpack.printItemList();
+    PosControl::setPos(17, 0);
+    backpack.printItemList(1);
 }
 
 void FightScene::showTutorial() {

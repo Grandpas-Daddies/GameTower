@@ -12,13 +12,16 @@
 class Backpack {
 public:
     Backpack() = default;
+
     void addItem(Item item);
+
     void showItemList(std::ostream &os = std::cout) const;
+
     void loadItemList(std::istream &is = std::cin);
 
-    void printItemList();
+    void printItemList(bool atFightScene);
 
-    std::vector<std::pair<Item, int>> & getItemList();
+    std::vector<std::pair<Item, int>> &getItemList();
 
     int getItemClock(int index);
 
@@ -26,19 +29,22 @@ public:
 
     int getItemEffect(int index);
 
-    void atProgress3();
+    void progress0();
+
+    void progress4();
 
     bool isItemExist(int index);
 
 private:
-    std::vector<std::pair<Item,int>> items;
+    std::vector<std::pair<Item, int>> items;
+    int size;
 
 
 };
 
 void Backpack::showItemList(std::ostream &os) const {
-    for (auto &item : items) {
-         os << item.first.getName() << " " << item.second << std::endl;
+    for (auto &item: items) {
+        os << item.first.getName() << " " << item.second << std::endl;
     }
     os << "#" << std::endl;
 }
@@ -52,36 +58,60 @@ void Backpack::loadItemList(std::istream &is) {
         if (name == "#") {
             return;
         }
-        is  >> effect >> cooldown >> num;
+        is >> effect >> cooldown >> num;
         Item item(name, effect, cooldown);
         items.emplace_back(item, num);
     }
 }
 
-void Backpack::printItemList() {
-    // 遍历物品在vector中的下标并输出
-    for (int i = 0; i < items.size(); ++i) {
+void Backpack::printItemList(bool atFightScene) {
+    for (int i = 0; i < size; i++) {
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
-        std::cout << "\t" << "[" <<  i  << "] ";
+        std::cout << "\t" << "[" << i << "] ";
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-        std::cout << items[i].first.getName() << " " << items[i].second << endl;
+        std::cout << items[i].first.getName() << " 存量: " << items[i].second << " ";
+        if (!atFightScene) {
+            cout << endl << "\t\t";
+        }
+        if (items[i].first.getEffect() > 0) {
+            cout << "回血" << items[i].first.getEffect() << "，冷却" << items[i].first.getClock() << "个时间刻" << endl;
+        }
+        if (items[i].first.getEffect() < 0) {
+            cout << "造成" << -items[i].first.getEffect() << "点伤害，冷却" << items[i].first.getClock() << "个时间刻"
+                 << endl;
+        }
     }
 
 }
 
 void Backpack::addItem(Item item) {
-    for(auto &i : items) {
-        if(i.first.getName() == item.getName()) {
+    for (auto &i: items) {
+        if (i.first.getName() == item.getName()) {
             i.second++;
             return;
         }
     }
     items.emplace_back(item, 1);
+    size++;
+}
+
+void Backpack::progress0() {
+    items.clear();
+
+    for (int i = 0; i < 6; ++i) {
+        Item LilHealPotion("LittleHealPotion", 10, 50);
+        addItem(LilHealPotion);
+    }
+
+    // 创建2个 WormVirus.exe 物品，每个让怪物扣血80，冷却30秒
+    for (int i = 0; i < 5; ++i) {
+        Item MagicAttack("MagicAttack", -10, 50);
+        addItem(MagicAttack);
+    }
 }
 
 // 到剧情进行到战前准备营地时，对两个物品addItem即可。物品说明和使用说明都包含在Background/战前准备营地.txt里了。
-void Backpack::atProgress3() {
-    items.clear();
+void Backpack::progress4() {
 
     // 创建3个 MysteriousPotion 物品，每个回血50，冷却20秒
     for (int i = 0; i < 3; ++i) {
@@ -96,7 +126,7 @@ void Backpack::atProgress3() {
     }
 }
 
-int Backpack::getItemClock(int index)  {
+int Backpack::getItemClock(int index) {
     return items[index].first.getClock();
 }
 
@@ -109,7 +139,7 @@ int Backpack::getItemEffect(int index) {
 }
 
 bool Backpack::isItemExist(int index) {
-    return items.size() > index;
+    return size > index;
 }
 
 

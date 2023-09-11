@@ -75,7 +75,13 @@ int randInt(int min, int max) {
 }
 
 void printMsg(string msgDir, bool singleLine = false, bool noCD = false) {
-    if (!singleLine) cout << "°´ÏÂ \033[31m[Tab¼ü] \033[0mÌø¹ý±¾¶Î..." << endl << endl;
+    if (!singleLine) {
+        cout << "°´ÏÂ ";
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
+        cout << "[Tab¼ü] ";
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+        cout << "Ìø¹ý±¾¶Î..." << endl << endl;
+    }
     ifstream msgFile(msgDir);
     string msg;
     int x, y;
@@ -154,7 +160,12 @@ void welcomePage() {
         }
         logoFile.close();
 
-        cout << endl << "\033[0m°´ÏÂ \033[31m[Enter¼ü] \033[0m¼ÌÐø..." << endl;
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+        cout << endl << "°´ÏÂ ";
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
+        cout << "[Enter¼ü] ";
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+        cout << "¼ÌÐø..." << endl;
 
         if (kbhit()) {
             char c;
@@ -167,9 +178,22 @@ void welcomePage() {
     }
     cout << "======================================================================================================="
          << endl;
-    cout << endl << "    \033[0mÇëÊ¹ÓÃ \033[31m[Ctrl] \033[0m+ \033[31m¹öÂÖ \033[0mµ÷Õû¿ØÖÆÌ¨×ÖÌå´óÐ¡£¬È·±£ÒÔÉÏ·Ö¸îÏßÏÔÊ¾ÔÚÍ¬Ò»ÐÐ¡£"
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+    cout << endl << "    ÇëÊ¹ÓÃ ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
+    cout << "[Ctrl] ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+    cout << "+ ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
+    cout << "¹öÂÖ ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+    cout << "µ÷Õû¿ØÖÆÌ¨×ÖÌå´óÐ¡£¬È·±£ÒÔÉÏ·Ö¸îÏßÏÔÊ¾ÔÚÍ¬Ò»ÐÐ¡£"
          << endl;
-    cout << endl << "\033[0m°´ÏÂ \033[31m[Enter¼ü] \033[0m¼ÌÐø..." << endl;
+    cout << endl << "°´ÏÂ ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
+    cout << "[Enter¼ü] ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+    cout << "¼ÌÐø..." << endl;
     while (1) {
         if (kbhit()) {
             char c;
@@ -194,9 +218,20 @@ void welcomePage() {
 int switcher(Menu menu[], int length) {
 
     int x, y;
-
-    cout << "Ê¹ÓÃ \033[31m[W] [S] \033[0m»ò \033[31m[¡ü] [¡ý] \033[0mÑ¡Ôñ£¬°´ÏÂ \033[31m[Enter¼ü] \033[0mÈ·ÈÏ¡£" << endl
-         << endl;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+    cout << "Ê¹ÓÃ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
+    cout << " [W] [S] ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+    cout << "»ò";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
+    cout << " [¡ü] [¡ý] ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+    cout << "Ñ¡Ôñ£¬°´";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
+    cout << " [Enter¼ü] ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+    cout << "È·ÈÏ" << endl << endl;
 
     PosControl::getPos(x, y);
     PosControl::setPos(x, 0);
@@ -220,7 +255,14 @@ int switcher(Menu menu[], int length) {
         cout << "    > " << menu[prevChoice].name;
 
         PosControl::setPos(x + choice, y);
-        cout << "    \33[43;37m> " << menu[choice].name << "\33[0m";
+        // [43;37mÊÇ»Æµ×°××Ö
+
+        cout << "    ";
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED |
+                                                                 FOREGROUND_GREEN | FOREGROUND_BLUE |
+                                                                 BACKGROUND_RED | BACKGROUND_GREEN);
+        cout << "> " << menu[choice].name;
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
         c = getch();
         switch (c) {
             case 'w':
@@ -262,7 +304,6 @@ void goodbye() {
     }
     creditsFile.close();
 }
-
 
 
 #endif //GAMETOWER_INTERFACE_H
