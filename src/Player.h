@@ -46,7 +46,7 @@ public:
     void playerWordlist(int playerNumber); //¶ÁÈ¡Íæ¼Ò¹¥»÷´Ê
     void showWordList(std::ostream &os = std::cout) const {
         for (Word word: wordList) {
-            os << word.getLength() << word.getName() << " " << word.getEffect() << std::endl;
+            os << word.getLength() << " " << word.getName() << " " << word.getEffect() << std::endl;
         }
         os << "0" << std::endl;
     }
@@ -87,6 +87,7 @@ private:
 
 Player::Player(string name) : Creature(100, name) {
     currHP = hp;
+    backpack.progress0();
 }
 
 void Player::printStatus() const {

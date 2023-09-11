@@ -35,7 +35,9 @@ void onMap(Player &player) {
     char c;
     // wasd
     while (1) {
-        if (map.getProgress() == 3) player.getBackpack().atProgress3();
+        if (map.getProgress() == 4) player.getBackpack().progress4();
+        player.playerWordlist(player.getMap().getProgress() + 1);
+
         player.printStatus();
         cout << "\33[2;10H                    \33[0m";
         cout << "\33[2;0Hµ±Ç°Î»ÖÃ£º" << getPlaceName(pos.line, pos.column) << endl;
@@ -145,7 +147,7 @@ void onMap(Player &player) {
             case 'B': {
                 system("cls");
 //                printMsg("./Assets/.avatar", 0, 1);
-                player.getBackpack().showItemList();
+                player.getBackpack().printItemList(0);
                 system("pause");
                 Map::printMap();
                 break;
@@ -215,23 +217,25 @@ void onMap(Player &player) {
                         } else printMsg("./Assets/Scene/Background/" + getPlaceName(pos.line, pos.column) + ".txt");
                         system("pause");
 
-                        // FightScene
-                        FightScene *currFightScene = new FightScene(getPlaceName(pos.line, pos.column),
-                                                                    map.getProgress());
-                        currFightScene->loadScene(player);
-                        if (currFightScene->checkWin(player)) {
-                            system("cls");
-                            map.setHasDone(pos.line, pos.column);
-                            printMsg("./Assets/Scene/AfterFight/" + getPlaceName(pos.line, pos.column) + ".txt");
-                            system("pause");
-                        } else {
-                            system("cls");
-                            printMsg("./Assets/Scene/Other/Ê§°Ü.txt");
-                            player.setHP(100);
-                            player.resetCurrHP();
-                            system("pause");
+                        if (pos.line == 4 && pos.column == 2);
+                        else {// FightScene
+                            FightScene *currFightScene = new FightScene(getPlaceName(pos.line, pos.column),
+                                                                        map.getProgress());
+                            currFightScene->loadScene(player);
+                            if (currFightScene->checkWin(player)) {
+                                system("cls");
+                                map.setHasDone(pos.line, pos.column);
+                                printMsg("./Assets/Scene/AfterFight/" + getPlaceName(pos.line, pos.column) + ".txt");
+                                system("pause");
+                            } else {
+                                system("cls");
+                                printMsg("./Assets/Scene/Other/Ê§°Ü.txt");
+                                player.setHP(100);
+                                player.resetCurrHP();
+                                system("pause");
+                            }
+                            delete currFightScene;
                         }
-                        delete currFightScene;
                     }
                 }
                 Map::printMap();

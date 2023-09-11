@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 #include <Windows.h>
+#include <random>
 
 using std::cout;
 
@@ -33,7 +34,19 @@ public:
 
     void changeCur(int cur) { this->cur = cur; }
 
-    char getEffect() { return effect; }
+    int getEffect() {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<> distr(1, 15); //概率的分母
+
+        int random_number = distr(gen);
+        if (random_number == 1) {  // 概率分子
+            std::uniform_int_distribution<> distr_damage(200, 600);
+            int boosted_damage = distr_damage(gen);  // 生成一个 200 到 600 的随机数
+            return effect * boosted_damage / 100;  // 将 effect 增加到 200% 到 600%
+        }
+        return effect;
+    }
 
     std::string getName() const { return word; }
 

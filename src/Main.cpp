@@ -27,7 +27,7 @@ int main() {
                                  string::npos) {
         PosControl::setPos(x, 0);
         // 清除当前行
-        cout << "\033[2K";
+        cout << "\33[2K" << endl;
         // 根据Windows文件名允许用的字符，判断name是否合法
         if (name.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_") !=
             string::npos) {
@@ -40,8 +40,15 @@ int main() {
     PosControl::setPos(x, 0);
     Player player(name);
 
-    // TODO:
-    cout << "    你好，名为\033[5m " << name << " \033[0m的 Alex Potter！" << endl << "\033[2K" << endl << "\033[2K";
+    cout << "    你好，名为 ";
+    //文字设为黄色
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN);
+    cout << name ;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+    cout << " 的 Alex Potter！" << endl;
+    // 不使用\33，清除当前行
+    string spaceLine(100, ' ');
+    cout << spaceLine << endl << spaceLine << endl;
     Menu menu[3]{
             "新游戏",
             "加载游戏",
