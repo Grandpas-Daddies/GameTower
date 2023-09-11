@@ -98,9 +98,13 @@ void Player::printStatus() const {
     cout << endl;
     cout << "按 \33[31m[B] \33[0m查看背包" << endl;
     cout << "按 \33[31m[L] \33[0m查看攻击词" << endl;
-    cout << "按 \33[31m[Q] \33[0m退出游戏" << endl;
+    cout << "按 \33[31m[E] \33[0m查看帮助" << endl;
+    cout << "按 \33[31m[N] \33[0m查看怪物说明" << endl;
     cout << "按 \33[31m[W][A][S][D] \33[0m或 \33[31m[↑][←][↓][→] \33[0m移动" << endl;
     cout << "按 \33[31m[F5] \33[0m刷新地图" << endl;
+    cout << endl;
+    cout << "按 \33[31m[Q] \33[0m退出游戏" << endl;
+
 }
 
 void Player::playerWordlist(int playerNumber) {

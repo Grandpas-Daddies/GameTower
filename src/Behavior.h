@@ -144,6 +144,7 @@ void onMap(Player &player) {
             case 'b':
             case 'B': {
                 system("cls");
+//                printMsg("./Assets/.avatar", 0, 1);
                 player.getBackpack().showItemList();
                 system("pause");
                 Map::printMap();
@@ -152,7 +153,24 @@ void onMap(Player &player) {
             case 'l':
             case 'L': {
                 system("cls");
+//                printMsg("./Assets/.avatar", 0, 1);
                 player.printWordList();
+                system("pause");
+                Map::printMap();
+                break;
+            }
+            case 'e':
+            case 'E': {
+                system("cls");
+                printMsg("./Assets/.help");
+                system("pause");
+                Map::printMap();
+                break;
+            }
+            case 'n':
+            case 'N': {
+                system("cls");
+                printMsg("./Assets/.monsterDescription");
                 system("pause");
                 Map::printMap();
                 break;
