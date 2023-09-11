@@ -17,7 +17,7 @@ public:
 
     void showItemList(std::ostream &os = std::cout) const;
 
-    void loadItemList(std::istream &is = std::cin);
+    void loadItemList(string name, int effect, int cooldown, int num);
 
     void printItemList(bool atFightScene);
 
@@ -25,7 +25,7 @@ public:
 
     int getItemClock(int index);
 
-    void useItem(int index);
+    bool useItem(int index);
 
     int getItemEffect(int index);
 
@@ -35,33 +35,52 @@ public:
 
     bool isItemExist(int index);
 
+    void clear() {
+        items.clear();
+        size = 0;
+    }
+
+    //重载=运算符
+    Backpack &operator=(const Backpack &backpack) {
+        this->items = backpack.items;
+        this->size = backpack.size;
+        return *this;
+    }
+
+    //重载==运算符
+    bool operator==(const Backpack &backpack) {
+        bool isEqual = true;
+        if (this->size != backpack.size) return false;
+        // 遍历两个背包的物品列表，如果有一个物品不相等，就返回false
+        for (int i = 0; i < backpack.items.size(); ++i) {
+            if (this->items[i].first.getName() != backpack.items[i].first.getName() ||
+                this->items[i].first.getEffect() != backpack.items[i].first.getEffect() ||
+                this->items[i].first.getClock() != backpack.items[i].first.getClock() ||
+                this->items[i].second != backpack.items[i].second) {
+                isEqual = false;
+                break;
+            }
+        }
+        return isEqual;
+    }
+
 private:
     std::vector<std::pair<Item, int>> items;
     int size;
 
 
+
 };
 
 void Backpack::showItemList(std::ostream &os) const {
-    for (auto &item: items) {
-        os << item.first.getName() << " " << item.second << std::endl;
+    for (auto item: items) {
+        os << item.first.getName() << " " << item.first.getEffect() << " " << item.first.getCooldown() << " " << item.second << " " << std::endl;
     }
     os << "#" << std::endl;
 }
 
-void Backpack::loadItemList(std::istream &is) {
-    std::string name;
-    int effect;
-    int cooldown;
-    int num;
-    while (is >> name) {
-        if (name == "#") {
-            return;
-        }
-        is >> effect >> cooldown >> num;
-        Item item(name, effect, cooldown);
-        items.emplace_back(item, num);
-    }
+void Backpack::loadItemList(std::string name, int effect, int cooldown, int num) {
+    addItem(Item(name, effect, cooldown));
 }
 
 void Backpack::printItemList(bool atFightScene) {
@@ -130,8 +149,12 @@ int Backpack::getItemClock(int index) {
     return items[index].first.getClock();
 }
 
-void Backpack::useItem(int index) {
-    items[index].second--;
+bool Backpack::useItem(int index) {
+    if (items[index].second) {
+        items[index].second--;
+        return 0;
+    }
+    return 1;
 }
 
 int Backpack::getItemEffect(int index) {
@@ -141,6 +164,7 @@ int Backpack::getItemEffect(int index) {
 bool Backpack::isItemExist(int index) {
     return size > index;
 }
+
 
 
 #endif //GAMETOWER1_BACKPACK_H

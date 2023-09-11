@@ -38,6 +38,12 @@ public:
 
     Backpack &getBackpack() { return backpack; }
 
+    Backpack &setBackpack(Backpack backpack) {
+        if (backpack == this->backpack);
+        else this->backpack = backpack;
+        return this->backpack;
+    }
+
     void setPos(int line, int column) {
         pos.line = line;
         pos.column = column;
@@ -57,25 +63,24 @@ public:
             SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
             cout << "[" << i << "] ";
             SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-            cout << word.getName() << endl;
+            cout << word.getName() << " " << "伤害：" << word.getEffect() << endl;
             i++;
         }
         cout << endl;
     }
 
-    void loadWordList(std::istream &is = std::cin) {
-        int length;
-        std::string name;
-        char effect;
-        while (is >> length) {
-            if (length == 0) {
-                return;
-            }
-            is >> name >> effect;
-            Word word(length, name, effect);
-            wordList.push_back(word);
-        }
+    void loadWordList(int length, string name, int effect) {
+        Word word(length, name, effect);
+        wordList.push_back(word);
     }
+
+    bool givenItem() {
+        if (itemChance) itemChance--;
+        else return 1;
+        return 0;
+    }
+
+    void setCurrHP(int i);
 
 private:
     //应该用不到这个东西。玩家伤害结算都靠每个word的wordDamage
@@ -83,18 +88,22 @@ private:
     Backpack backpack;
     MapPosition pos = {8, 4};
     MapPosition lastPos = {8, 4};
+    int itemChance = 2;
 };
 
 Player::Player(string name) : Creature(100, name) {
     currHP = hp;
-    backpack.progress0();
+    resetCurrHP();
+    // 清空背包
+    backpack.clear();
 }
 
 void Player::printStatus() const {
     PosControl::setPos(0, 0);
     cout << "\33[47;33m" << "Alex Potter" << "\33[0m" << endl;
     cout << endl;
-    cout << "\33[47;33m" << "HP: " << "\33[0m" << hp << endl;
+    cout << "\33[47;33m" << "HP: " << "\33[0m" << currHP << endl;
+
 
     cout << endl;
     cout << "按 \33[31m[B] \33[0m查看背包" << endl;
@@ -127,6 +136,10 @@ void Player::playerWordlist(int playerNumber) {
         }
         lineNumber++;
     }
+}
+
+void Player::setCurrHP(int currHP) {
+    this->currHP = currHP;
 }
 
 
