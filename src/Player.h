@@ -116,7 +116,7 @@ void Player::playerWordlist(int playerNumber) {
             std::istringstream iss(line);
             std::string word;
             while (iss >> word) {
-                wordList.push_back(Word(word.size(), word, wordDamage[playerNumber]));
+                wordList.push_back(Word(word.length(), word, wordDamage[playerNumber]));
             }
             break;
         }

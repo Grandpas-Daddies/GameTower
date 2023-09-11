@@ -63,11 +63,6 @@ namespace PosControl {
     }
 }
 
-void setDPI() {
-    system("SetDpi.exe value > currDPI.txt");
-    system("SetDpi.exe 150");
-}
-
 struct Menu {
     string name;
 };
