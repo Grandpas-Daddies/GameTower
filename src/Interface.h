@@ -63,11 +63,6 @@ namespace PosControl {
     }
 }
 
-void setDPI() {
-    system("SetDpi.exe value > currDPI.txt");
-    system("SetDpi.exe 150");
-}
-
 struct Menu {
     string name;
 };
@@ -258,6 +253,14 @@ void goodbye() {
         cout << logo << endl;
         Sleep(randInt(20, 50));
     }
+    creditsLogoFile.close();
+    ifstream creditsFile("./Assets/.credit");
+    string credits;
+    while (getline(creditsFile, credits)) {
+        cout << credits << endl;
+        Sleep(randInt(20, 50));
+    }
+    creditsFile.close();
 }
 
 

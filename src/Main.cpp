@@ -56,6 +56,7 @@ int main() {
             break;
         case 2:
             goodbye();
+            system("pause");
             return 0;
     }
     return 0;
