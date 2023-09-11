@@ -25,7 +25,7 @@ int deeper(int &t, Word &word, std::vector<Word> &upper, std::vector<Word> &lowe
 
 class FightScene {
 public:
-    FightScene(string name, int progress) : name(name), monster(progress+1) {};
+    FightScene(string name, int progress) : name(name), monster(progress + 1) {};
 
 //    FightScene(std::string id, int b);
 
@@ -34,17 +34,20 @@ public:
 
     void showScene();//展示框架，由loadScene调用
     void showTutorial();//展示教程，视情况由loadScene调用
-    void fallingDown(int speed1, int speed2, const std::vector<Word>& upper , const std::vector<Word>& lower , Player &player);
+    void
+    fallingDown(int speed1, int speed2, const std::vector<Word> &upper, const std::vector<Word> &lower, Player &player);
 
     //字符下落，由loadScene调用
 
     //调控打字变色并check，由loadScene调用
     void showHP(Player &player);
+
     ~FightScene() = default;
 
 private:
     Monster monster;//本关所面对的怪物
     std::string name;
+
     void showScene(Backpack &backpack);
 
     void typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower, Player &player);
@@ -91,7 +94,7 @@ void FightScene::loadScene(Player &player) {//最主要的函数，万物的起源
     PosControl::HideCursor();//隐藏光标
 
     std::vector<Word> upper, lower;//核心单词表，直接源自monster和player，分别代表上下
-    player.playerWordlist(player.getMap().getProgress()+1);
+    player.playerWordlist(player.getMap().getProgress() + 1);
     upper = monster.deliverWord();
     lower = player.deliverWord();
 
@@ -127,7 +130,8 @@ void FightScene::loadScene(Player &player) {//最主要的函数，万物的起源
     return;
 }
 
-void FightScene::fallingDown(int speed1, int speed2, const std::vector<Word>& upper, const std::vector<Word>& lower, Player &player) {
+void FightScene::fallingDown(int speed1, int speed2, const std::vector<Word> &upper, const std::vector<Word> &lower,
+                             Player &player) {
     //分两部分：怪物攻击侧的check及结算，玩家侧的check及结算。
 
     Word blank(-1, "", ' ');//特殊白板，长度为-1，与常规白板作区分
@@ -267,7 +271,7 @@ void FightScene::typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower
                     int state = deeper(t, lower[i], upper, lower);
                     if (state == -1) {
                         break;
-                    } else if (state == 0 && lower[i].getCur() == upper[i].getLength()) {
+                    } else if (state == 0 && lower[i].getCur() == lower[i].getLength()) {
                         lower[i].changeState(1);
                         updatePrint(upper, lower);
                         monster.getDamaged(lower[i].getEffect()); //不知道和上面有什么区别但我还是顺手改的和236一样了
@@ -309,6 +313,7 @@ void FightScene::typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower
                         upper[i].changeCur(0);
                         updatePrint(upper, lower);
                         existWrong = 1;
+                        existUnfinished = 0;
                         break;
                     }
                 }
@@ -335,12 +340,11 @@ void FightScene::typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower
             }
 
         } else if (next <= '9' && next >= '0') {
-            if (itemClock[next - '0'] == 0)
-            {
+            if (itemClock[next - '0'] == 0) {
                 useItem(player, player.getBackpack().getItemEffect(next - '0'));
                 player.getBackpack().useItem(next - '0');
             }
-            itemClock[next-'0'] = player.getBackpack().getItemClock(next - '0');
+            itemClock[next - '0'] = player.getBackpack().getItemClock(next - '0');
         }
         for (int i = 0; i < 10; i++) {
             if (itemClock[i] > 0) {
@@ -351,7 +355,7 @@ void FightScene::typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower
     }
 }
 
-void FightScene::useItem(Player& player, int effect) {
+void FightScene::useItem(Player &player, int effect) {
 
     if (effect > 0) {
         player.getDamaged(-effect);
@@ -378,7 +382,7 @@ void FightScene::showScene(Backpack &backpack) {
     PosControl::setPos(17, 0);
     // 清除四行
     for (int i = 0; i < 4; i++) {
-        cout << "\033[2K"  << endl;
+        cout << "\033[2K" << endl;
     }
     PosControl::setPos(18, 0);
     backpack.printItemList();
