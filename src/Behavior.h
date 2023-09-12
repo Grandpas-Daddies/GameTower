@@ -16,7 +16,7 @@
 #define getPlaceName(x, y) dynamic_cast<Place*>(map.getLocation(x,y))->getName()
 #define gotoPlace(x, y) "\33["<<(dynamic_cast<Place*>(map.getLocation(x, y))->getX())<<";"<<(dynamic_cast<Place*>(map.getLocation(x, y))->getY())<<"H"
 #define isBarrier(x, y) !(map.getLocation(x,y)->isRoad() || map.getLocation(x,y)->isPlace())
-#define ifHasDone(x, y) dynamic_cast<Place*>(map.getLocation(x,y))->getHasDone()
+#define getHasDone(x, y) dynamic_cast<Place*>(map.getLocation(x,y))->getHasDone()
 #define getIsLocked(x, y) dynamic_cast<Place*>(map.getLocation(x,y))->getIsLocked()
 
 
@@ -190,7 +190,7 @@ void onMap(Player &player) {
                     }
                     system("pause");
                 } else {
-                    if (ifHasDone(pos.line, pos.column)) {
+                    if (getHasDone(pos.line, pos.column)) {
                         printMsg("./Assets/Scene/Default/" + getPlaceName(pos.line, pos.column) + ".txt");
                         system("pause");
                     } else {
@@ -220,7 +220,7 @@ void onMap(Player &player) {
                         } else printMsg("./Assets/Scene/Background/" + getPlaceName(pos.line, pos.column) + ".txt");
                         system("pause");
 
-                        if (map.getProgress() == 4 && pos.line == 4 && pos.column == 2) {
+                        if (map.getProgress() == 4 && pos.line == 4 && pos.column == 2 && !getHasDone(4, 2)) {
                             player.getBackpack().progress4();
                             dynamic_cast<Place *>(map.getLocation(4, 2))->setHasDone(true);
                             dynamic_cast<Place *>(map.getLocation(2, 4))->setIsLocked(false);

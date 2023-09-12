@@ -12,6 +12,7 @@
 class Backpack {
 public:
     Backpack() = default;
+    ~Backpack() = default;
 
     void addItem(Item item);
 
