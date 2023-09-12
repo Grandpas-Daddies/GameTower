@@ -211,8 +211,8 @@ void onMap(Player &player) {
                             printMsg("./Assets/Scene/Background/" + getPlaceName(pos.line, pos.column) + ".txt");
                         } else if (map.getProgress() == 3 && pos.line != 2 && pos.column != 6) {
                             printMsg("./Assets/Scene/Other/战斗意志.txt");
-                        } else if (map.getProgress() == 4 && pos.line == 4 && pos.column == 4) {
-                            if (getIsLocked(2,4))
+                        } else if (map.getProgress() >= 4 && pos.line == 4 && pos.column == 4) {
+                            if (getIsLocked(2, 4))
                                 printMsg("./Assets/Scene/Other/决战信息.txt");
                             else printMsg("./Assets/Scene/Default/" + getPlaceName(pos.line, pos.column) + ".txt");
                         } else if (map.getProgress() < 4 && pos.line == 2 && pos.column == 4) {
@@ -222,9 +222,9 @@ void onMap(Player &player) {
 
                         if (map.getProgress() == 4 && pos.line == 4 && pos.column == 2) {
                             player.getBackpack().progress4();
-                            dynamic_cast<Place*>(map.getLocation(4,2))->setHasDone(true);
-                            dynamic_cast<Place*>(map.getLocation(2,4))->setIsLocked(false);
-                            dynamic_cast<Place*>(map.getLocation(4,4))->setIsLocked(true);
+                            dynamic_cast<Place *>(map.getLocation(4, 2))->setHasDone(true);
+                            dynamic_cast<Place *>(map.getLocation(2, 4))->setIsLocked(false);
+                            dynamic_cast<Place *>(map.getLocation(4, 4))->setIsLocked(true);
                         }
 
                         if ((pos.line == 4 && pos.column == 2) ||

@@ -33,6 +33,7 @@ public:
     void setHasDone(int line, int column) {
         dynamic_cast<Place*>(locations[line][column])->setHasDone(true);
         if (line == 4 && column == 2);
+        if (line == 2 && column == 4) dynamic_cast<Place*>(locations[4][4])->setHasDone(true);
         setProgress(currProgress + 1);
     }
     void setProgress(int progress);

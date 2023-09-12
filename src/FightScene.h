@@ -214,8 +214,8 @@ void FightScene::fallingDown(int speed1, int speed2, const std::vector<Word> &up
 }
 
 void FightScene::typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower, Player &player) {
-    int t = 100;//hjr的妙手，通过多段短暂的sleep在一次刷屏间隙中能打多个字母
-    char next = ' ';//next是下一个键盘敲得字符
+    int t = 100;
+    char next = ' '; //next是下一个键盘敲得字符
     int itemClock[10] = {0};
     while (t-- >= 0) {
         Sleep(5);
