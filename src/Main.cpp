@@ -20,8 +20,10 @@ int main() {
     welcomePage();
     int x, y;
     string name;
-    cout << "请输入你的名字：";
     PosControl::getPos(x, y);
+    PosControl::setPos(x, 0);
+    cout << "\33[2K";
+    cout << "请输入你的名字：";
     cin >> name;
     while (name.length() > 15 || name.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_") !=
                                  string::npos) {

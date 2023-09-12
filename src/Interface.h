@@ -135,6 +135,46 @@ void welcomePage() {
     PosControl::centerWindow();
     PosControl::HideCursor();
 
+    cout << "======================================================================================================="
+         << endl;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+    cout << endl << "    请使用 ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
+    cout << "[Ctrl] ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+    cout << "+ ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
+    cout << "滚轮 ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+    cout << "调整控制台字体大小，确保以上分割线显示在同一行。"
+         << endl;
+    cout << endl << "按下 ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
+    cout << "[Enter键] ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+    cout << "继续..." << endl;
+    while (1) {
+        if (kbhit()) {
+            char c;
+            c = getch();
+            if (c == '\r' || c == '\n') {
+                PosControl::setPos(0, 0);
+                cout << string(104, ' ')
+                     << endl;
+                cout << string(104, ' ')
+                     << endl;
+                cout << string(104, ' ')
+                     << endl;
+                cout << string(104, ' ')
+                     << endl;
+                cout << string(104, ' ')
+                     << endl;
+                PosControl::setPos(0, 0);
+                break;
+            }
+        }
+    }
+
     printMsg("./Assets/.welcomePage");
 
     cout << endl << endl;
@@ -172,43 +212,6 @@ void welcomePage() {
             c = getch();
             if (c == '\r' || c == '\n') {
                 PosControl::setPos(x + 7, 0);
-                break;
-            }
-        }
-    }
-    cout << "======================================================================================================="
-         << endl;
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-    cout << endl << "    请使用 ";
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
-    cout << "[Ctrl] ";
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-    cout << "+ ";
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
-    cout << "滚轮 ";
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-    cout << "调整控制台字体大小，确保以上分割线显示在同一行。"
-         << endl;
-    cout << endl << "按下 ";
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
-    cout << "[Enter键] ";
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-    cout << "继续..." << endl;
-    while (1) {
-        if (kbhit()) {
-            char c;
-            c = getch();
-            if (c == '\r' || c == '\n') {
-                PosControl::setPos(x + 8, 0);
-                cout << "                                                                                        "
-                     << endl;
-                cout << "                                                                                        "
-                     << endl;
-                cout << "                                                                                        "
-                     << endl;
-                cout << "                                                                                        "
-                     << endl;
-                PosControl::setPos(x + 9, 0);
                 break;
             }
         }
