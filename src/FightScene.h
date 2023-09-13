@@ -32,15 +32,12 @@ public:
     void loadScene(Player &player);//外部调用接口
     bool checkWin(Player &player);
 
-    void showScene();//展示框架，由loadScene调用
-    void showTutorial();//展示教程，视情况由loadScene调用
-    void
-    fallingDown(int speed1, int speed2, const std::vector<Word> &upper, const std::vector<Word> &lower, Player &player);
+
 
     //字符下落，由loadScene调用
 
     //调控打字变色并check，由loadScene调用
-    void showHP(Player &player);
+
 
     ~FightScene() = default;
 
@@ -48,7 +45,12 @@ private:
     Monster monster;//本关所面对的怪物
     std::string name;
 
+    void
+    fallingDown(int speed1, int speed2, const std::vector<Word> &upper, const std::vector<Word> &lower, Player &player);
+
     void showScene(Backpack &backpack);
+
+    void showHP(Player &player);
 
     void typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower, Player &player);
 
@@ -341,10 +343,8 @@ void FightScene::typeAndColor(std::vector<Word> &upper, std::vector<Word> &lower
         } else if (next <= '9' && next >= '0') {
 
             if (itemClock[next - '0'] == 0) {
-                if (player.getBackpack().isItemExist(next - '0')) {
-                    if (!player.getBackpack().useItem(next - '0'))
+                if (player.getBackpack().isItemExist(next - '0') && !player.getBackpack().useItem(next - '0'))
                         useItem(player, player.getBackpack().getItemEffect(next - '0'));
-                }
             }
             if (player.getBackpack().isItemExist(next - '0'))
                 itemClock[next - '0'] = player.getBackpack().getItemClock(next - '0');
@@ -389,10 +389,6 @@ void FightScene::showScene(Backpack &backpack) {
     }
     PosControl::setPos(17, 0);
     backpack.printItemList(1);
-}
-
-void FightScene::showTutorial() {
-    std::cout << "教程" << std::endl;
 }
 
 bool FightScene::checkWin(Player &player) {
