@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 #include <conio.h>
+#include <sstream>
 #include "Backpack.h"
 #include "Word.h"
 #include "Creature.h"
@@ -26,13 +27,13 @@ public:
 
     Player(string name);
 
+    ~Player() = default;
+
     void printStatus() const;
 
     MapPosition &getPos() { return pos; }
 
     MapPosition &getLastPos() { return lastPos; }
-
-    int getHP() { return hp; }
 
     Map &getMap() { return map; }
 
@@ -80,7 +81,7 @@ public:
         return 0;
     }
 
-    void setCurrHP(int i);
+
 
 private:
     //应该用不到这个东西。玩家伤害结算都靠每个word的wordDamage
@@ -136,10 +137,6 @@ void Player::playerWordlist(int playerNumber) {
         }
         lineNumber++;
     }
-}
-
-void Player::setCurrHP(int currHP) {
-    this->currHP = currHP;
 }
 
 

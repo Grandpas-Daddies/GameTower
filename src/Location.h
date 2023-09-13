@@ -32,6 +32,7 @@ protected:
 class Road : public Location {
 public:
     Road(bool isAccessible) : isAccessible(isAccessible) { type = 'r'; };
+    ~Road() = default;
 
     bool getIsAccessible() const final { return isAccessible; }
 
@@ -47,6 +48,7 @@ public:
             : x(x), y(y), name(name), isLocked(isLocked) {
         type = 'p'; //place
     };
+    ~Place() = default;
     void setHasDone(bool hasDone) { this->hasDone = hasDone; }
     bool getHasDone() const { return hasDone; }
     bool getIsLocked() const { return isLocked; }

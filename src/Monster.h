@@ -8,7 +8,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <unistd.h>
 #include "Creature.h"
 #include "Word.h"
 
@@ -19,7 +18,6 @@ public:
     Monster(int HP, int damage, std::vector<Word> wordList, const std::string description);
 
     int getDamage() { return damage; }
-    int getHP() { return hp; }
     std::string des() { return this->description; }
     void readMonsterData(int monsterNumber);
     ~Monster() = default;

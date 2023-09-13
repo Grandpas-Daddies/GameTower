@@ -32,7 +32,6 @@ public:
 //    }
     void setHasDone(int line, int column) {
         dynamic_cast<Place*>(locations[line][column])->setHasDone(true);
-        if (line == 4 && column == 2);
         if (line == 2 && column == 4) dynamic_cast<Place*>(locations[4][4])->setHasDone(true);
         setProgress(currProgress + 1);
     }
@@ -141,21 +140,17 @@ void Map::setProgress(int progress) {
             dynamic_cast<Place*>(locations[4][4])->setIsLocked(true);
             dynamic_cast<Place*>(locations[4][4])->setHasDone(true);
         case 3:
-//            dynamic_cast<Road*>(locations[4][5])->setIsAccessible(true);
             dynamic_cast<Place*>(locations[2][6])->setIsLocked(false);
             dynamic_cast<Place*>(locations[4][4])->setHasDone(false);
             dynamic_cast<Place*>(locations[4][6])->setHasDone(true);
         case 2:
-//            dynamic_cast<Road*>(locations[4][5])->setIsAccessible(false);
             dynamic_cast<Place*>(locations[4][4])->setIsLocked(false);
             dynamic_cast<Place*>(locations[4][6])->setIsLocked(false);
             dynamic_cast<Place*>(locations[6][4])->setHasDone(true);
         case 1:
             dynamic_cast<Place*>(locations[6][4])->setIsLocked(false);
             dynamic_cast<Place*>(locations[8][4])->setHasDone(true);
-//            dynamic_cast<Road*>(locations[7][4])->setIsAccessible(true);
         case 0:
-//            dynamic_cast<Road*>(locations[7][4])->setIsAccessible(false);
             dynamic_cast<Place*>(locations[8][4])->setIsLocked(false);
 
     }

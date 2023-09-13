@@ -11,6 +11,7 @@ class Item {
 public:
     Item(std::string name, int effect, int cooldown)
             : name(name), effect(effect), cooldown(cooldown) {}
+    ~Item() = default;
 
     std::string getName() const { return name; }
     int getEffect() const { return effect; }
